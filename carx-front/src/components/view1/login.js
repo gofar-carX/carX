@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View ,TextInput,ImageBackground,Button,Alert ,Image} from "react-native";
-
+import tailwind from "tailwind-rn";
  const image = { uri: "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" }
 export default function LogIn() {
   return (
@@ -14,7 +14,7 @@ export default function LogIn() {
       <Text style={{ textAlign: 'center', color: 'white',fontSize:48 }}>Car<Text style={{color:"black"}}>X</Text></Text>
       </View>
       
-      <View style={{ flex: 1, justifyContent:"flex-end",alignItems:"center" }} >
+      <View style={{ flex: 2/3, justifyContent:"flex-end",alignItems:"center" }} >
     
       
 
@@ -32,7 +32,7 @@ export default function LogIn() {
         <View >
       <View style={[styles.pressMe] }>
       <Button
-      borderRadius="10"
+     
         title="LOG IN"
         color="#D9AF91"
         onPress={() => Alert.alert('Simple Button pressed')}
