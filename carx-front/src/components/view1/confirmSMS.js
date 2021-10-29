@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 
-export default function ConfirmSMS() {
+export default function ConfirmSMS({navigation}) {
     return (
 
         <>
@@ -21,6 +21,7 @@ export default function ConfirmSMS() {
                             <Button
                                 title="Confirm"
                                 color="#D9AF91"
+                                onPress={() => { navigation.navigate('Nav')}}
                             />
                         </View>
                     </View>

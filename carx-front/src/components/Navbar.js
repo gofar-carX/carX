@@ -19,7 +19,7 @@ export default function Navbar({navigation}) {
                     <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Test')}} >Profile</Text>
                     <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { alert('You tapped the Reviews!');}}>Reviews</Text>
                     <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { alert('You tapped the Contact Us!');}}>Contact Us</Text>
-                    <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { alert('You tapped the Sign Out!');}}>Sign Out</Text>
+                    <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Login')}}>Sign Out</Text>
                     {/* <Button onPress={() => { alert('You tapped the button!');}} /> */}
                 </View>
             </View>
