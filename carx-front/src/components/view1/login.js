@@ -10,7 +10,7 @@ export default function LogIn() {
     
       flexDirection: "column"
     }]}>
-      <View style={{ flex: 1,justifyContent:"flex-end" }} >
+      <View style={{ flex: 1,justifyContent:"center" }} >
       <Text style={{ textAlign: 'center', color: 'white',fontSize:48 }}>Car<Text style={{color:"black"}}>X</Text></Text>
       </View>
       
