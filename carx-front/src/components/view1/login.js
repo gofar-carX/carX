@@ -6,7 +6,7 @@ import ConfirmSMS from './confirmSMS';
 
 
 
-export default function LogIn() {
+export default function LogIn({navigation}) {
   const [navigate, setNavigate] = useState(false)
   return (
     <>
@@ -56,7 +56,7 @@ export default function LogIn() {
                 </View>
 
               </View>
-            </View> : <ConfirmSMS />}
+            </View> : <ConfirmSMS navigation={navigation} />}
         </View>
       </ImageBackground>
     </>
