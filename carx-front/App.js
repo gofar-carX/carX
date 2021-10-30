@@ -8,6 +8,7 @@ import Login from './src/components/view1/login'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NavigationBar from "./src/components/Home/Home"
 
 
 const Stack = createNativeStackNavigator();
@@ -16,14 +17,14 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <>
-  
-    <NavigationContainer>
+    <NavigationBar/>  
+    {/* <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Nav" component={Navbar} />
       <Stack.Screen name="Test" component={Test} />  
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer> */}
     </>
   );
 }
