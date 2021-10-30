@@ -5,6 +5,7 @@ import tailwind from "tailwind-rn";
 import Navbar from './src/components/Navbar.js'
 import Test from './src/components/test.js'
 import Login from './src/components/view1/login'
+import Reviews from './src/components/Reviews'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -19,6 +20,7 @@ export default function App() {
   
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Nav" component={Navbar} />
       <Stack.Screen name="Test" component={Test} />  
