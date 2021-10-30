@@ -28,6 +28,7 @@ export default function App() {
      
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Nav" component={Navbar} />
+      <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="Test" component={Test} />  
       </Stack.Navigator>
     </NavigationContainer>
