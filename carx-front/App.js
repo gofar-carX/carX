@@ -6,6 +6,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import Navbar from './src/components/Navbar.js'
 import Test from './src/components/test.js'
 import Login from './src/components/view1/login'
+import Reviews from './src/components/Reviews'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,21 +21,17 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"]
   return (
-    //test devide work
-    // <Wash />
-    <Confirmation />
-
-    
-    // <>
   
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //   <Stack.Screen name="Login" component={Login} />
-    //   <Stack.Screen name="Nav" component={Navbar} />
-    //   <Stack.Screen name="Test" component={Test} />  
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    // </>
+    <NavigationContainer>
+      <Stack.Navigator>
+      
+     
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Nav" component={Navbar} />
+      <Stack.Screen name="Test" component={Test} />  
+      </Stack.Navigator>
+    </NavigationContainer>
+  
   );
 }
 
