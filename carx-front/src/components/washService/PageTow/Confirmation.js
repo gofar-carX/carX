@@ -25,7 +25,7 @@ export default function Confirmation() {
       <View style={tailwind(" h-5/6 flex flex-row ")}>
         <View style={tailwind(" w-3/12   ")}> </View>
         <View style={tailwind(" w-6/12   ")}> 
-        <Card style={tailwind(" border-25 border-light-blue-500   ")} >
+        <Card  style={{ borderRadius: 25 }} >
   <Card.Title>HELLO WORLD</Card.Title>
   <Card.Image >
     <Text style={{marginBottom: 10}}>
@@ -33,7 +33,7 @@ export default function Confirmation() {
     </Text>
     <Button
       icon={<Icon name='code' color='#ffffff' />}
-      buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+      buttonStyle={{borderRadius: 25, width: 150, height:  45,alignItems:"center"}}
       title='VIEW NOW' />
   </Card.Image>
 </Card>
