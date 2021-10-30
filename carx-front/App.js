@@ -18,8 +18,8 @@ export default function App() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"]
   return (
     //test devide work
-    <Wash />
-    // <Confirmation />
+    // <Wash />
+    <Confirmation />
   
     // <NavigationContainer>
     //   <Stack.Navigator>

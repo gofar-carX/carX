@@ -25,7 +25,7 @@ export default function Confirmation() {
       <View style={tailwind(" h-5/6 flex flex-row ")}>
         <View style={tailwind(" w-3/12   ")}> </View>
         <View style={tailwind(" w-6/12   ")}> 
-        <Card style={tailwind(" border-25 border-light-blue-500   ")} >
+        <Card style={tailwind(" style={{ borderRadius: 25 }}  ")} >
   <Card.Title>HELLO WORLD</Card.Title>
   <Card.Image >
     <Text style={{marginBottom: 10}}>
