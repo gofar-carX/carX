@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Confirmation from './src/components/washService/PageTow/Confirmation.js';
 import Wash from './src/components/washService/PageOne/Wash.js';
+import Footer from './src/components/washService/PageOne/Footer.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -12,10 +13,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     //test devide work
-    <Wash />
+    // <Wash />
     //  <Confirmation />
 
-    
     // <>
   
     // <NavigationContainer>

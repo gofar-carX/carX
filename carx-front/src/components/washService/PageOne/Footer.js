@@ -1,31 +1,76 @@
-import React from "react";
-import { Text, View } from "react-native";
-import tailwind from "tailwind-rn";
-
-export default function Footer() {
-    return (
-       <>
-         <View style={tailwind(" w-3/12 ")}></View>
-            <View style={tailwind(" w-1/12  ")}></View>
-            <View style={tailwind(" w-1/12  ")}>
-            {/* <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+import React from "react"
+import {
+  Box,
+  Text,
+  Icon,
+  HamburgerIcon,
  
-</svg> */}
-            </View>
-            <View style={tailwind(" w-1/12 ")}></View>
-            <View style={tailwind(" w-1/12  items-center")}>
-            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-</svg> */}
-            </View>
-            <View style={tailwind(" w-1/12 ")}></View>
-            <View style={tailwind(" w-1/12  ")}>
-            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-</svg> */}
-            </View>
+  VStack,
+  FlatList,
+  useBreakpointValue,
+  Center,
+  NativeBaseProvider,
+} from "native-base"
+export const Example = () => {
+  const cols = useBreakpointValue({
+    base: 3,
+    sm: 4,
+    md: 12,
+  })
+  const icons = [
+  
+    {
+      icon: <HamburgerIcon size="4" />,
+      iconName: "menu",
 
-            <View style={tailwind(" w-3/12 ")}></View>
-       </>
-    )
+    },
+    {
+      icon: <House size="4" />,
+      iconName: "menu",
+      
+    }
+  ]
+  return (
+    <Box w="100%">
+      <FlatList
+        data={icons}
+        renderItem={({ item }) => (
+          <VStack
+            py="2"
+            flex={1}
+            space={2}
+            my={3}
+            mx={2}
+            boxSize="76"
+            alignItems="center"
+          >
+            <Box
+              _text={{
+                textAlign: "center",
+              }}
+            >
+              {item.icon}
+            </Box>
+           
+            <Text textAlign="center">{item.iconName}</Text>
+          </VStack>
+         
+        )}
+        keyExtractor={(item) => item.iconName}
+        numColumns={cols}
+      />
+     
+    </Box>
+  
+  )
+}
+
+export default () => {
+  return (
+    <NativeBaseProvider>
+      <Center flex={1} px="3">
+        <Example />
+      </Center>
+    </NativeBaseProvider>
+  )
 }
