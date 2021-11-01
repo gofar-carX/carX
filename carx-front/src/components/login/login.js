@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image } from "react-native";
-
+import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image,ActivityIndicator } from "react-native";
+import * as Google from 'expo-google-app-auth'
 const image = { uri: "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" }
 import ConfirmSMS from './confirmSMS';
 
-
+import ButtonSpinner from 'react-native-button-spinner';
 
 export default function LogIn({navigation}) {
+  const [bool , setBool]=useState(false)
   const [navigate, setNavigate] = useState(false)
+  handleLogin=()=>{
+    setBool(true)
+    const config={
+      iosClientId:`741420364536-suf5j1kib19o0nfl1h9cqco18eou6r0u.apps.googleusercontent.com`,
+      androidClientId:`741420364536-f3glchvm0p8qt5nkkhsv7rnbgec6op8i.apps.googleusercontent.com`,
+      scopes:['profile','email']
+      }
+      Google
+        .logInAsync(config)
+        .then((result )=>{
+          const {type,user}=result 
+          if (type =='success'){
+            const {email,photoUrl,familyName,givenName,name,accessToken}=user;
+            setTimeout(()=>navigation.navigate("Main",{email,photoUrl,familyName,givenName,name,accessToken}),1500)
+          }
+        })
+        .catch(err=>{
+          console.log('An error occurred.check your Network and try again  ')
+        })
+  }
   return (
     <>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -44,17 +65,24 @@ export default function LogIn({navigation}) {
                 <Text></Text>
                 <Text style={{ color: "white" }}>or</Text>
                 <Text></Text>
-                <View style={[styles.prGoogle]}>
+                <View style={[styles.prGoogle]} >
                   <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                    <Image style={{
+               {bool? 
+               <ActivityIndicator color="#D9AF91"  size="large" style={{alignSelf:"center"}} />
+               : <>
+                <Image style={{
                       resizeMode: "contain",
                       height: 20,
                       width: 30
                     }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                    <Text  >Google</Text>
+                    <Text onPress={handleLogin} >Google</Text>
+                    </>
+                    }
+                
+
+                  
                   </View>
                 </View>
-
               </View>
             </View> : <ConfirmSMS navigation={navigation} />}
         </View>
