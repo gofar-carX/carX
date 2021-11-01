@@ -15,7 +15,7 @@ import {
   NativeBaseProvider,
 } from "native-base";
 
-function CardComponent() {
+function Confirmation({}) {
   return (
     <View style={tailwind("flex flex-col w-full h-full  ")}>
       <View style={tailwind(" h-4/6  flex flex-col pt-6")}>
@@ -25,12 +25,12 @@ function CardComponent() {
 
           <Nav />
         </View>
-        <View style={tailwind(" h-5/6 bg-white flex flex-row  ")}>
+        <View style={tailwind(" h-4/6 bg-gray-100 flex flex-row  ")}>
           <View style={tailwind(" w-3/12    ")}></View>
           <View style={tailwind(" w-6/12  flex flex-col  ")}>
             <View style={tailwind("    flex flex-row ")}>
               <View style={tailwind(" w-3/12    ")}></View>
-              <View style={tailwind(" w-6/12  flex felx-col   ")}>
+              <View style={tailwind(" w-6/12  flex flex-col   ")}>
                 <View style={tailwind(" h-4/6 items-center    ")}>
                   <Box
                     rounded="lg"
@@ -49,6 +49,7 @@ function CardComponent() {
                           _dark={{ color: "violet.300" }}
                           fontWeight="500"
                           alignItems="center"
+                          textAlign="center"
                         >
                           20$
                         </Text>
@@ -56,53 +57,22 @@ function CardComponent() {
                       <Text fontWeight="400">
                         Estimted time for our agent to pick your car
                       </Text>
-                      <HStack
-                        alignItems="center"
-                        space={4}
-                        justifyContent="space-between"
-                      >
-                        <HStack alignItems="center">
-                          <Text
-                            color="gray.500"
-                            fontWeight="400"
-                            alignItems="center"
-                          >
-                            1h
-                          </Text>
-                        </HStack>
-                      </HStack>
+                      <Stack space={2}>
+                        <Text
+                          fontSize="xs"
+                          _light={{ color: "yellow.700" }}
+                          _dark={{ color: "violet.300" }}
+                          fontWeight="500"
+                          alignItems="center"
+                          textAlign="center"
+                        >
+                          1H
+                        </Text>
+                      </Stack>
                     </Stack>
                   </Box>
                 </View>
-                <View   style={tailwind(" h-2/6   items-center flex flex-col  " )}  >
-                  <View style={tailwind(" h-1/6    ")}></View>
-                  <View style={tailwind(" h-2/6    ")}>
-                    <TouchableHighlight
-                      onPress={() => changeView()}
-                      style={tailwind(
-                        "p-2 w-32 h-8 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		"
-                      )}
-                    >
-                      <Text style={tailwind(" text-center text-white ")}>
-                        Next
-                      </Text>
-                    </TouchableHighlight>
-                  </View>
-                  <View style={tailwind(" h-1/6    ")}></View>
-
-                  <View style={tailwind(" h-2/6    ")}>
-                    <TouchableHighlight
-                      onPress={() => changeView()}
-                      style={tailwind(
-                        "p-2 w-64 h-8 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		"
-                      )}
-                    >
-                      <Text style={tailwind(" text-center text-white ")}>
-                        Call us for more details
-                      </Text>
-                    </TouchableHighlight>
-                  </View>
-                </View>
+               
               </View>
               <View style={tailwind(" w-3/12    ")}></View>
             </View>
@@ -112,18 +82,39 @@ function CardComponent() {
         /> */}
         </View>
       </View>
-      <View style={tailwind(" h-1/6 flex flex-row  ")}>
-        <Footer />
+      <View style={tailwind(" h-1/6 flex flex-row bg-gray-100 ")}>
+        <View style={tailwind(" w-2/12 ")}></View>
+        <View style={tailwind(" w-1/12  flex flex-col ")}>
+
+        <View style={tailwind(" h-1/6  pl-8 ")}>
+      <TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+          <Text style={tailwind(" text-center text-white ")}>
+            Next
+          </Text>
+        </TouchableHighlight>
+      </View>
+      <View style={tailwind(" h-2/6  ")}></View>
+
+<View style={tailwind(" h-1/6  ")}>
+<TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-48 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+  <Text style={tailwind(" text-center text-white ")}>
+    Call us for more details
+  </Text>
+</TouchableHighlight>
+</View>
+        </View>
+
+        {/* <Footer /> */}
       </View>
     </View>
   );
 }
 
-export default function () {
+export default function ConfirmationPage () {
   return (
     <NativeBaseProvider>
       <Center flex={1} px="3">
-        <CardComponent />
+        <Confirmation />
       </Center>
     </NativeBaseProvider>
   );

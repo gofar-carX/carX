@@ -23,11 +23,6 @@ export const Example = () => {
       icon: <HamburgerIcon size="4" />,
       iconName: "menu",
 
-    },
-    {
-      icon: <House size="4" />,
-      iconName: "menu",
-      
     }
   ]
   return (
