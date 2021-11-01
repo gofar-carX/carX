@@ -7,6 +7,9 @@ import Navbar from './src/components/Navbar.js'
 import Test from './src/components/test.js'
 import LogIn from './src/components/login/login.js';
 import Reviews from './src/components/Reviews'
+import Home from './src/components/Home/Home'
+import Profile from './src/components/Profile/Profile'
+import EditProfile from './src/components/Profile/ProfileEdit'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -23,11 +26,16 @@ export default function App() {
   // <NavigationBar/>
     <NavigationContainer>
       <Stack.Navigator>
-       <Stack.Screen name="Login" component={LogIn} />
+     
       
-
+      
+      <Stack.Screen name="Login" component={LogIn} />
       <Stack.Screen name="Nav" component={Navbar} />
-      <Stack.Screen name="Test" component={Test} />  
+      <Stack.Screen name="Reviews" component={Reviews} /> 
+      <Stack.Screen name="Test" component={Test} /> 
+      {/* <Stack.Screen name="Profile" component={Profile} /> 
+      <Stack.Screen name="EditProfile" component={EditProfile} />  */}
+
       </Stack.Navigator>
     </NavigationContainer>
   
