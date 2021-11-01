@@ -13,11 +13,18 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "expo": "^43.0.1",
+    "expo-google-app-auth": "~9.0.0",
+    "expo-google-sign-in": "~10.0.3",
     "expo-status-bar": "~1.1.0",
     "native-base": "^3.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-button-spinner": "^0.1.4",
+  
+
+ 
+   
     "react-native-apple-header": ">= 0.1.0",
     "react-native-classic-header": ">= 0.1.0",
     "react-native-paper": "^4.9.2",
@@ -34,6 +41,8 @@
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
+    "react-router-native": "^5.2.1",
+  
     "styled-components": "^5.3.3",
     "styled-system": "^5.1.5",
     "tailwind-rn": "^3.0.1",

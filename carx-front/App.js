@@ -20,13 +20,23 @@ import Wash from './src/components/washService/PageOne/Wash.js';
 import HomeWash from './src/components/washService/HomeWash.js';
 import Confirmation from './src/components/washService/PageTow/Confirmation.js';
 import NavigationBar from "./src/components/Home/Home"
+
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
+<<<<<<< HEAD
+  const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+
+  return (
+  // <NavigationBar/>
+
+  
+=======
   return (
     
   // <Wash />
+>>>>>>> 0d761d2876864e5032a339b12754d39f8f73378d
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Wash" component={Wash} /> 
