@@ -5,7 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     return (
         // Try setting `alignItems` to 'flex-start'
         // Try setting `justifyContent` to `flex-end`.
@@ -36,7 +36,7 @@ const Profile = () => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={() => alert('PRESS ME!')}
+                        onPress={() => { navigation.navigate('EditProfile')}}
                         style={{ backgroundColor: '#d9af91', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 5
