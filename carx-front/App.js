@@ -32,8 +32,9 @@ export default function App() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Nav" component={Navbar} />
       <Stack.Screen name="Reviews" component={Reviews} /> 
-      <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} /> 
+      <Stack.Screen name="Test" component={Test} /> 
+      {/* <Stack.Screen name="Profile" component={Profile} /> 
+      <Stack.Screen name="EditProfile" component={EditProfile} />  */}
 
       </Stack.Navigator>
     </NavigationContainer>
