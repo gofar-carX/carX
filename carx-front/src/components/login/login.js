@@ -22,7 +22,7 @@ export default function LogIn({navigation}) {
           const {type,user}=result 
           if (type =='success'){
             const {email,photoUrl,familyName,givenName,name,accessToken}=user;
-            setTimeout(()=>navigation.navigate("Nav",{email,photoUrl,familyName,givenName,name,accessToken}),1500)
+            setTimeout(()=>navigation.navigate("Main",{email,photoUrl,familyName,givenName,name,accessToken}),1500)
           }
         })
         .catch(err=>{

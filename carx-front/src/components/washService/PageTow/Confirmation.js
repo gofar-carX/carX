@@ -83,7 +83,7 @@ function Confirmation({}) {
         </View>
       </View>
       <View style={tailwind(" h-1/6 flex flex-row bg-gray-100 ")}>
-        <View style={tailwind(" w-2/12 ")}></View>
+        <View style={tailwind(" w-3/12 ")}></View>
         <View style={tailwind(" w-1/12  flex flex-col ")}>
 
         <View style={tailwind(" h-1/6  pl-8 ")}>
