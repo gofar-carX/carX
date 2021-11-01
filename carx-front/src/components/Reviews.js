@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { TouchableHighlight , SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import tailwind from "tailwind-rn";
 
 export default function Navbar({ navigation }) {
@@ -15,6 +15,18 @@ export default function Navbar({ navigation }) {
                         X
                     </Text>
                 </View >
+                <View style={tailwind('border-black flex flex-row')}>
+                    <TextInput
+                        style={tailwind(' m-2 p-0 items-start border-black  rounded-xl flex ')}
+                        placeholder="add a comment "
+
+                    />
+                    <TouchableHighlight  style={tailwind('p-2 w-32 h-8 bg-yellow-600  text-lg rounded-lg 		')}>
+                        <Text style={tailwind(" text-center text-white ")}>Add</Text>
+                    </TouchableHighlight>
+
+
+                </View>
                 <ScrollView style={tailwind('h-4/6  min-w-full rounded-2xl flex ')}>
                     <View style={tailwind('w-11/12 m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}>
                         <Text>User</Text>
@@ -71,13 +83,7 @@ export default function Navbar({ navigation }) {
 
 
                 </ScrollView>
-                <View>
-                    <TextInput
-                        style={tailwind('w-11/12 m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}
-                        placeholder="add a comment "
 
-                    />
-                </View>
 
             </View>
         </SafeAreaView>

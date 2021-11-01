@@ -3,7 +3,6 @@ import { TouchableHighlight, Text, View } from "react-native";
 import tailwind from "tailwind-rn";
 import SelectDropdown from "react-native-select-dropdown";
 import Nav from "./Nav";
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Footer from "./Footer";
 

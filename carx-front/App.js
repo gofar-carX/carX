@@ -1,8 +1,6 @@
 
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import tailwind from "tailwind-rn";
-import SelectDropdown from 'react-native-select-dropdown'
 import Navbar from './src/components/Navbar.js'
 import Test from './src/components/test.js'
 import Login from './src/components/view1/login'
