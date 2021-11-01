@@ -17,13 +17,17 @@ import Wash from './src/components/washService/PageOne/Wash.js';
 import HomeWash from './src/components/washService/HomeWash.js';
 import Confirmation from './src/components/washService/PageTow/Confirmation.js';
 import NavigationBar from "./src/components/Home/Home"
+
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+
   return (
   // <NavigationBar/>
+
+  
     <NavigationContainer>
       <Stack.Navigator>
      
