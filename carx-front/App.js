@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 // import Profile from './src/components/Profile'
-import ProfileEdit from './src/components/ProfileEdit';
+import ProfileEdit from './src/components/Profile/ProfileEdit';
 
 
 export default function App() {
