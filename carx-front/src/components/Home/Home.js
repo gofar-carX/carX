@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function NavigationBar() {
+export default function NavigationBar({navigation}) {
     return (
         <View style={[styles.container, {
 
@@ -87,9 +87,9 @@ export default function NavigationBar() {
                         <Ionicons name="notifications" size={30} color="black" />
                     </Text>
                 </View>
-                <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
-                    <Text >
-                        <MaterialIcons name="menu" size={30} color="black" />
+                <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }} >
+                    <Text onPress={() => { navigation.navigate('Nav')}} >
+                        <MaterialIcons name="menu" size={30} color="black"   />
                     </Text>
 
                 </View>

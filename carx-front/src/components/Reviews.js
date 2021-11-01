@@ -1,7 +1,11 @@
 
 import React from 'react';
-import { TouchableHighlight , SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { TouchableHighlight, SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import tailwind from "tailwind-rn";
+
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 export default function Navbar({ navigation }) {
     return (
@@ -21,13 +25,13 @@ export default function Navbar({ navigation }) {
                         placeholder="add a comment "
 
                     />
-                    <TouchableHighlight  style={tailwind('p-2 w-32 h-8 bg-yellow-600  text-lg rounded-lg 		')}>
+                    <TouchableHighlight style={tailwind('p-2 w-28 h-10 bg-yellow-600  text-lg rounded-lg 		')}>
                         <Text style={tailwind(" text-center text-white ")}>Add</Text>
                     </TouchableHighlight>
 
 
                 </View>
-                <ScrollView style={tailwind('h-4/6  min-w-full rounded-2xl flex ')}>
+                <ScrollView style={tailwind('h-4/6   min-w-full rounded-2xl flex ')}>
                     <View style={tailwind('w-11/12 m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}>
                         <Text>User</Text>
                         <Text>message is the message because the message is just trying to be a message thank you for this message </Text>
@@ -85,6 +89,25 @@ export default function Navbar({ navigation }) {
                 </ScrollView>
 
 
+            </View>
+            <View style={tailwind(' flex flex-row bottom-0 mt-12')} >
+                <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
+                    <Text onPress={() => { navigation.navigate('Home') }}>
+                        <Ionicons name="ios-home-sharp" size={30} color="black" />
+                    </Text>
+                </View>
+                <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
+
+                    <Text>
+                        <Ionicons name="notifications" size={30} color="black" />
+                    </Text>
+                </View>
+                <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
+                    <Text onPress={() => { navigation.navigate('Nav') }} >
+                        <MaterialIcons name="menu" size={30} color="black" />
+                    </Text>
+
+                </View>
             </View>
         </SafeAreaView>
 
