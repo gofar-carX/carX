@@ -21,7 +21,7 @@ export default function Navbar({ navigation }) {
                 </Text>
             </View >
             <View style={tailwind('  min-w-full   items-center   flex h-full bg-yellow-600 rounded-2xl ')}>
-                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Test') }} >Profile</Text>
+                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Profile') }} >Profile</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Reviews') }}>Reviews</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Wash') }}>Contact Us</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('App',{screen:'Login'}) }}>Sign Out</Text>
