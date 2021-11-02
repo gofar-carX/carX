@@ -5039,7 +5039,7 @@ nanomatch@^1.2.9:
 
 native-base@^3.2.1:
   version "3.2.1"
-  resolved "https://registry.npmjs.org/native-base/-/native-base-3.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/native-base/-/native-base-3.2.1.tgz#315a1620d5ce5d31f6ae10f7ffa3e0ca28404a0c"
   integrity sha512-u39DLFOEh9akDEpCrNZ/uPDZWROffXXxmw6eaqGJ/VmjVv3wjbK6OYf7+4yXWYEU8u1KJ/edZ2iRHQL0KuL8Fg==
   dependencies:
     "@react-aria/focus" "^3.2.3"
