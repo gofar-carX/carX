@@ -21,7 +21,7 @@ export default function ConfirmSMS({navigation}) {
                             <Button
                                 title="Confirm"
                                 color="#D9AF91"
-                                onPress={() => { navigation.navigate('Nav')}}
+                                onPress={() => { navigation.navigate('Main')}}
                             />
                         </View>
                     </View>

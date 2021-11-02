@@ -125,16 +125,16 @@ export default Profile;
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 5
                         }}>Edit</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={{ height: 100, justifyContent: 'space-between', justifyContent: 'space-around' }} >
-                <View style={{ justifyContent: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 76 }}>
-                    <Entypo name="home" size={24} color="black" />
-                    <Ionicons name="notifications" size={24} color="black" />
-                    <MaterialIcons name="menu" size={24} color="black" />
+                    </TouchableOpacity> */}
+        //         </View>
+        //     </View>
+        //     <View style={{ height: 100, justifyContent: 'space-between', justifyContent: 'space-around' }} >
+        //         <View style={{ justifyContent: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 76 }}>
+        //             <Entypo name="home" size={24} color="black" />
+        //             <Ionicons name="notifications" size={24} color="black" />
+        //             <MaterialIcons name="menu" size={24} color="black" />
 
-                </View>
-            </View>
+        //         </View>
+        //     </View>
 
-        </View> */}
+        // </View> 
