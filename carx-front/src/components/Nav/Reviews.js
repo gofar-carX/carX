@@ -19,7 +19,7 @@ export default function Navbar({ navigation }) {
                         X
                     </Text>
                 </View >
-                <View style={tailwind(' border-black flex flex-row')}>
+                <View style={tailwind('w-full border-black flex flex-row items-center')}>
                     <TextInput
                         style={tailwind(' m-2 p-0 items-start border-black  rounded-xl flex ')}
                         placeholder="add a comment "
