@@ -1,115 +1,105 @@
-import React, { useState, useEffect} from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import { PaymentView } from './Components/PaymentView'
-import axios  from 'axios';
 
-const Pay= () => {
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 
-    const [response, setResponse ] = useState()
-    
-    const [ makePayment, setMakePayment ] = useState(false)
-    const [paymentStatus, setPaymentStatus] = useState('')
+//ADD localhost address of your server
+const API_URL = "http://localhost:5000";
 
-    const cartInfo = {
-        id: '5eruyt35eggr76476236523t3',
-        description: 'T Shirt - With react Native Logo',
-        amount: 1
+const StripeApp = props => {
+  const [email, setEmail] = useState();
+  const [cardDetails, setCardDetails] = useState();
+  const { confirmPayment, loading } = useConfirmPayment();
+
+  const fetchPaymentIntentClientSecret = async () => {
+    const response = await fetch(`${API_URL}/create-payment-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { clientSecret, error } = await response.json();
+    return { clientSecret, error };
+  };
+
+  const handlePayPress = async () => {
+    //1.Gather the customer's billing information (e.g., email)
+    if (!cardDetails?.complete || !email) {
+      Alert.alert("Please enter Complete card details and Email");
+      return;
     }
-
-    const onCheckStatus = async (paymentResponse) => {
-        setPaymentStatus('Please wait while confirming your payment!')
-        setResponse(paymentResponse)
-
-        let jsonResponse = JSON.parse(paymentResponse);
-        // perform operation to check payment status
-
-        try {
-    
-            const stripeResponse = await axios.post('http://localhost:8000/payment', {
-                email: 'codergogoi@gmail.com',
-                product: cartInfo,
-                authToken: jsonResponse
-            })
-
-            if(stripeResponse){
-
-                const { paid } = stripeResponse.data;
-                if(paid === true){
-                    setPaymentStatus('Payment Success')
-                }else{
-                    setPaymentStatus('Payment failed due to some issue')
-                }
-
-            }else{
-                setPaymentStatus(' Payment failed due to some issue')
-            }
-
-            
-        } catch (error) {
-            
-            console.log(error)
-            setPaymentStatus(' Payment failed due to some issue')
-
+    const billingDetails = {
+      email: email,
+    };
+    //2.Fetch the intent client secret from the backend
+    try {
+      const { clientSecret, error } = await fetchPaymentIntentClientSecret();
+      //2. confirm the payment
+      if (error) {
+        console.log("Unable to process payment");
+      } else {
+        const { paymentIntent, error } = await confirmPayment(clientSecret, {
+          type: "Card",
+          billingDetails: billingDetails,
+        });
+        if (error) {
+          alert(`Payment Confirmation Error ${error.message}`);
+        } else if (paymentIntent) {
+          alert("Payment Successful");
+          console.log("Payment successful ", paymentIntent);
         }
- 
+      }
+    } catch (e) {
+      console.log(e);
     }
+    //3.Confirm the payment with the card details
+  };
 
-
-    const paymentUI = () => {
-
-        if(!makePayment){
-
-            return <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 300, marginTop: 50}}>
-                    <Text style={{ fontSize: 25, margin: 10}}> Make Payment </Text>
-                    <Text style={{ fontSize: 16, margin: 10}}> Product Description: {cartInfo.description} </Text>
-                    <Text style={{ fontSize: 16, margin: 10}}> Payable Amount: {cartInfo.amount} </Text>
-
-                    <TouchableOpacity style={{ height: 60, width: 300, backgroundColor: '#FF5733', borderRadius: 30, justifyContent: 'center', alignItems: 'center'
-                        }}
-                        onPress={() => {
-                            setMakePayment(true)
-                        }}
-                        >
-                        <Text style={{ color: '#FFF', fontSize: 20}}>
-                            Proceed To Pay
-                        </Text>
-
-                    </TouchableOpacity>
-
-
-                </View>
-
-
-             
-            // show to make payment
-        }else{
-
-            if(response !== undefined){
-                return <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 300, marginTop: 50}}>
-                    <Text style={{ fontSize: 25, margin: 10}}> { paymentStatus} </Text>
-                    <Text style={{ fontSize: 16, margin: 10}}> { response} </Text>
-                </View>
-
-            }else{
-                return <PaymentView onCheckStatus={onCheckStatus} product={cartInfo.description} amount={cartInfo.amount} />
-
-            }
-            
-        }
-
-    }
-
-
-return (<View style={styles.container}>
-            {paymentUI()}
-        </View>)}
-
+  return (
+    <View style={styles.container}>
+      <TextInput
+        autoCapitalize="none"
+        placeholder="E-mail"
+        keyboardType="email-address"
+        onChange={value => setEmail(value.nativeEvent.text)}
+        style={styles.input}
+      />
+      <CardField
+        postalCodeEnabled={true}
+        placeholder={{
+          number: "4242 4242 4242 4242",
+        }}
+        cardStyle={styles.card}
+        style={styles.cardContainer}
+        onCardChange={cardDetails => {
+          setCardDetails(cardDetails);
+        }}
+      />
+      <Button onPress={handlePayPress} title="Pay" disabled={loading} />
+    </View>
+  );
+};
+export default StripeApp;
 
 const styles = StyleSheet.create({
-container: { flex: 1, paddingTop: 100},
-navigation: { flex: 2, backgroundColor: 'red' },
-body: { flex: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: 'yellow' },
-footer: { flex: 1, backgroundColor: 'cyan' }
-})
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    margin: 20,
+  },
+  input: {
+    backgroundColor: "#efefefef",
 
- export default Pay 
+    borderRadius: 8,
+    fontSize: 20,
+    height: 50,
+    padding: 10,
+  },
+  card: {
+    backgroundColor: "#efefefef",
+  },
+  cardContainer: {
+    height: 50,
+    marginVertical: 30,
+  },
+});
