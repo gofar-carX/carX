@@ -42,8 +42,8 @@ export default function Main({ route, navigation }) {
         <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Wash" component={Wash} />
         <Stack.Screen name="Confirmation" component={Confirmation} />
-        {/* <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} />  */}
+        <Stack.Screen name="Profile" component={Profile} /> 
+      <Stack.Screen name="EditProfile" component={EditProfile} /> 
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
