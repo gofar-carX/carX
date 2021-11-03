@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export default function LogIn({ navigation }) {
   const [bool, setBool] = useState(false)
-  const [navigate, setNavigate] = useState(true)
+  const [navigate, setNavigate] = useState(false)
   const [spinner, setSpinner] = useState(false)
   const [phone, setPhone] = useState("5")
   const [erorr, setErorr] = useState(false)
