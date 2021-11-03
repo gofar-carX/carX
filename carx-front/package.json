@@ -8,14 +8,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@freakycoder/react-native-header-view": "^1.2.0",
     "@expo/vector-icons": "^12.0.5",
+    "@freakycoder/react-native-header-view": "^1.2.0",
+    "@react-native-firebase/app": "^13.0.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "axios": "^0.24.0",
+    "axios-hooks": "^3.0.0",
     "expo": "^43.0.1",
     "expo-google-app-auth": "~9.0.0",
     "expo-google-sign-in": "~10.0.3",
     "expo-status-bar": "~1.1.0",
+    "firebase": "^9.2.0",
     "native-base": "^3.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -23,13 +27,15 @@
     "react-native-icons": "^0.7.1",
     "react-native-button-spinner": "^0.1.4",
     "react-native-apple-header": ">= 0.1.0",
+   
     "react-native-classic-header": ">= 0.1.0",
-    "react-native-paper": "^4.9.2",
     "react-native-elements": "^3.4.2",
     "react-native-gorgeous-header": ">= 0.1.0",
+    
     "react-native-imaged-card-view": "^0.0.11",
     "react-native-modern-header": ">= 0.1.0",
     "react-native-multiple-select": "^0.5.7",
+    "react-native-paper": "^4.9.2",
     "react-native-profile-header": ">= 0.1.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
@@ -38,11 +44,12 @@
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
+    "react-native-webview": "11.13.0",
     "tailwind-rn": "^3.0.1",
     "react-router-native": "^5.2.1",
-  
     "styled-components": "^5.3.3",
     "styled-system": "^5.1.5"
+    
   
    
   },
