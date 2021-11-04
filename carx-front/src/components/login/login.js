@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ImageBackground, Image, ActivityIndicator } from "react-native";
+
+import React, { useState , useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image, ActivityIndicator , TouchableOpacity } from "react-native";
 import * as Google from 'expo-google-app-auth'
 const image = { uri: "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" }
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
-
 import AsyncStorage from "@react-native-async-storage/async-storage"
 export default function LogIn({ navigation }) {
+   
+
+
+
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
   const [spinner, setSpinner] = useState(false)
@@ -34,6 +38,12 @@ export default function LogIn({ navigation }) {
 
   }
 
+  useEffect( () => {
+    AsyncStorage.getItem('auth').then((data)=>{
+      if(data !== null ){navigation.navigate('Main')}
+    })
+  }, [])
+
 let st = check ==false ? 'black':'red'
   let handleLogin = async function () {
     setBool(true)
@@ -51,13 +61,23 @@ let st = check ==false ? 'black':'red'
         }
         setErorr(false)
         setTimeout(() => setBool(false), 100)
-           navigation.navigate("Main")    
+          //  navigation.navigate("Main")    
       }catch(e){
         setBool(false)
         setErorr(true)
       }
 }
-  
+useEffect(async()=>{
+  const  data = await AsyncStorage.getItem('auth')
+      if(data){
+        navigation.navigate('Main')
+      }else{
+          navigation.navigate('Login')
+      }
+
+
+
+},[])
   
   return (
     <>
@@ -112,6 +132,7 @@ let st = check ==false ? 'black':'red'
                 <Text></Text>
                 <Text style={{ color: "white" }}>or</Text>
                 <Text></Text>
+                <TouchableOpacity onPress={handleLogin}>
                 <View style={[styles.prGoogle]} >
                   <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
                     {bool ?
@@ -122,13 +143,14 @@ let st = check ==false ? 'black':'red'
                           height: 20,
                           width: 30
                         }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                        <Text onPress={handleLogin} >Google</Text>
+                        <Text  >Google</Text>
                       </>
                     }
 
 
                   </View>
                 </View>
+                </TouchableOpacity>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} />}
