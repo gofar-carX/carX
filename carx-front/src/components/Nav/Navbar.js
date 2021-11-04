@@ -1,22 +1,30 @@
 
-import React from 'react';
+import React , {useEffect} from 'react';
 import { SafeAreaView, Button, StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export default function Navbar({ navigation,na }) {
+export default function Navbar({ navigation }) {
+   
     let LogOut=async()=>{ 
         try{
-            console.log("hhhh")
-            await AsyncStorage.removeItem('auth')
-            na.navigate('Login')
+         await AsyncStorage.removeItem('auth')
+           
            
         }catch(e){
             console.error(e)
         }
  }
+ useEffect(async () => {
+    const  data = await AsyncStorage.getItem('auth')
+    if(data == null ){
+        navigation.navigate('Login')
+    }
+
+
+},[])
     return (
         <SafeAreaView style={tailwind('h-full items-center')}>
              <View style={tailwind(' flex flex-row  my-8')}>
