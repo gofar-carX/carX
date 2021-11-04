@@ -16,6 +16,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const nav = useNavigationContainerRef()
   const [AppReady, setAppReady] = useState(null)
+
   const [spinner, setSpinner] = useState(false)
   const [storedCredentials, setStoredCredentials] = useState('')
 
@@ -24,45 +25,45 @@ export default function App() {
   setTimeout(() => {
     setSpinner(true)
   }, 500)
-  useEffect(async () => {
-    const data = await AsyncStorage.getItem("auth")
-    setStoredCredentials(JSON.parse(data))
-    if (data) {
-
-      nav.navigate("Main")
-    } else if (data == null) {
-      nav.navigate("Login")
-    }
-  }, [])
   return (
-    
+
+
     <>
-    
-      {
-        spinner == false
-          ?
-          <>
-            <View style={[styles.container, {
+      {spinner == false ?
+        <>
+          <View style={[styles.container, {
 
-              flexDirection: "column"
-            }]}>
+            flexDirection: "column"
+          }]}>
 
-              <View style={{ flex: 6, justifyContent: "center" }} >
-                <ActivityIndicator color="#D9AF91" bool="true" size="large" style={{ textAlign: "center" }} />
-                <Text style={{ textAlign: "center" }}>loading...</Text>
-              </View>
-
+            <View style={{ flex: 6, justifyContent: "center" }} >
+              <ActivityIndicator color="#D9AF91" bool="true" size="large" style={{ textAlign: "center" }} />
+              <Text style={{ textAlign: "center" }}>loading...</Text>
             </View>
 
-          </>
-          :
-          <NavigationContainer independent={true}>
-            <Stack.Navigator screenOptions={{ headerShown: false }}  >
-              <Stack.Screen name="Main" component={Main} />
-              <Stack.Screen name="Login" component={LogIn} />
-            </Stack.Navigator>
-          </NavigationContainer>
-      }
+          </View>
+
+        </>
+
+
+
+        :
+        <NavigationContainer independent={true} ref={nav}  >
+          <Stack.Navigator screenOptions={{ headerShown: false }}  >
+
+
+            
+            <Stack.Screen name="Login" component={LogIn} />
+            <Stack.Screen name="Main" component={Main} />
+
+
+
+
+
+
+          </Stack.Navigator>
+
+        </NavigationContainer>}
 
     </>
   );
