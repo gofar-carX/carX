@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image, ActivityIndicator , TouchableOpacity } from "react-native";
 import * as Google from 'expo-google-app-auth'
 const image = { uri: "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" }
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 
-
+import AsyncStorage from "@react-native-async-storage/async-storage"
 export default function LogIn({ navigation }) {
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
@@ -34,33 +34,41 @@ export default function LogIn({ navigation }) {
 
   }
 
+  useEffect( () => {
+    AsyncStorage.getItem('auth').then((data)=>{
+      if(data !== null ){navigation.navigate('Main')}
+    })
+  }, [])
+
 let st = check ==false ? 'black':'red'
-  let handleLogin = function () {
+  let handleLogin = async function () {
     setBool(true)
     const config = {
       iosClientId: `741420364536-suf5j1kib19o0nfl1h9cqco18eou6r0u.apps.googleusercontent.com`,
       androidClientId: `741420364536-f3glchvm0p8qt5nkkhsv7rnbgec6op8i.apps.googleusercontent.com`,
       scopes: ['profile', 'email']
     }
-    Google
-      .logInAsync(config)
-      .then((result) => {
-        const { type, user } = result
-        if (type == 'success') {
-          const { email, photoUrl, familyName, givenName, name, accessToken } = user;
-          setErorr(false)
-          setTimeout(() => navigation.navigate("Main", { email, photoUrl, familyName, givenName, name, accessToken }), 1500)
-          setTimeout(() => setBool(false), 2000)
-}
-      })
-      .catch(err => {
+      try{
+        const dataFromGoogle =await Google.logInAsync(config)
+        const { type, user } = dataFromGoogle
+        const data = JSON.stringify(user)
+        if(type=='success'){
+          await AsyncStorage.setItem("auth",data)  
+        }
+        setErorr(false)
+        setTimeout(() => setBool(false), 100)
+           navigation.navigate("Main")    
+      }catch(e){
         setBool(false)
         setErorr(true)
-      })
-  }
+      }
+}
+  
+  
   return (
     <>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+ 
+ <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <View style={[styles.container, {
 
           flexDirection: "column"
@@ -134,6 +142,9 @@ let st = check ==false ? 'black':'red'
             </View> : <ConfirmSMS navigation={navigation} />}
         </View>
       </ImageBackground>
+
+     
+     
     </>
   );
 }
