@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
-export default function Navbar({ navigation }) {
+export default function Navbar({ navigation,na }) {
     return (
         <SafeAreaView style={tailwind('h-full items-center')}>
 
@@ -24,7 +24,7 @@ export default function Navbar({ navigation }) {
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Profile') }} >Profile</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Reviews') }}>Reviews</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Wash') }}>Contact Us</Text>
-                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('App',{screen:'Login'}) }}>Sign Out</Text>
+                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { na.navigate('Login') }}>Sign Out</Text>
 
 
             </View>

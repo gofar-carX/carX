@@ -30,20 +30,22 @@ const Stack = createNativeStackNavigator();
 
 export default function Main({ route, navigation }) {
   const { email = "foulen@gmail.com", photoUrl = "imgUrl", familyName = "family Name", givenName = "given namr", name = "name", accessToken = "token" } = route.params
-  
+
   const navi = useNavigationContainerRef();
   return (
 
     <NavigationContainer independent={true} ref={navi}>
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-        <Stack.Screen name="Nav" component={Navbar} />
+        <Stack.Screen name="Nav"  >
+         {props=>(<Navbar na={navigation} navigation={navi} />)} 
+        </Stack.Screen>
         <Stack.Screen name="Reviews" component={Reviews} />
         <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Wash" component={Wash} />
         <Stack.Screen name="Confirmation" component={Confirmation} />
-        <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} /> 
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
