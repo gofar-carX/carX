@@ -4,15 +4,22 @@ import { SafeAreaView, Button, StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-
-export default function Navbar({ navigation }) {
+export default function Navbar({ navigation,na }) {
+    let LogOut=async()=>{ 
+        try{
+            console.log("hhhh")
+            await AsyncStorage.removeItem('auth')
+            na.navigate('Login')
+           
+        }catch(e){
+            console.error(e)
+        }
+ }
     return (
         <SafeAreaView style={tailwind('h-full items-center')}>
-
-
-
-            <View style={tailwind(' flex flex-row  my-8')}>
+             <View style={tailwind(' flex flex-row  my-8')}>
                 <Text style={tailwind('text-4xl font-semibold ')}>
                     car
                 </Text>
@@ -24,16 +31,11 @@ export default function Navbar({ navigation }) {
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Profile') }} >Profile</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Reviews') }}>Reviews</Text>
                 <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Wash') }}>Contact Us</Text>
-                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('App',{screen:'Login'}) }}>Sign Out</Text>
+                <Text style={tailwind('text-3xl font-semibold py-8 ')} onPress={LogOut}>Sign Out</Text>
 
 
             </View>
-
-
-
-
-
-        </SafeAreaView>
+            </SafeAreaView>
 
     );
 }
