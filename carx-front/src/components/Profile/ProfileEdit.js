@@ -1,35 +1,28 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-
 
 const ProfileEdit = () => {
     return (
-        // Try setting `alignItems` to 'flex-start'
-        // Try setting `justifyContent` to `flex-end`.
-        // Try setting `flexDirection` to `row`.
         <View style={{
             flex: 1,
             flexDirection: 'column',
 
         }}>
             <View style={{ height: 100 }} ></View>
-            <View style={{ height: 100, textAlign: 'center', }} ><Text style={{ fontFamily: '"Roboto", sans-serif', fontWeight: 400, fontSize: 36, fontStyle: 'normal' }}>Car<Text style={{ color: '#d9af91' }}>X</Text></Text></View>
-            <View style={{ height: 100, textAlign: 'center', display: 'inline' }} ><Text style={{ fontFamily: '"Roboto", sans-serif', fontWeight: 400, fontSize: 36, fontStyle: 'normal' }} >welcome</Text><Text style={{ fontFamily: '"Roboto", sans-serif', fontWeight: 400, fontSize: 36, fontStyle: 'normal', color: '#d9af91' }}>User</Text></View>
+            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal' }}>Car<Text style={{ color: '#d9af91' }}>X</Text></Text></View>
+            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal' }} >welcome</Text><Text style={{ fontSize: 36, fontStyle: 'normal', color: '#d9af91' }}>User</Text></View>
             <View style={{ height: 100 }}>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
                     <Image
                         source={{
                             uri:
                                 'https://m.media-amazon.com/images/I/41jLBhDISxL._SY355_.jpg',
                         }}
-                        style={{ width: 100, height: 100, borderRadius: 200 / 2, border: '1px solid ', boxSizing: 'border-box' }}
+                        style={{ width: 100, height: 100, borderRadius: 200 / 2 }}
                     />
                 </View>
             </View>
-            <View>
+            <View style={{ justifyContent: 'space-around' }}>
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
@@ -74,14 +67,6 @@ const ProfileEdit = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ height: 100, justifyContent: 'space-between', justifyContent: 'space-around' }} >
-                <View style={{ justifyContent: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 76 }}>
-                    <Entypo name="home" size={24} color="black" />
-                    <Ionicons name="notifications" size={24} color="black" />
-                    <MaterialIcons name="menu" size={24} color="black" />
-
-                </View>
-            </View>
 
         </View>
 
@@ -93,7 +78,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        backgroundColor: '#EBEBEB'
+        backgroundColor: '#EBEBEB',
+        borderRadius: 40
     },
 });
 export default ProfileEdit;
