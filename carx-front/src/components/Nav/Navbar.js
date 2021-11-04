@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React , {useEffect} from 'react';
 import { SafeAreaView, Button, StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import AsyncStorage from "@react-native-async-storage/async-storage"
