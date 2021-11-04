@@ -1,12 +1,16 @@
+
 import React, { useState , useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image, ActivityIndicator , TouchableOpacity } from "react-native";
 import * as Google from 'expo-google-app-auth'
 const image = { uri: "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" }
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
-
 import AsyncStorage from "@react-native-async-storage/async-storage"
 export default function LogIn({ navigation }) {
+   
+
+
+
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
   const [spinner, setSpinner] = useState(false)
@@ -57,13 +61,23 @@ let st = check ==false ? 'black':'red'
         }
         setErorr(false)
         setTimeout(() => setBool(false), 100)
-           navigation.navigate("Main")    
+          //  navigation.navigate("Main")    
       }catch(e){
         setBool(false)
         setErorr(true)
       }
 }
-  
+useEffect(async()=>{
+  const  data = await AsyncStorage.getItem('auth')
+      if(data){
+        navigation.navigate('Main')
+      }else{
+          navigation.navigate('Login')
+      }
+
+
+
+},[])
   
   return (
     <>
