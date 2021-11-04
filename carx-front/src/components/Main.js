@@ -28,43 +28,44 @@ const Stack = createNativeStackNavigator();
 
 
 
-export default function Main({ route, navigation }) {
-  const { email = "foulen@gmail.com", photoUrl = "imgUrl", familyName = "family Name", givenName = "given namr", name = "name", accessToken = "token" } = route.params
+export default function Main({ navigation }) {
   
   const navi = useNavigationContainerRef();
   return (
+    
+ <NavigationContainer independent={true} ref={navi}>
+ <Stack.Navigator>
+   <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+   <Stack.Screen name="Nav" component={Navbar}  />
+   <Stack.Screen name="Reviews" component={Reviews} />
+   <Stack.Screen name="Test" component={Test} />
+   <Stack.Screen name="Wash" component={Wash} />
+   <Stack.Screen name="Confirmation" component={Confirmation} />
+   <Stack.Screen name="Profile" component={Profile} /> 
+ <Stack.Screen name="EditProfile" component={EditProfile} /> 
+ </Stack.Navigator>
+ <View style={tailwind('p-4 flex flex-row ')} >
+   <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
+     <Text onPress={() => { navi.navigate("Home") }} >
+       <Ionicons name="ios-home-sharp" size={30} color="black" />
+     </Text>
+   </View>
+   <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
 
-    <NavigationContainer independent={true} ref={navi}>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-        <Stack.Screen name="Nav" component={Navbar} />
-        <Stack.Screen name="Reviews" component={Reviews} />
-        <Stack.Screen name="Test" component={Test} />
-        <Stack.Screen name="Wash" component={Wash} />
-        <Stack.Screen name="Confirmation" component={Confirmation} />
-        <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} /> 
-      </Stack.Navigator>
-      <View style={tailwind('p-4 flex flex-row ')} >
-        <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
-          <Text onPress={() => { navi.navigate("Home") }} >
-            <Ionicons name="ios-home-sharp" size={30} color="black" />
-          </Text>
-        </View>
-        <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
+     <Text onPress={() => { navigation.navigate('Login') }}>
+       <Ionicons name="notifications" size={30} color="black" />
+     </Text>
+   </View>
+   <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
+     <Text onPress={() => { navi.navigate("Nav") }}  >
+       <MaterialIcons name="menu" size={30} color="black" />
+     </Text>
 
-          <Text onPress={() => { navigation.navigate('Login') }}>
-            <Ionicons name="notifications" size={30} color="black" />
-          </Text>
-        </View>
-        <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
-          <Text onPress={() => { navi.navigate("Nav") }}  >
-            <MaterialIcons name="menu" size={30} color="black" />
-          </Text>
-
-        </View>
-      </View>
-    </NavigationContainer>
+   </View>
+ </View>
+</NavigationContainer>
+  
+   
 
 
 
@@ -74,10 +75,3 @@ export default function Main({ route, navigation }) {
 
 
 
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
