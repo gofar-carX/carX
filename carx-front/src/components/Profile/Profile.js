@@ -37,7 +37,7 @@ const Profile = ({ navigation }) => {
                             uri:
                                 'https://m.media-amazon.com/images/I/41jLBhDISxL._SY355_.jpg',
                         }}
-                        style={{ width: 80, height: 80, borderRadius: 100 / 1, border: '1px solid ', boxSizing: 'border-box' }}
+                        style={{ width: 80, height: 80, borderRadius: 100 / 1 }}
                     />
                 </View>
             </View>

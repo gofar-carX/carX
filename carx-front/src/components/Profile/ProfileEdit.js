@@ -38,7 +38,7 @@ const ProfileEdit = ({ route }) => {
                             uri:
                                 'https://m.media-amazon.com/images/I/41jLBhDISxL._SY355_.jpg',
                         }}
-                        style={{ width: 100, height: 100, borderRadius: 200 / 2, border: '1px solid ', boxSizing: 'border-box' }}
+                        style={{ width: 100, height: 100, borderRadius: 200 / 2 }}
                     />
                 </View>
             </View>
