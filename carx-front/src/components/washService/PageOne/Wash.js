@@ -114,7 +114,7 @@ import Footer from "./Footer";
     <View  style={tailwind("  w-4/12 items-center  flex flex-col")}>
       <View style={tailwind(" h-1/6   ")}></View>
       <View>
-      <TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+      <TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-32 h-10 bg-blue-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
           <Text style={tailwind(" text-center text-white ")}>
             Next
           </Text>
