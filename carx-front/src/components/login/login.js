@@ -19,16 +19,29 @@ export default function LogIn({ navigation }) {
   const [erorr1, setErorrPhone] = useState(false)
   const [check,setCheck]=useState(false)
   let handleLoinWithPhone = function () {
+     if(phone["e"] ==null){
+        setCheck(true)
+        return
+        
+     }  
+     if(phone["e"].length !==12){
+      setCheck(true)
+      return 
+    } 
+    if(phone["e"].length==12){
+      setCheck(false)
+    }
     setSpinner(true)
+    console.log(phone["e"])
     axios
-      .get(`http://192.168.27.128:5000/phone/send/${phone}`).then((res) => {
-        setErorrPhone(false)
-
-        setTimeout(() => {
+      .get(`https://haunted-cat-69690.herokuapp.com/phone/send/${phone["e"]}`).then((res) => {
+        
+          setErorrPhone(false)
+          setTimeout(() => {
           setNavigate(true)
           setSpinner(false)
-        }, 1500)
-        setTimeout(() => setSpinner(false), 1500)
+        }, 500)
+        setTimeout(() => setSpinner(false), 500)
       }).catch((err) => {
         console.log(err)
         setNavigate(false)
@@ -61,6 +74,7 @@ let st = check ==false ? 'black':'red'
         if(type=='success'){
           await AsyncStorage.setItem("auth",data)  
         }
+        
         setErorr(false)
         setTimeout(() => setBool(false), 100)
            navigation.navigate("Main")    
