@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
-const ProfileEdit = () => {
+const ProfileEdit = ({ route }) => {
+    // const {user} = route.params;
+
+    const [user, setUser] = useState({
+        fullName: route.params.fullName,
+        Email: route.params.Email,
+        Phonenumber: route.params.Phonenumber,
+        Car: route.params.Car
+    })
+    const [fullName, setFullName] = useState('');
+    const [Email, setEmail] = useState('');
+    const [Phonenumber, setPhonenumber] = useState('');
+    const [Car, setCar] = useState('');
+
+    // console.log(route.params)
+
+    // console.log('this ====>fullName', fullName);
+    // console.log('this ====>Email', Email);
+    // console.log('this ====>Phonenumber', Phonenumber);
+    // console.log('this ====>Car', Car);
+
     return (
         <View style={{
             flex: 1,
             flexDirection: 'column',
 
         }}>
-            <View style={{ height: 100 }} ></View>
-            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal' }}>Car<Text style={{ color: '#d9af91' }}>X</Text></Text></View>
-            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal' }} >welcome</Text><Text style={{ fontSize: 36, fontStyle: 'normal', color: '#d9af91' }}>User</Text></View>
+            {/* <View style={{ height: 100 }} ></View> */}
+            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }}>Car<Text style={{ color: '#d9af91', textAlign: 'center' }}>X</Text></Text></View>
+            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }} >welcome</Text><Text style={{ fontSize: 36, fontStyle: 'normal', color: '#d9af91', textAlign: 'center' }}>User</Text></View>
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
                     <Image
@@ -26,7 +46,8 @@ const ProfileEdit = () => {
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
-
+                    onChangeText={text => setFullName(text)}
+                    value={fullName}
                 />
             </View>
             <View>
@@ -34,7 +55,8 @@ const ProfileEdit = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
-
+                        onChangeText={text => setEmail(text)}
+                        value={Email}
                     />
                 </View>
             </View>
@@ -43,7 +65,8 @@ const ProfileEdit = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="Phone number"
-
+                        onChangeText={text => setPhonenumber(text)}
+                        value={Phonenumber}
                     />
                 </View>
             </View>
@@ -51,8 +74,9 @@ const ProfileEdit = () => {
                 <View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Car"
-
+                        placeholder="Car Model"
+                        onChangeText={text => setCar(text)}
+                        value={Car}
                     />
                 </View>
             </View>

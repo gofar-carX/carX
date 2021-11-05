@@ -9,7 +9,7 @@ import ButtonSpinner from 'react-native-button-spinner';
 export default function LogIn({navigation}) {
   const [bool , setBool]=useState(false)
   const [navigate, setNavigate] = useState(false)
-  handleLogin=()=>{
+  function handleLogin(){
     setBool(true)
     const config={
       iosClientId:`741420364536-suf5j1kib19o0nfl1h9cqco18eou6r0u.apps.googleusercontent.com`,
