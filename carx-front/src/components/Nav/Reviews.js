@@ -8,9 +8,9 @@ import axios from 'axios'
 
 export default function Reviews({ navigation }) {
 
-    const [reviews, setreviews] = useState({})
+    const [reviews, setreviews] = useState([])
     const [comment, setComment] = useState('')
-    const [test, settest] = useState([])
+    
 
     let  AddComment =  function () {
         console.log(comment)
@@ -18,13 +18,13 @@ export default function Reviews({ navigation }) {
     }
 
     useEffect(() => {
-        axios.get("https://haunted-cat-69690.herokuapp.com/reviews").then((res) => {
-            settest(res.data)
+        axios.get(process.env.rev).then((res) => {
+            setreviews(res.data)
         })
             .catch((err) => alert(err))
 
     }, [])
-    if (test == undefined) {
+    if (reviews == undefined) {
         return (
             <View><Text>loading ...</Text></View>
         );
@@ -58,7 +58,7 @@ export default function Reviews({ navigation }) {
 
                     </View>
                     <ScrollView style={tailwind('h-5/6   min-w-full rounded-2xl flex ')}>
-                        {test.map((el, key) =>
+                        {reviews.map((el, key) =>
                             <View key={key} style={tailwind(' m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}>
                                 <View style={tailwind(' flex flex-row ')}><Text>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('hour').fromNow()}</Text></View>
                                 <Text>{el.message}</Text>
