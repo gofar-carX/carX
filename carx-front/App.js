@@ -51,10 +51,10 @@ export default function App() {
         <NavigationContainer independent={true} ref={nav}  >
           <Stack.Navigator screenOptions={{ headerShown: false }}  >
 
-
-            
             <Stack.Screen name="Login" component={LogIn} />
             <Stack.Screen name="Main" component={Main} />
+
+
 
 
 
