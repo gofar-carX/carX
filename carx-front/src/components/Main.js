@@ -1,26 +1,18 @@
 
-import React from 'react';
+import React  from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
-
 import Navbar from './Nav/Navbar.js'
 import Test from './Nav/test.js'
-import LogIn from './login/login.js';
 import Reviews from './Nav/Reviews'
 import Home from './Home/Home'
 import Profile from './Profile/Profile'
 import EditProfile from './Profile/ProfileEdit'
-
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-
 import Wash from './washService/PageOne/Wash.js';
-import HomeWash from './washService/HomeWash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
 
 
@@ -29,21 +21,21 @@ const Stack = createNativeStackNavigator();
 
 
 export default function Main({ route, navigation }) {
-  const { email = "foulen@gmail.com", photoUrl = "imgUrl", familyName = "family Name", givenName = "given namr", name = "name", accessToken = "token" } = route.params
-  
   const navi = useNavigationContainerRef();
   return (
 
     <NavigationContainer independent={true} ref={navi}>
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-        <Stack.Screen name="Nav" component={Navbar} />
+        <Stack.Screen name="Nav"  >
+         {props=>(<Navbar na={navigation} navigation={navi} />)} 
+        </Stack.Screen>
         <Stack.Screen name="Reviews" component={Reviews} />
         <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Wash" component={Wash} />
         <Stack.Screen name="Confirmation" component={Confirmation} />
-        <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} /> 
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
@@ -53,7 +45,7 @@ export default function Main({ route, navigation }) {
         </View>
         <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
 
-          <Text onPress={() => { navigation.navigate('Login') }}>
+          <Text >
             <Ionicons name="notifications" size={30} color="black" />
           </Text>
         </View>
@@ -74,10 +66,3 @@ export default function Main({ route, navigation }) {
 
 
 
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
