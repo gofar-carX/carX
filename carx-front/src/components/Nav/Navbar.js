@@ -7,11 +7,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 export default function Navbar({ navigation, na }) {
     let LogOut = async () => {
         try {
-            console.log("hhhh")
             await AsyncStorage.removeItem('auth')
             na.navigate('Login')
             const data = await AsyncStorage.getItem('auth')
-            console.log(data)
         } catch (e) {
             console.error(e)
         }

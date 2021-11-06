@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { TouchableHighlight, SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput ,TouchableOpacity } from 'react-native';
+import {  SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput ,TouchableOpacity } from 'react-native';
 import tailwind from "tailwind-rn";
 import moment from 'moment'
 import axios from 'axios'
@@ -10,19 +10,26 @@ export default function Reviews({ navigation }) {
 
     const [reviews, setreviews] = useState([])
     const [comment, setComment] = useState('')
+    const [user,setUser]=useState('racem')
     
 
-    let  AddComment =  function () {
-        console.log(comment)
-        setComment('')
+    var  AddComment =  function () {
+        axios.post(process.env.rev,{user:user,message:comment['e']}).then((res)=>{
+            console.log(res)
+            setComment('')
+            fetch()
+        }) 
     }
 
-    useEffect(() => {
+    var fetch = function (){
         axios.get(process.env.rev).then((res) => {
             setreviews(res.data)
         })
             .catch((err) => alert(err))
+    }
 
+    useEffect(() => {
+        fetch()
     }, [])
     if (reviews == undefined) {
         return (
