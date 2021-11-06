@@ -25,10 +25,18 @@ const LOCATION_TASK_NAME = 'background-location-task';
 
   }, [])
   async function onPress (){
+    const { status } = await Location.requestPermissionsAsync();
+  if (status === "granted") {
     await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-      accuracy: Location.Accuracy.Balanced,
-      timeInterval: 5000,
+      accuracy: Location.Accuracy.BestForNavigation,
+      timeInterval: 3000,
+      foregroundService: {
+        notificationTitle: "BackgroundLocation Is On",
+        notificationBody: "We are tracking your location",
+        notificationColor: "#ffce52",
+      },
     });
+  }
   };
   function getAddressFromCoordinates({ latitude, longitude }) {
   return new Promise((resolve) => {
