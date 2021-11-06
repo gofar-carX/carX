@@ -1,13 +1,17 @@
 
 import React from 'react';
-import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { TouchableHighlight, SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import tailwind from "tailwind-rn";
+
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 export default function Navbar({ navigation }) {
     return (
         <SafeAreaView style={tailwind('h-full')}>
             <View style={tailwind(' pt-4 items-center ')}>
-                <View style={tailwind('flex flex-row  my-4')}>
+                <View style={tailwind(' flex flex-row  my-4')}>
                     <Text style={tailwind('text-4xl font-semibold ')}>
                         car
                     </Text>
@@ -15,7 +19,19 @@ export default function Navbar({ navigation }) {
                         X
                     </Text>
                 </View >
-                <ScrollView style={tailwind('h-4/6  min-w-full rounded-2xl flex ')}>
+                <View style={tailwind(' border-black flex flex-row')}>
+                    <TextInput
+                        style={tailwind(' m-2 p-0 items-start border-black  rounded-xl flex ')}
+                        placeholder="add a comment "
+
+                    />
+                    <TouchableHighlight style={tailwind('p-2 w-28 h-10 bg-yellow-600  text-lg rounded-lg 		')}>
+                        <Text style={tailwind(" text-center text-white ")}>Add</Text>
+                    </TouchableHighlight>
+
+
+                </View>
+                <ScrollView style={tailwind('h-5/6   min-w-full rounded-2xl flex ')}>
                     <View style={tailwind('w-11/12 m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}>
                         <Text>User</Text>
                         <Text>message is the message because the message is just trying to be a message thank you for this message </Text>
@@ -71,15 +87,8 @@ export default function Navbar({ navigation }) {
 
 
                 </ScrollView>
-                <View>
-                    <TextInput
-                        style={tailwind('w-11/12 m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}
-                        placeholder="add a comment "
-
-                    />
-                </View>
-
             </View>
+
         </SafeAreaView>
 
     );
