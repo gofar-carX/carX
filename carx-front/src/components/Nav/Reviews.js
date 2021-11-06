@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { TouchableHighlight, SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput ,TouchableOpacity } from 'react-native';
+import {  SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput ,TouchableOpacity } from 'react-native';
 import tailwind from "tailwind-rn";
 import moment from 'moment'
 import axios from 'axios'
@@ -8,23 +8,30 @@ import axios from 'axios'
 
 export default function Reviews({ navigation }) {
 
-    const [reviews, setreviews] = useState({})
+    const [reviews, setreviews] = useState([])
     const [comment, setComment] = useState('')
-    const [test, settest] = useState([])
+    const [user,setUser]=useState('racem')
+    
 
-    let  AddComment =  function () {
-        console.log(comment)
-        setComment('')
+    var  AddComment =  function () {
+        axios.post(process.env.rev,{user:user,message:comment['e']}).then((res)=>{
+            console.log(res)
+            setComment('')
+            fetch()
+        }) 
+    }
+
+    var fetch = function (){
+        axios.get(process.env.rev).then((res) => {
+            setreviews(res.data)
+        })
+            .catch((err) => alert(err))
     }
 
     useEffect(() => {
-        axios.get("https://haunted-cat-69690.herokuapp.com/reviews").then((res) => {
-            settest(res.data)
-        })
-            .catch((err) => alert(err))
-
+        fetch()
     }, [])
-    if (test == undefined) {
+    if (reviews == undefined) {
         return (
             <View><Text>loading ...</Text></View>
         );
@@ -38,7 +45,7 @@ export default function Reviews({ navigation }) {
                         <Text style={tailwind('text-4xl font-semibold ')}>
                             car
                         </Text>
-                        <Text style={tailwind('text-yellow-600 text-4xl font-semibold ')}>
+                        <Text style={tailwind('text-yellow-300 text-4xl font-semibold ')}>
                             X
                         </Text>
                     </View >
@@ -50,7 +57,7 @@ export default function Reviews({ navigation }) {
                             onChangeText={e => {setComment({ e })}}
                         />
                         <TouchableOpacity onPress={()=>{AddComment()}}>
-                        <View style={tailwind('p-2 w-28 h-10 bg-yellow-600  text-lg rounded-lg ')}>
+                        <View style={tailwind('p-2 w-28 h-10 bg-blue-600  text-lg rounded-lg ')}>
                             <Text style={tailwind(" text-center text-white ")}>Add</Text>
                         </View>
                         </TouchableOpacity>
@@ -58,10 +65,10 @@ export default function Reviews({ navigation }) {
 
                     </View>
                     <ScrollView style={tailwind('h-5/6   min-w-full rounded-2xl flex ')}>
-                        {test.map((el, key) =>
-                            <View key={key} style={tailwind(' m-2 p-4 items-start border-black bg-yellow-600 rounded-2xl flex ')}>
-                                <View style={tailwind(' flex flex-row ')}><Text>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('hour').fromNow()}</Text></View>
-                                <Text>{el.message}</Text>
+                        {reviews.map((el, key) =>
+                            <View key={key} style={tailwind(' m-2 p-4 items-start border-black bg-blue-600 rounded-2xl flex ')}>
+                                <View style={tailwind('  flex flex-row ')}><Text style={tailwind(' text-yellow-300  ')}>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('hour').fromNow()}</Text></View>
+                                <Text style={tailwind(' text-black ')}>{el.message}</Text>
                             </View>
                         )}
 
