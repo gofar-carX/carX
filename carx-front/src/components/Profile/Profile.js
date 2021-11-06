@@ -9,13 +9,13 @@ const Profile = ({ navigation }) => {
 
     const [user, setUser] = useState([]);
 
-    const baseUrl = 'http://localhost:5000';
-    useEffect(() => {
-        axios.get(`${baseUrl}/users`).then((response) => {
-            console.log(response.data);
-            setUser(response.data[0])
-        });
-    }, []);
+    // const baseUrl = 'http://localhost:5000';
+    // useEffect(() => {
+    //     axios.get(`${baseUrl}/users`).then((response) => {
+    //         console.log(response.data);
+    //         setUser(response.data[0])
+    //     });
+    // }, []);
 
 
 
@@ -24,10 +24,10 @@ const Profile = ({ navigation }) => {
             flexDirection: "column"
         }]}>
             <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#D9AF91" }}>X</Text></Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#FCD34D" }}>X</Text></Text>
             </View>
             <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#D9AF91" }}>User</Text></Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#FCD34D" }}>User</Text></Text>
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -51,7 +51,7 @@ const Profile = ({ navigation }) => {
                 <View style={{ alignItems: "flex-end", padding: 40, paddingTop: 25 }}>
                     <TouchableOpacity
                         onPress={() => { navigation.navigate('EditProfile', { user }) }}
-                        style={{ backgroundColor: '#d9af91', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
+                        style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 5
                         }}>Edit</Text>
