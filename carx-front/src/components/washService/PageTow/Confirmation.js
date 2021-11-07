@@ -45,7 +45,7 @@ function Confirmation({}) {
                         <Heading>This will Cost you</Heading>
                         <Text
                           fontSize="xs"
-                          _light={{ color: "yellow.700" }}
+                          _light={{ color: "blue.600" }}
                           _dark={{ color: "violet.300" }}
                           fontWeight="500"
                           alignItems="center"
@@ -60,7 +60,7 @@ function Confirmation({}) {
                       <Stack space={2}>
                         <Text
                           fontSize="xs"
-                          _light={{ color: "yellow.700" }}
+                          _light={{ color: "blue.600" }}
                           _dark={{ color: "violet.300" }}
                           fontWeight="500"
                           alignItems="center"
@@ -83,11 +83,11 @@ function Confirmation({}) {
         </View>
       </View>
       <View style={tailwind(" h-1/6 flex flex-row bg-gray-100 ")}>
-        <View style={tailwind(" w-2/12 ")}></View>
+        <View style={tailwind(" w-3/12 ")}></View>
         <View style={tailwind(" w-1/12  flex flex-col ")}>
 
         <View style={tailwind(" h-1/6  pl-8 ")}>
-      <TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+      <TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-32 h-10 bg-blue-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
           <Text style={tailwind(" text-center text-white ")}>
             Next
           </Text>
@@ -96,7 +96,7 @@ function Confirmation({}) {
       <View style={tailwind(" h-2/6  ")}></View>
 
 <View style={tailwind(" h-1/6  ")}>
-<TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-48 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+<TouchableHighlight onPress={()=>navigation.navigate('Confirmation')} style={ tailwind('p-2 w-48 h-10 bg-blue-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
   <Text style={tailwind(" text-center text-white ")}>
     Call us for more details
   </Text>
