@@ -6,10 +6,7 @@ import LogIn from './src/components/login/login.js';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './src/components/Main'
-import ChangePhoto from './src/components/Profile/changeImage'
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
-import ProfileEdit from "./src/components/Profile/ProfileEdit"
 const Stack = createNativeStackNavigator();
 
 
@@ -26,6 +23,7 @@ export default function App() {
     setSpinner(true)
   }, 500)
   return (
+    
 
 
     <>
@@ -51,10 +49,10 @@ export default function App() {
         <NavigationContainer independent={true} ref={nav}  >
           <Stack.Navigator screenOptions={{ headerShown: false }}  >
 
-
-            
             <Stack.Screen name="Login" component={LogIn} />
             <Stack.Screen name="Main" component={Main} />
+
+
 
 
 

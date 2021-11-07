@@ -1,29 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button ,ActivityIndicator} from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, TouchableOpacity } from "react-native";
 import { useState } from 'react';
 import axios from 'axios';
-export default function ConfirmSMS({navigation}) {
-   const [worngCode,setWrongCode]=useState(false)
-   const [code , setCode]=useState('')
-   const [spinner, setSpinner]=useState(false) 
-     let checkCode = function(){
-         setSpinner(true)
-        axios.get(`http://192.168.11.113:5000/phone/verif/${code}`)
-            .then((res)=>{ 
-                setTimeout(()=>{
-                navigation.navigate('Main')
-                 setSpinner(false)
-                },1500)
+export default function ConfirmSMS({ navigation }) {
+    const [worngCode, setWrongCode] = useState(false)
+    const [code1, setCode1] = useState('')
+    const [spinner1, setSpinner1] = useState(false)
+    let checkCode = function () {
+        setSpinner1(true)
+        console.log(typeof code1['text'])
+        axios.post(`https://haunted-cat-69690.herokuapp.com/phone/verif/${code1['text']}`)
+            .then(() => {
+
+                setTimeout(() => {
+                    navigation.navigate('Main')
+                    setSpinner1(false)
+
+                }, 500)
+
             })
-            .then(()=>{ 
+            .then(() => {
                 worngCode(false)
             })
-            .catch((err)=>{
+            .catch(() => {
                 setWrongCode(true)
-                setSpinner(true)
+                setSpinner1(false)
             })
-     } 
-       
+    }
+
     return (
 
         <>
@@ -33,30 +37,34 @@ export default function ConfirmSMS({navigation}) {
                     <TextInput
                         style={[styles.carx]}
                         placeholder="Confirmation Code"
-                        onChangeText={(text) =>setCode({text})}
+                        type="number"
+                        onChangeText={(text) => setCode1({ text })}
                     />
-                           {worngCode?<Text style={{color:"red"}}>Check the code </Text> : (<Text></Text>)&&false}
+                    {worngCode ? <Text style={{ color: "red" }}>Check the code </Text> : (<Text></Text>) && false}
 
                     <Text></Text>
                     <View >
                         <View
                             style={[styles.pressMe]}>
-                    
-                             <View style={[styles.prGoogle1]} >
-                      <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                      
-                      {spinner?  <ActivityIndicator color="white" size="large" style={{ alignSelf: "center" }} />
-                        :<>
-                            <Text onPress={checkCode} style={{ color: "white" }}>CONFIRM</Text>
-                          </>}
-                       
+
+                            <View style={[styles.prGoogle1]} >
+                                <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+
+                                    {spinner1 ? <ActivityIndicator color="white" size="large" style={{ alignSelf: "center" }} />
+                                        : <>
+                                            <Text onPress={checkCode} style={{ color: "white" }}>CONFIRM</Text>
+                                        </>}
 
 
 
-                      </View>
-                    </View>
-                             <Text onPress={navigation.navigate('Login')} style={{alignSelf: 'flex-end',color:'white',padding:10}}>send code again</Text>   
+
+                                </View>
+                            </View>
+                            <TouchableOpacity>
+                                <Text onPress={navigation.navigate('Login')} style={{ alignSelf: 'flex-end', color: 'white', padding: 10 }}>send code again</Text>
+                            </TouchableOpacity>
                         </View>
+
                     </View>
                     <Text></Text>
                 </View>
@@ -116,14 +124,14 @@ const styles = StyleSheet.create({
         letterSpacing: -1,
         textAlign: "center",
         backgroundColor: "white"
-      },
-      prGoogle1: {
+    },
+    prGoogle1: {
         borderWidth: 1,
         borderRadius: 10,
         width: 271,
-    
+
         backgroundColor: "#D9AF91",
         height: 40,
         padding: 8
-      }
+    }
 });

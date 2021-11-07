@@ -19,15 +19,29 @@ export default function LogIn({ navigation }) {
   const [erorr1, setErorrPhone] = useState(false)
   const [check,setCheck]=useState(false)
   let handleLoinWithPhone = function () {
+     if(phone["e"] ==null){
+        setCheck(true)
+        return
+        
+     }  
+     if(phone["e"].length !==12){
+      setCheck(true)
+      return 
+    } 
+    if(phone["e"].length==12){
+      setCheck(false)
+    }
     setSpinner(true)
+    console.log(phone["e"])
     axios
-      .get(`http://192.168.27.128:5000/phone/send/${phone}`).then((res) => {
-        setErorrPhone(false)
-
-        setTimeout(() => {
+      .get(`https://haunted-cat-69690.herokuapp.com/phone/send/${phone["e"]}`).then((res) => {
+        
+          setErorrPhone(false)
+          setTimeout(() => {
           setNavigate(true)
-        }, 1500)
-        setTimeout(() => setSpinner(false), 1500)
+          setSpinner(false)
+        }, 500)
+        setTimeout(() => setSpinner(false), 500)
       }).catch((err) => {
         console.log(err)
         setNavigate(false)
@@ -50,6 +64,7 @@ let st = check ==false ? 'black':'red'
     const config = {
       iosClientId: `741420364536-suf5j1kib19o0nfl1h9cqco18eou6r0u.apps.googleusercontent.com`,
       androidClientId: `741420364536-f3glchvm0p8qt5nkkhsv7rnbgec6op8i.apps.googleusercontent.com`,
+      androidStandaloneAppClientId :'759598068494-hg5cakbf3gpfntdoaasqi0a8dqd6r9j9.apps.googleusercontent.com',
       scopes: ['profile', 'email']
     }
       try{
@@ -59,9 +74,10 @@ let st = check ==false ? 'black':'red'
         if(type=='success'){
           await AsyncStorage.setItem("auth",data)  
         }
+        
         setErorr(false)
         setTimeout(() => setBool(false), 100)
-          //  navigation.navigate("Main")    
+           navigation.navigate("Main")    
       }catch(e){
         setBool(false)
         setErorr(true)
