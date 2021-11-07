@@ -21,13 +21,17 @@ const ProfileEdit = ({ route }) => {
     const [Phonenumber, setPhonenumber] = useState('');
     const [Car, setCar] = useState('');
     let [photo, setSelectedImage] = useState(null);
-    const uploadedImage = async () => {
-        try {
-            const result = axios.post("https://haunted-cat-69690.herokuapp.com/users/upload")
-            console.log(result)
-        } catch (err) {
-            console.log("error uploading")
-        }
+    const uploadedImage =  () => {
+
+        const fd = new FormData();
+        fd.append('file',photo)
+         axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/${1}`,fd).then((res)=>{
+             console.log(res)
+         })
+         .catch((err)=>{
+             console.log(err)
+         })
+
 
         }
 
@@ -118,7 +122,7 @@ const ProfileEdit = ({ route }) => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={() => alert('PRESS ME!')}
+                        onPress={uploadedImage}
                         style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
