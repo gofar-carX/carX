@@ -74,6 +74,13 @@ let st = check ==false ? 'black':'red'
         if(type=='success'){
           await AsyncStorage.setItem("auth",data)  
         }
+       
+          const { name , email ,photoUrl   }=user
+          const saveDataIntoDataBase = await  axios.post("https://haunted-cat-69690.herokuapp.com/users",{
+                 name:name,
+                 email:email,
+                 photo:photoUrl,
+                 })
         
         setErorr(false)
         setTimeout(() => setBool(false), 100)

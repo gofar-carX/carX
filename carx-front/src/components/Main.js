@@ -1,5 +1,5 @@
 
-import React  from 'react';
+import React ,{useState, useEffect}  from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
+import axios from 'axios';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +22,16 @@ const Stack = createNativeStackNavigator();
 
 
 export default function Main({ route, navigation }) {
+
+    useEffect(()=>{
+      axios.get("https://haunted-cat-69690.herokuapp.com/users").then((result)=>{ 
+        console.log(result)
+      })
+
+
+    },[])
+
+
   const navi = useNavigationContainerRef();
   return (
 
