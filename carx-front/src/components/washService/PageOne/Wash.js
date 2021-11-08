@@ -10,11 +10,22 @@ const LOCATION_TASK_NAME = 'background-location-task';
 
 const Wash = ({ navigation }) => {
 
-  let [service, setService] = useState("");
+
   let [carType , setCarType] = useState("");
   let [washType , setWashType] = useState("")
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  let SendForm = ()=>{
+    if(location){
+      
+      console.log(carType,washType,location.coords.latitude,location.coords.longitude)
+    }
+    else{
+     alert('you need to activate your location') 
+    }
+    
+  }
 
   useEffect(() => {
     (async () => {
@@ -48,13 +59,13 @@ const Wash = ({ navigation }) => {
 
         </View>
         <View style={tailwind(" h-4/6 bg-white flex flex-row  ")}>
-          <View style={tailwind(" w-3/12    ")}></View>
+          <View style={tailwind(" w-3/12  ")}></View>
           <View style={tailwind(" w-6/12  flex flex-col   ")}>
             <View style={tailwind(" h-1/6")}></View>
             <View style={tailwind(" h-1/6 items-center	  ")}>
               <VStack alignItems="center" space={4}>
                 <Select
-                  selectedValue={service}
+                  selectedValue={carType}
                   minWidth="150"
                   minHeight="8"
                   accessibilityLabel="Choose Service"
@@ -66,34 +77,31 @@ const Wash = ({ navigation }) => {
                   mt={1}
                   onValueChange={(itemValue) => setCarType(itemValue)}
                 >
-                  <Select.Item label="UX Research" value="ux" />
-                  <Select.Item label="Web Development" value="web" />
-                  <Select.Item label="Cross Platform Development" value="cross" />
-                  <Select.Item label="UI Designing" value="ui" />
-                  <Select.Item label="Backend Development" value="backend" />
+                  <Select.Item label="Regular" value="Regular" />
+                  <Select.Item label="Pickup" value="Pickup" />
+                  <Select.Item label="Van" value="Van" />
+                  <Select.Item label="Truck" value="Truck" />
                 </Select>
               </VStack>
             </View>
             <View style={tailwind(" h-1/6 items-center  ")}>
               <VStack alignItems="center" space={4}>
                 <Select
-                  selectedValue={service}
+                  selectedValue={washType}
                   minWidth="150"
                   minHeight="8"
                   accessibilityLabel="Choose Service"
-                  placeholder="Localisation"
+                  placeholder="Wash Type"
                   _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />,
                   }}
                   mt={1}
-                  onValueChange={(itemValue) => setService(itemValue)}
+                  onValueChange={(itemValue) => setWashType(itemValue)}
                 >
-                  <Select.Item label="UX Research" value="ux" />
-                  <Select.Item label="Web Development" value="web" />
-                  <Select.Item label="Cross Platform Development" value="cross" />
-                  <Select.Item label="UI Designing" value="ui" />
-                  <Select.Item label="Backend Development" value="backend" />
+                  <Select.Item label="Interior" value="In" />
+                  <Select.Item label="Exterior" value="Ex" />
+                  <Select.Item label="All" value="All" />
                 </Select>
               </VStack>
             </View>
@@ -121,7 +129,7 @@ const Wash = ({ navigation }) => {
         <View style={tailwind("  w-4/12 items-center  flex flex-col")}>
           <View style={tailwind(" h-1/6   ")}></View>
           <View>
-            <TouchableHighlight onPress={() => navigation.navigate('Confirmation')} style={tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
+            <TouchableHighlight onPress={() => SendForm()} style={tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
               <Text style={tailwind(" text-center text-white ")}>
                 Next
               </Text>

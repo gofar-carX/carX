@@ -23,13 +23,13 @@ const Stack = createNativeStackNavigator();
 
 export default function Main({ route, navigation }) {
 
-    useEffect(()=>{
-      axios.get("https://haunted-cat-69690.herokuapp.com/users").then((result)=>{ 
-        console.log(result)
-      })
+    // useEffect(()=>{
+    //   axios.get("https://haunted-cat-69690.herokuapp.com/users").then((result)=>{ 
+        
+    //   })
 
 
-    },[])
+    // },[])
 
 
   const navi = useNavigationContainerRef();
