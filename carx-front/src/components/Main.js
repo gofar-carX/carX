@@ -1,5 +1,5 @@
 
-import React ,{useState, useEffect}  from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
@@ -15,21 +15,34 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
-
+import AsyncStorage from "@react-native-async-storage/async-storage"
 const Stack = createNativeStackNavigator();
 
 
 
 export default function Main({ route, navigation }) {
-
-    useEffect(()=>{
-      axios.get("https://haunted-cat-69690.herokuapp.com/users").then((result)=>{ 
-        console.log(result)
-      })
-
-
-    },[])
+  const [userData, setUserData] = useState([])
+  const [id, setID]=useState(1)
+  useEffect(() => {
+    AsyncStorage.getItem('auth').then((result) => {
+      let userId = jwtDecode(result)
+      setID(userId.user_id)
+    
+    axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
+      setUserData(jwtDecode(result.data.Token))
+      
+     
+    }).catch((error) => {
+      console.log(error)
+    })
+  
+    }).catch((error) => {
+      console.log(error)
+    })
+   
+  }, [])
 
 
   const navi = useNavigationContainerRef();
@@ -39,7 +52,7 @@ export default function Main({ route, navigation }) {
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
         <Stack.Screen name="Nav"  >
-         {props=>(<Navbar na={navigation} navigation={navi} />)} 
+          {props => (<Navbar na={navigation} navigation={navi} />)}
         </Stack.Screen>
         <Stack.Screen name="Reviews" component={Reviews} />
         <Stack.Screen name="Test" component={Test} />
