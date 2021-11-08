@@ -2,49 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { TouchableHighlight, TouchableOpacity, Text, View } from "react-native";
 import tailwind from "tailwind-rn";
 import Nav from "./Nav";
-import {Select,VStack,CheckIcon,Center,NativeBaseProvider,} from "native-base"
+import { Select, VStack, CheckIcon, Center, NativeBaseProvider, } from "native-base"
 import axios from "axios";
 import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
-const LOCATION_TASK_NAME = 'background-location-task';
+const LOCATION_TASK_NAME = 'foreground-location-task';
 
-const Wash = ({ navigation }) => {
+const Wash = ({ navigation, user }) => {
 
 
-  let [carType , setCarType] = useState("");
-  let [washType , setWashType] = useState("")
+  let [carType, setCarType] = useState("");
+  let [washType, setWashType] = useState("")
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const userId="2"
+  let [id, setid] = useState("")
 
-  let SendForm = ()=>{
-    if(location){
-      console.log(process.env.req,carType,washType,location.coords.latitude,location.coords.longitude,userId)
-      // console.log(carType,washType,location.coords.latitude,location.coords.longitude)
-      axios.post(process.env.req,{typeOfCar:carType,typeOfWash:washType,positionx:location.coords.longitude,positiony:location.coords.latitude,user:userId})
-      .then(()=>{
-        alert("your request has been send we will respond shortly")
-        navigation.navigate('Home')
-    })
-    .catch((err)=>alert(err))
-      
+  let SendForm = () => {
+    if (location) {
+      axios.post(process.env.req, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id})
+        .then(() => {
+          alert("your request has been send we will respond shortly")
+          navigation.navigate('Home')
+        })
+        .catch((err) => alert(err))
+
     }
-    else{
-     alert('you need to activate your location') 
+    else {
+      alert('you need to activate your location')
     }
-    
+
   }
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+   
+        let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      setid(user.user_id)
     })();
   }, []);
 
@@ -114,7 +113,7 @@ const Wash = ({ navigation }) => {
               </VStack>
             </View>
             <View style={tailwind(" h-1/6 items-center  ")}>
-              <VStack alignItems="center" space={8}  minHeight="128" >
+              <VStack alignItems="center" space={8} minHeight="128" >
                 <TouchableOpacity  >
                   <Text style={tailwind("  text-center text-gray-500 pt-8 ")}>{text} </Text>
                 </TouchableOpacity>
@@ -152,11 +151,11 @@ const Wash = ({ navigation }) => {
 
 }
 
-export default function WashPage({ navigation }) {
+export default function WashPage({ navigation ,user }) {
   return (
     <NativeBaseProvider>
       <Center flex={1} px="3">
-        <Wash navigation={navigation} />
+        <Wash navigation={navigation} user={user} />
       </Center>
     </NativeBaseProvider>
   )
