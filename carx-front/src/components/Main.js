@@ -24,24 +24,23 @@ const Stack = createNativeStackNavigator();
 
 export default function Main({ route, navigation }) {
   const [userData, setUserData] = useState([])
-  const [id, setID]=useState(1)
+  const [id, setID] = useState(1)
   useEffect(() => {
     AsyncStorage.getItem('auth').then((result) => {
       let userId = jwtDecode(result)
       setID(userId.user_id)
-    
-    axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
-      setUserData(jwtDecode(result.data.Token))
-      
-     
+
+      axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
+        setUserData(jwtDecode(result.data.Token))
+
+      }).catch((error) => {
+        console.log(error)
+      })
+
     }).catch((error) => {
       console.log(error)
     })
-  
-    }).catch((error) => {
-      console.log(error)
-    })
-   
+
   }, [])
 
 
@@ -50,16 +49,34 @@ export default function Main({ route, navigation }) {
 
     <NavigationContainer independent={true} ref={navi}>
       <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" >
+          {props => (<Home navigation={navi} user={userData} />)}
+        </Stack.Screen>
+
         <Stack.Screen name="Nav"  >
           {props => (<Navbar na={navigation} navigation={navi} />)}
         </Stack.Screen>
-        <Stack.Screen name="Reviews" component={Reviews} />
+
+        <Stack.Screen name="Reviews"  >
+          {props => (<Reviews navigation={navi} user={userData} />)}
+        </Stack.Screen>
+
         <Stack.Screen name="Test" component={Test} />
-        <Stack.Screen name="Wash" component={Wash} />
+
+        <Stack.Screen name="Wash" >
+          {props => (<Wash navigation={navi} user={userData} />)}
+        </Stack.Screen>
+
         <Stack.Screen name="Confirmation" component={Confirmation} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
+
+        <Stack.Screen name="Profile" >
+          {props => (<Profile navigation={navi} user={userData} />)}
+        </Stack.Screen>
+
+        <Stack.Screen name="EditProfile"  >
+        {props => (<EditProfile navigation={navi} user={userData} />)}
+        </Stack.Screen>
+
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>

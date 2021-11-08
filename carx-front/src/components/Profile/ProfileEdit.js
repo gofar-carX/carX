@@ -8,14 +8,9 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({ route }) => {
+const ProfileEdit = ({  }) => {
 
-    const [user, setUser] = useState({
-        fullName: route.params.fullName,
-        Email: route.params.Email,
-        Phonenumber: route.params.Phonenumber,
-        Car: route.params.Car
-    })
+    
     const [fullName, setFullName] = useState('');
     const [Email, setEmail] = useState('');
     const [Phonenumber, setPhonenumber] = useState('');
