@@ -56,6 +56,7 @@ export default function LogIn({ navigation }) {
   useEffect(() => {
     AsyncStorage.getItem('auth').then((data) => {
       if (data !== null) { navigation.navigate('Main') }
+    
     })
   }, [])
 
@@ -73,13 +74,10 @@ export default function LogIn({ navigation }) {
       const { type, user } = dataFromGoogle
       if (type == 'success') {
         const data =JSON.stringify(user)
-      console.log(user)
       const {email,name,photoUrl}=user
-      console.log(email,name,photoUrl)
        axios.post(`https://haunted-cat-69690.herokuapp.com/users`,{
         name:name, email:email,photo:photoUrl
        }).then((response)=>{
-        console.log(response.data,"here")
         AsyncStorage.setItem("auth",response.data.Token).then((response_)=>{
           navigation.navigate("Main")
           setBool(false)
