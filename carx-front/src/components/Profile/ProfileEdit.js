@@ -20,12 +20,15 @@ const ProfileEdit = ({ route }) => {
     const [Email, setEmail] = useState('');
     const [Phonenumber, setPhonenumber] = useState('');
     const [Car, setCar] = useState('');
-    let [photo, setSelectedImage] = useState(null);
+    let [file, setSelectedImage] = useState(null);
     const uploadedImage =  () => {
-
+console.log(file.localUri)
         const fd = new FormData();
-        fd.append('file',photo)
-         axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/${1}`,fd).then((res)=>{
+        fd.append('file',{
+            uri:file.localUri,
+            type: 'image'
+        } )
+         axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/1`,fd).then((res)=>{
              console.log(res)
          })
          .catch((err)=>{
@@ -33,6 +36,14 @@ const ProfileEdit = ({ route }) => {
          })
 
 
+        }
+       const  updateUser=()=>{
+        const data = {id:1,name:fullName,email:Email,phone:parseInt(Phonenumber)}
+        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit",data).then((response)=>{
+            console.log(response)
+        }).catch((error)=>{
+            console.log(error)
+        })
         }
 
     let openImagePickerAsync = async () => {
@@ -67,10 +78,10 @@ const ProfileEdit = ({ route }) => {
 
                             <Text >
                                 {
-                                    photo == null ?
+                                    file == null ?
                                         <EvilIcons name="user" size={160} color="black" />
                                         : <View style={styles.container}>
-                                            <Image source={{ uri: photo.localUri }} style={styles.thumbnail} />
+                                            <Image source={{ uri: file.localUri }} style={styles.thumbnail} />
                                         </View>}
                                 <TouchableOpacity onPress={openImagePickerAsync} >
                                     <MaterialCommunityIcons name="image-edit-outline" size={24} color="black" />
@@ -122,7 +133,7 @@ const ProfileEdit = ({ route }) => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={uploadedImage}
+                        onPress={updateUser}
                         style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
