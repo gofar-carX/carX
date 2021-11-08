@@ -15,11 +15,19 @@ const Wash = ({ navigation }) => {
   let [washType , setWashType] = useState("")
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const userId="2"
 
   let SendForm = ()=>{
     if(location){
+      console.log(process.env.req,carType,washType,location.coords.latitude,location.coords.longitude,userId)
+      // console.log(carType,washType,location.coords.latitude,location.coords.longitude)
+      axios.post(process.env.req,{typeOfCar:carType,typeOfWash:washType,positionx:location.coords.longitude,positiony:location.coords.latitude,user:userId})
+      .then(()=>{
+        alert("your request has been send we will respond shortly")
+        navigation.navigate('Home')
+    })
+    .catch((err)=>alert(err))
       
-      console.log(carType,washType,location.coords.latitude,location.coords.longitude)
     }
     else{
      alert('you need to activate your location') 
