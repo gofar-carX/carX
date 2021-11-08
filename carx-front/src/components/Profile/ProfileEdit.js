@@ -1,26 +1,62 @@
 import React, { useState } from 'react';
+
+import { EvilIcons } from '@expo/vector-icons';
+import axios from 'axios'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
-const ProfileEdit = ({ route }) => {
-    // const {user} = route.params;
 
-    const [user, setUser] = useState({
-        fullName: route.params.fullName,
-        Email: route.params.Email,
-        Phonenumber: route.params.Phonenumber,
-        Car: route.params.Car
-    })
+
+import * as ImagePicker from 'expo-image-picker';
+const ProfileEdit = ({  }) => {
+
+    
     const [fullName, setFullName] = useState('');
     const [Email, setEmail] = useState('');
     const [Phonenumber, setPhonenumber] = useState('');
     const [Car, setCar] = useState('');
+    let [file, setSelectedImage] = useState(null);
+    const uploadedImage =  () => {
+console.log(file.localUri)
+        const fd = new FormData();
+        fd.append('file',{
+            uri:file.localUri,
+            type: 'image'
+        } )
+         axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/1`,fd).then((res)=>{
+             console.log(res)
+         })
+         .catch((err)=>{
+             console.log(err)
+         })
 
-    // console.log(route.params)
 
-    // console.log('this ====>fullName', fullName);
-    // console.log('this ====>Email', Email);
-    // console.log('this ====>Phonenumber', Phonenumber);
-    // console.log('this ====>Car', Car);
+        }
+       const  updateUser=()=>{
+        const data = {id:1,name:fullName,email:Email,phone:parseInt(Phonenumber)}
+        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit",data).then((response)=>{
+            console.log(response)
+        }).catch((error)=>{
+            console.log(error)
+        })
+        }
+
+    let openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (permissionResult.granted === false) {
+            alert('Permission to access camera roll is required!');
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        if (pickerResult.cancelled === true) {
+            return;
+        }
+
+        setSelectedImage({ localUri: pickerResult.uri });
+    };
+
+
 
     return (
         <View style={{
@@ -28,16 +64,28 @@ const ProfileEdit = ({ route }) => {
             flexDirection: 'column',
 
         }}>
-            {/* <View style={{ height: 100 }} ></View> */}
             <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }}>Car<Text style={{ color: '#FCD34D', textAlign: 'center' }}>X</Text></Text></View>
-            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }} >welcome</Text><Text style={{ fontSize: 36, fontStyle: 'normal', color: '#FCD34D', textAlign: 'center' }}>User</Text></View>
-            <View style={{ height: 100 }}>
+            <View style={{ height: 200 }}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
-                    <Image
-                        source={{ uri:'https://m.media-amazon.com/images/I/41jLBhDISxL._SY355_.jpg',}}
-                        style={{ width: 100, height: 100, borderRadius: 200 / 2 }}
-                    />
+
+                    <>
+                        <View style={styles.container}>
+
+                            <Text >
+                                {
+                                    file == null ?
+                                        <EvilIcons name="user" size={160} color="black" />
+                                        : <View style={styles.container}>
+                                            <Image source={{ uri: file.localUri }} style={styles.thumbnail} />
+                                        </View>}
+                                <TouchableOpacity onPress={openImagePickerAsync} >
+                                    <MaterialCommunityIcons name="image-edit-outline" size={24} color="black" />
+                                </TouchableOpacity>
+                            </Text>
+                        </View>
+                    </>
                 </View>
+
             </View>
             <View style={{ justifyContent: 'space-around' }}>
                 <TextInput
@@ -80,7 +128,7 @@ const ProfileEdit = ({ route }) => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={() => alert('PRESS ME!')}
+                        onPress={updateUser}
                         style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
@@ -101,6 +149,16 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#EBEBEB',
         borderRadius: 40
+    },
+    container: {
+        // flex: 0.5,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+    },
+    thumbnail: {
+        width: 125,
+        height: 125,
+        borderRadius: 300,
     },
 });
 export default ProfileEdit;

@@ -6,6 +6,7 @@ const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-c
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import jwtDecode from 'jwt-decode';
 export default function LogIn({ navigation }) {
 
 
@@ -19,16 +20,29 @@ export default function LogIn({ navigation }) {
   const [erorr1, setErorrPhone] = useState(false)
   const [check, setCheck] = useState(false)
   let handleLoinWithPhone = function () {
+     if(phone["e"] ==null){
+        setCheck(true)
+        return
+        
+     }  
+     if(phone["e"].length !==12){
+      setCheck(true)
+      return 
+    } 
+    if(phone["e"].length==12){
+      setCheck(false)
+    }
     setSpinner(true)
+    console.log(phone["e"])
     axios
-      .get(`http://192.168.27.128:5000/phone/send/${phone}`).then((res) => {
-        setErorrPhone(false)
-
-        setTimeout(() => {
+      .get(`https://haunted-cat-69690.herokuapp.com/phone/send/${phone["e"]}`).then((res) => {
+        
+          setErorrPhone(false)
+          setTimeout(() => {
           setNavigate(true)
           setSpinner(false)
-        }, 1500)
-        setTimeout(() => setSpinner(false), 1500)
+        }, 500)
+        setTimeout(() => setSpinner(false), 500)
       }).catch((err) => {
         console.log(err)
         setNavigate(false)
@@ -42,6 +56,7 @@ export default function LogIn({ navigation }) {
   useEffect(() => {
     AsyncStorage.getItem('auth').then((data) => {
       if (data !== null) { navigation.navigate('Main') }
+    
     })
   }, [])
 
@@ -57,14 +72,26 @@ export default function LogIn({ navigation }) {
     try {
       const dataFromGoogle = await Google.logInAsync(config)
       const { type, user } = dataFromGoogle
-      const data = JSON.stringify(user)
       if (type == 'success') {
-        await AsyncStorage.setItem("auth", data)
+        const data =JSON.stringify(user)
+      const {email,name,photoUrl}=user
+       axios.post(`https://haunted-cat-69690.herokuapp.com/users`,{
+        name:name, email:email,photo:photoUrl
+       }).then((response)=>{
+        AsyncStorage.setItem("auth",response.data.Token).then((response_)=>{
+          navigation.navigate("Main")
+          setBool(false)
+        }).catch((error)=>{
+          console.log(error)
+        })
+      }).catch((error)=>{
+        console.log(error)
+      })
+     
       }
-      setErorr(false)
-      setTimeout(() => setBool(false), 100)
-      navigation.navigate("Main")
+      
     } catch (e) {
+      console.error(e)
       setBool(false)
       setErorr(true)
     }
