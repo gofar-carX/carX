@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function NavigationBar({ navigation,user }) {
+export default function NavigationBar({ navigation, user }) {
     return (
         <View style={[styles.container, {
 
@@ -11,7 +11,6 @@ export default function NavigationBar({ navigation,user }) {
         }]}>
             <View style={{ flex: 1, justifyContent: "center" }} >
                 <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#FCD34D" }}>X</Text></Text>
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#FCD34D" }}>{user.name}</Text></Text>
             </View>
 
             <View style={{ flex: 3, backgroundColor: "#2563EB", borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: "space-evenly" }} >
@@ -34,9 +33,6 @@ export default function NavigationBar({ navigation,user }) {
 
                     </TouchableOpacity>
                 </View>
-
-
-
 
 
                 <View style={{ flex: 0.2, backgroundColor: "#ffffff", width: 300, alignSelf: "center", borderRadius: 20 }}>
@@ -68,7 +64,7 @@ export default function NavigationBar({ navigation,user }) {
                             </View>
 
                             <View style={{ flex: 0.4, alignSelf: "center" }}>
-                                <Text style={{ fontSize: 18 , color:'black' }}>Repair</Text>
+                                <Text style={{ fontSize: 18, color: 'black' }}>Repair</Text>
                             </View>
 
                         </View>

@@ -4,17 +4,11 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import axios from 'axios';
 
 
-const Profile = ({ navigation }) => {
+const Profile = ({ navigation , user }) => {
 
 
-    const [user, setUser] = useState([]);
-
-    // const baseUrl = 'http://localhost:5000';
     // useEffect(() => {
-    //     axios.get(`${baseUrl}/users`).then((response) => {
-    //         console.log(response.data);
-    //         setUser(response.data[0])
-    //     });
+    //    console.log(user)
     // }, []);
 
 
@@ -27,7 +21,7 @@ const Profile = ({ navigation }) => {
                 <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#FCD34D" }}>X</Text></Text>
             </View>
             <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#FCD34D" }}>User</Text></Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#FCD34D" }}>{user.name}</Text></Text>
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -42,15 +36,16 @@ const Profile = ({ navigation }) => {
                 </View>
             </View>
             <View style={{ flex: 2, justifyContent: 'center', justifyContent: 'space-around' }}>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Full Name</Text>{user.name}</Text></View>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Email</Text>{user.email}</Text></View>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Phone Number</Text>{user.phone}</Text></View>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Car Model</Text>{user.car}</Text></View>
+                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Full Name : </Text>{user.name}</Text></View>
+                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Email : </Text>{user.email}</Text></View>
+
+                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Phone Number : </Text>{user.phone || "no phone number yet"}</Text></View>
+               
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: "flex-end", padding: 40, paddingTop: 25 }}>
                     <TouchableOpacity
-                        onPress={() => { navigation.navigate('EditProfile', { user }) }}
+                        onPress={() => { navigation.navigate('EditProfile') }}
                         style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 5
