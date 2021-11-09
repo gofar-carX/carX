@@ -115,16 +115,7 @@ console.log(file.localUri)
                     />
                 </View>
             </View>
-            <View>
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Car Model"
-                        onChangeText={text => setCar(text)}
-                        value={Car}
-                    />
-                </View>
-            </View>
+          
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
