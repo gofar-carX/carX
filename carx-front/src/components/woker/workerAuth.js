@@ -27,12 +27,12 @@ export default function workerAuth({ navigation }) {
                             <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
                                 <TextInput
                                     style={[styles.carx, {
-                                        color: st
+                                       
                                     }]}
                                     placeholder="+216 99 999 999"
                                 
                                 />
-                                {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
+                              
                                 <Text></Text>
                                 <View >
                                     <View style={[styles.pressMe]}>
