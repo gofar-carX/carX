@@ -13,7 +13,7 @@ export default function ConfirmSMS({ navigation }) {
         AsyncStorage.getItem("phoneVerife").then(res=>{
          const dataToVerif = JSON.parse(res)  
         
-           return  code1["text"] == dataToVerif.verifCode?navigation.navigate('Main'):AsyncStorage.removeItem('auth')
+     return  code1["text"] == dataToVerif.verifCode?navigation.navigate('Main'):AsyncStorage.removeItem('auth')
             
             
         })
