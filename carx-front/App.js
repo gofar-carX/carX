@@ -5,7 +5,7 @@ import LogIn from './src/components/login/login.js';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './src/components/Main'
-// import workerAuth from './src/components/woker/workerAuth'
+import workerAuth from './src/components/woker/workerAuth'
 
 
 const Stack = createNativeStackNavigator();

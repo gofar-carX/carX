@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
 import axios from 'axios';
+import Notifications from "./notification/notification"
 import jwtDecode from 'jwt-decode';
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -31,7 +32,7 @@ export default function Main({ route, navigation }) {
      
       let userId = jwtDecode(result)
       axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
-        console.log(result)
+     
         setUserData(result.data.data[0])
         
         
@@ -78,7 +79,9 @@ export default function Main({ route, navigation }) {
         <Stack.Screen name="EditProfile"  >
         {props => (<EditProfile navigation={navi} user={userData} />)}
         </Stack.Screen>
-
+        <Stack.Screen name="notification"  >
+        {props => (<Notifications navigation={navi} user={userData} />)}
+        </Stack.Screen>
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
@@ -89,7 +92,9 @@ export default function Main({ route, navigation }) {
         <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
 
           <Text >
+            <Text onPress={() => { navi.navigate("notification")}}>
             <Ionicons name="notifications" size={30} color="black" />
+            </Text>
           </Text>
         </View>
         <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
