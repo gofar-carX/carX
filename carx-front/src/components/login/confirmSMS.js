@@ -1,25 +1,40 @@
-import React from 'react';
+import React ,{useState, useEffect}from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, TouchableOpacity } from "react-native";
-import { useState } from 'react';
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function ConfirmSMS({ navigation }) {
     const [worngCode, setWrongCode] = useState(false)
     const [code1, setCode1] = useState(0)
     const [spinner1, setSpinner1] = useState(false)
-    
-    let checkCode =  function () {
+    useEffect(() => {
+        AsyncStorage.getItem('auth').then((data) => {
+          if (data !== null) {
+             navigation.navigate('Main')
+            return;
+            }
+        })
+      }, [])
+    let checkCode = function () {
         setSpinner1(true)
         AsyncStorage.getItem("phoneVerife").then(res=>{
          const dataToVerif = JSON.parse(res)  
         
-     return  code1["text"] == dataToVerif.verifCode?navigation.navigate('Main'):AsyncStorage.removeItem('auth')
+      if(code1["text"] == dataToVerif.verifCode){
+
+            navigation.navigate("Main")
+            AsyncStorage.setItem("auth", dataToVerif.Token)    
+      }else{
+        setWrongCode(true)
+        return 
+      }
             
             
         })
-       
-}
-  
+    }
+
+
     return (
 
         <>
