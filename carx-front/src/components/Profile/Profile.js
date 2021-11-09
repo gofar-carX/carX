@@ -36,8 +36,8 @@ const Profile = ({ navigation , user }) => {
                 </View>
             </View>
             <View style={{ flex: 2, justifyContent: 'center', justifyContent: 'space-around' }}>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Full Name : </Text>{user.name}</Text></View>
-                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Email : </Text>{user.email}</Text></View>
+                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Full Name : </Text>{user.name || 'no name yet'}</Text></View>
+                <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Email : </Text>{user.email || 'no email yet'}</Text></View>
 
                 <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Phone Number : </Text>{user.phone || "no phone number yet"}</Text></View>
                
