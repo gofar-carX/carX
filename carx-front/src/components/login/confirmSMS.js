@@ -20,11 +20,10 @@ export default function ConfirmSMS({ navigation }) {
         setSpinner1(true)
         AsyncStorage.getItem("phoneVerife").then(res => {
             const dataToVerif = JSON.parse(res)
-
             if (code1["text"] == dataToVerif.verifCode) {
-
-                navigation.navigate("Main")
                 AsyncStorage.setItem("auth", dataToVerif.Token)
+                navigation.navigate("Main")
+                return ;
             } else {
                 setWrongCode(true)
                 return
