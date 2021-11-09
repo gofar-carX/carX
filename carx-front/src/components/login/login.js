@@ -38,26 +38,23 @@ export default function LogIn({ navigation }) {
       setCheck(false)
     }
     setSpinner(true)
-    console.log(phone["e"])
-    axios
-      .post(`https://haunted-cat-69690.herokuapp.com/users/send/${phone["e"]}`).then((res) => {
-        
-        setCodeVerfication(res.data.verifCode)
 
-        AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
-        setErorrPhone(false)
-        setNavigate(true)
-        setSpinner(false)
-      
-     
-       return ;
-      }).catch((err) => {
-        console.log(err)
-        setNavigate(false)
-        setSpinner(false)
-        setErorrPhone(true)
-        return 
-      })
+    axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
+      setCodeVerfication(res.data.verifCode)
+      AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
+      setErorrPhone(false)
+      setNavigate(true)
+      setSpinner(false)
+
+
+      return;
+    }).catch((err) => {
+      console.log(err)
+      setNavigate(false)
+      setSpinner(false)
+      setErorrPhone(true)
+      return
+    })
 
 
   }
@@ -175,6 +172,8 @@ export default function LogIn({ navigation }) {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <Text></Text>
+                <Text onPress={navigation.navigate('WorkerAuth')}>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
