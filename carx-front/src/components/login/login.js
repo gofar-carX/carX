@@ -20,26 +20,27 @@ export default function LogIn({ navigation }) {
   const [token, setToken] = useState("")
 
 
-  useEffect(() => {
-    AsyncStorage.getItem('auth').then((data) => {
-      if (data !== null) {
-         navigation.navigate('Main')
-        return;
-        }
-    })
+  useEffect(async () => {
+    const userToken = await AsyncStorage.getItem('auth')
+    // const workerToken = await AsyncStorage.getItem('workerAuth')
+    if (userToken !== null) {
+      navigation.navigate('Main')
+      return;
+    }
+
   }, [])
 
   let handleLoinWithPhone = function () {
-     if(phone["e"] ==null|| phone["e"].length !==8){
-        setCheck(true)
-        return 
-     }   
-    else if(phone["e"].length ==8){
+    if (phone["e"] == null || phone["e"].length !== 8) {
+      setCheck(true)
+      return
+    }
+    else if (phone["e"].length == 8) {
       setCheck(false)
     }
     setSpinner(true)
 
-    axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
+    axios.post(process.env.sendPhone + `/${phone["e"]}`).then((res) => {
       setCodeVerfication(res.data.verifCode)
       AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
       setErorrPhone(false)
@@ -59,7 +60,7 @@ export default function LogIn({ navigation }) {
 
   }
 
-  
+
 
   let st = check == false ? 'black' : 'red'
   let handleLogin = async function () {
@@ -103,13 +104,13 @@ export default function LogIn({ navigation }) {
   return (
     <>
 
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <ImageBackground source={image} style={styles.image}>
         <View style={[styles.container, {
 
           flexDirection: "column"
         }]}>
           <View style={{ flex: 1, justifyContent: "center" }} >
-            <Text style={{ textAlign: 'center', color: '#a41c1f', fontSize: 48 }}>Car<Text style={{ color: "black" }}>X</Text></Text>
+            <Text style={{ textAlign: 'center', color: '#9F1D21', fontSize: 48 }}>Car<Text style={{ color: "#005A99" }}>X</Text></Text>
           </View>
           <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
           </View>
@@ -134,7 +135,7 @@ export default function LogIn({ navigation }) {
                     <View style={[styles.prGoogle1]} >
                       <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
                         {spinner ?
-                          <ActivityIndicator color="white" size="large" style={{ alignSelf: "center" }} />
+                          <ActivityIndicator color="blue" size="large" style={{ alignSelf: "center" }} />
                           : <>
 
                             <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
@@ -157,7 +158,7 @@ export default function LogIn({ navigation }) {
                   <View style={[styles.prGoogle]} >
                     <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
                       {bool ?
-                        <ActivityIndicator color="#D9AF91" size="large" style={{ alignSelf: "center" }} />
+                        <ActivityIndicator color="blue" size="large" style={{ alignSelf: "center" }} />
                         : <>
                           <Image style={{
                             resizeMode: "contain",
@@ -173,7 +174,7 @@ export default function LogIn({ navigation }) {
                   </View>
                 </TouchableOpacity>
                 <Text></Text>
-                <Text onPress={navigation.navigate('WorkerAuth')}>connect as a worker</Text>
+                <Text style={{ color: 'white' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "center"
+    resizeMode: 'contain'
   },
   carx: {
     backgroundColor: "white",
@@ -202,7 +203,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     height: 40,
     width: 271,
-    borderWidth: 1,
     padding: 10,
   },
   frame2: {
@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   prGoogle: {
-    borderWidth: 1,
     borderRadius: 10,
     width: 271,
     backgroundColor: "white",
@@ -241,11 +240,9 @@ const styles = StyleSheet.create({
   }
   ,
   prGoogle1: {
-    borderWidth: 1,
     borderRadius: 10,
     width: 271,
-
-    backgroundColor: "#015496",
+    backgroundColor: "#005A99",
     height: 40,
     padding: 8
   }

@@ -64,7 +64,7 @@ export default function Reviews({ navigation, user }) {
 
                                 {reviews.map((el, key) =>
                                     <View key={key} style={tailwind(' m-2 p-4 items-start border-black bg-blue-600 rounded-2xl flex ')}>
-                                        <View style={tailwind('  flex flex-row ')}><Text style={tailwind(' text-yellow-300  ')}>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('hour').fromNow()}</Text></View>
+                                        <View style={tailwind('  flex flex-row ')}><Text style={tailwind(' text-yellow-300  ')}>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('now').fromNow()}</Text></View>
                                         <Text style={tailwind(' text-black ')}>{el.message}</Text>
                                     </View>
                                 )}
