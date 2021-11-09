@@ -29,13 +29,12 @@ export default function Main({ route, navigation }) {
   useEffect(() => {
 
     AsyncStorage.getItem('auth').then((result) => {
-     
+
       let userId = jwtDecode(result)
       axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
-     
         setUserData(result.data.data[0])
-        
-        
+        console.log(result.data.data)
+
       }).catch((error) => {
         console.log(error)
       })
@@ -43,7 +42,6 @@ export default function Main({ route, navigation }) {
     }).catch((error) => {
       console.log(error)
     })
-
   }, [])
 
 
@@ -77,7 +75,7 @@ export default function Main({ route, navigation }) {
         </Stack.Screen>
 
         <Stack.Screen name="EditProfile"  >
-        {props => (<EditProfile navigation={navi} user={userData} />)}
+          {props => (<EditProfile navigation={navi} user={userData} />)}
         </Stack.Screen>
         <Stack.Screen name="notification"  >
         {props => (<Notifications navigation={navi} user={userData} />)}

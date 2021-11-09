@@ -22,57 +22,45 @@ export default function workerAuth({ navigation }) {
                     </View>
                     <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
                     </View>
-                   
-                        <View style={[styles.carx], { flex: 1, }} >
-                            <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
-                                <TextInput
-                                    style={[styles.carx, {
-                                       
-                                    }]}
-                                    placeholder="+216 99 999 999"
-                                
-                                />
-                              
-                                <Text></Text>
-                                <View >
-                                    <View style={[styles.pressMe]}>
 
-                                        <View style={[styles.prGoogle1]} >
-                                            <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+                    <View style={[styles.carx], { flex: 1, }} >
+                        <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
+                            <TextInput
+                                style={[styles.carx]}
+                                placeholder="Username"
 
-                                                        <Text  style={{ color: "white" }}>LOG IN</Text>
-                                               
+                            />
 
+                            <Text></Text>
+                            <TextInput
+                                style={[styles.carx]}
+                                placeholder="Password"
 
-                                            </View>
-                                        </View>
-                                     
+                            />
+                            <Text></Text>
+                            <View >
+                                <View style={[styles.pressMe]}>
 
-
-                                    </View>
-                                </View>
-                                <Text></Text>
-                                <Text style={{ color: "white" }}>or</Text>
-                                <Text></Text>
-                                <TouchableOpacity >
-                                    <View style={[styles.prGoogle]} >
+                                    <View style={[styles.prGoogle1]} >
                                         <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                                            
-                                                
-                                                    <Image style={{
-                                                        resizeMode: "contain",
-                                                        height: 20,
-                                                        width: 30
-                                                    }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                                                    <Text  >Google</Text>
-                                          
+
+                                            <Text style={{ color: "white" }}>LOG IN</Text>
+
+
 
                                         </View>
                                     </View>
-                                </TouchableOpacity>
-                               
+
+
+
+                                </View>
                             </View>
-                </View>
+                            <Text></Text>
+                             
+                            <Text style={{ color: 'white' }} onPress={()=>{navigation.navigate('Login')}}>connect as a user</Text>
+
+                        </View>
+                    </View>
                 </View>
             </ImageBackground>
 
@@ -98,7 +86,6 @@ const styles = StyleSheet.create({
         textAlign: "left",
         height: 40,
         width: 271,
-        borderWidth: 1,
         padding: 10,
     },
     frame2: {
@@ -128,7 +115,6 @@ const styles = StyleSheet.create({
         overflow: "visible",
     },
     prGoogle: {
-        borderWidth: 1,
         borderRadius: 10,
         width: 271,
         backgroundColor: "white",
@@ -137,10 +123,8 @@ const styles = StyleSheet.create({
     }
     ,
     prGoogle1: {
-        borderWidth: 1,
         borderRadius: 10,
         width: 271,
-
         backgroundColor: "#015496",
         height: 40,
         padding: 8
