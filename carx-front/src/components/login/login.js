@@ -173,7 +173,7 @@ export default function LogIn({ navigation }) {
                   </View>
                 </TouchableOpacity>
                 <Text></Text>
-                <Text>connect as a worker</Text>
+                <Text onPress={navigation.navigate('WorkerAuth')}>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
