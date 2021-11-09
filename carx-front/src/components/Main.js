@@ -28,7 +28,7 @@ export default function Main({ route, navigation }) {
   useEffect(() => {
 
     AsyncStorage.getItem('auth').then((result) => {
-        console.log(jwtDecode(result.Token));
+        console.log(jwtDecode(result.Token),'here');
       let userId = jwtDecode(result)
       setID(userId.user_id)
 

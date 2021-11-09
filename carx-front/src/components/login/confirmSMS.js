@@ -23,8 +23,9 @@ export default function ConfirmSMS({ navigation }) {
         
       if(code1["text"] == dataToVerif.verifCode){
 
+          AsyncStorage.setItem("auth",dataToVerif.Token) 
+          console.log(dataToVerif.Token)   
             navigation.navigate("Main")
-            AsyncStorage.setItem("auth", dataToVerif.Token)    
       }else{
         setWrongCode(true)
         return 
