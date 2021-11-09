@@ -43,7 +43,7 @@ export default function LogIn({ navigation }) {
       setCheck(false)
     }
     setSpinner(true)
-    
+
     axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
       setCodeVerfication(res.data.verifCode)
       AsyncStorage.setItem('auth', JSON.stringify(res.data))
@@ -178,6 +178,8 @@ export default function LogIn({ navigation }) {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <Text></Text>
+                <Text>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
