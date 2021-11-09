@@ -34,8 +34,9 @@ const Wash = ({ navigation, user }) => {
   }
 
   useEffect(() => {
+    
     (async () => {
-   
+   console.log(user)
         let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');

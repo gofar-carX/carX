@@ -28,12 +28,12 @@ export default function Main({ route, navigation }) {
   useEffect(() => {
 
     AsyncStorage.getItem('auth').then((result) => {
-      
+     
       let userId = jwtDecode(result)
-      setID(userId.user_id)
-
       axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
+        console.log(result)
         setUserData(result.data.data[0])
+        
         
       }).catch((error) => {
         console.log(error)

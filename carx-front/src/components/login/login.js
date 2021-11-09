@@ -30,23 +30,17 @@ export default function LogIn({ navigation }) {
   }, [])
 
   let handleLoinWithPhone = function () {
-    if (phone["e"] == null) {
-      setCheck(true)
-      return
-
-    }
-    if (phone["e"].length !== 8) {
-      setCheck(true)
-      return
-    }
-    if (phone["e"].length == 8) {
+     if(phone["e"] ==null|| phone["e"].length !==8){
+        setCheck(true)
+        return 
+     }   
+    else if(phone["e"].length ==8){
       setCheck(false)
     }
     setSpinner(true)
-    
+
     axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
       setCodeVerfication(res.data.verifCode)
-      AsyncStorage.setItem('auth', JSON.stringify(res.data))
       AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
       setErorrPhone(false)
       setNavigate(true)
@@ -178,6 +172,8 @@ export default function LogIn({ navigation }) {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <Text></Text>
+                <Text>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
             </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
