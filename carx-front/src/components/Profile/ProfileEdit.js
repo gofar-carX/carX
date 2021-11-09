@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 
 import { EvilIcons } from '@expo/vector-icons';
 import axios from 'axios'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import jwtDecode from 'jwt-decode';
 import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
 

@@ -30,37 +30,34 @@ export default function LogIn({ navigation }) {
   }, [])
 
   let handleLoinWithPhone = function () {
-    if (phone["e"] == null) {
-      setCheck(true)
-      return
-
-    }
-    if (phone["e"].length !== 8) {
-      setCheck(true)
-      return
-    }
-    if (phone["e"].length == 8) {
+     if(phone["e"] ==null|| phone["e"].length !==8){
+        setCheck(true)
+        return 
+     }   
+    else if(phone["e"].length ==8){
       setCheck(false)
     }
     setSpinner(true)
-    
-    axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
-      setCodeVerfication(res.data.verifCode)
-      AsyncStorage.setItem('auth', JSON.stringify(res.data))
-      AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
-      setErorrPhone(false)
-      setNavigate(true)
-      setSpinner(false)
+    console.log(phone["e"])
+    axios
+      .post(`https://haunted-cat-69690.herokuapp.com/users/send/${phone["e"]}`).then((res) => {
+        
+        setCodeVerfication(res.data.verifCode)
 
-
-      return;
-    }).catch((err) => {
-      console.log(err)
-      setNavigate(false)
-      setSpinner(false)
-      setErorrPhone(true)
-      return
-    })
+        AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
+        setErorrPhone(false)
+        setNavigate(true)
+        setSpinner(false)
+      
+     
+       return ;
+      }).catch((err) => {
+        console.log(err)
+        setNavigate(false)
+        setSpinner(false)
+        setErorrPhone(true)
+        return 
+      })
 
 
   }
