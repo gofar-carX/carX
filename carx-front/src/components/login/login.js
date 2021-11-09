@@ -25,17 +25,16 @@ export default function LogIn({ navigation }) {
         return
         
      }  
-     if(phone["e"].length !==12){
+     if(phone["e"].length !==8){
       setCheck(true)
       return 
     } 
-    if(phone["e"].length==12){
+    if(phone["e"].length==8){
       setCheck(false)
     }
     setSpinner(true)
     console.log(phone["e"])
-    axios
-      .get(`https://haunted-cat-69690.herokuapp.com/phone/send/${phone["e"]}`).then((res) => {
+    axios.get(`http://localhost:5000/phone/send/${phone["e"]}`).then((res) => {
         
           setErorrPhone(false)
           setTimeout(() => {

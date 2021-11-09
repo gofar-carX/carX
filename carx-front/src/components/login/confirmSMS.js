@@ -9,7 +9,7 @@ export default function ConfirmSMS({ navigation }) {
     let checkCode = function () {
         setSpinner1(true)
         console.log(typeof code1['text'])
-        axios.post(`https://haunted-cat-69690.herokuapp.com/phone/verif/${code1['text']}`)
+        axios.post(`http://localhost:5000/phone/verif/${code1['text']}`)
             .then(() => {
 
                 setTimeout(() => {
@@ -20,7 +20,7 @@ export default function ConfirmSMS({ navigation }) {
 
             })
             .then(() => {
-                worngCode(false)
+                setWrongCode(false)
             })
             .catch(() => {
                 setWrongCode(true)
