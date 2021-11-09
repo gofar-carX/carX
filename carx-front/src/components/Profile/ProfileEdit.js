@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 
 import { EvilIcons } from '@expo/vector-icons';
 import axios from 'axios'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import jwtDecode from 'jwt-decode';
 import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
 
@@ -14,15 +15,19 @@ const ProfileEdit = ({  }) => {
     const [fullName, setFullName] = useState('');
     const [Email, setEmail] = useState('');
     const [Phonenumber, setPhonenumber] = useState('');
-    const [Car, setCar] = useState('');
+
     let [file, setSelectedImage] = useState(null);
+    useEffect(() => {
+        AsyncStorage.getItem('auth').then((result) =>{
+                console.log(result);
+        })
+    })
+
     const uploadedImage =  () => {
 console.log(file.localUri)
         const fd = new FormData();
-        fd.append('file',{
-            uri:file.localUri,
-            type: 'image'
-        } )
+        fd.append('file', file.localUri )
+        fd.append("upload_preset", "docs_upload_example_us_preset")
          axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/1`,fd).then((res)=>{
              console.log(res)
          })
