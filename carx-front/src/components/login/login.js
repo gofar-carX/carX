@@ -38,26 +38,23 @@ export default function LogIn({ navigation }) {
       setCheck(false)
     }
     setSpinner(true)
-    console.log(phone["e"])
-    axios
-      .post(`https://haunted-cat-69690.herokuapp.com/users/send/${phone["e"]}`).then((res) => {
-        
-        setCodeVerfication(res.data.verifCode)
 
-        AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
-        setErorrPhone(false)
-        setNavigate(true)
-        setSpinner(false)
-      
-     
-       return ;
-      }).catch((err) => {
-        console.log(err)
-        setNavigate(false)
-        setSpinner(false)
-        setErorrPhone(true)
-        return 
-      })
+    axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
+      setCodeVerfication(res.data.verifCode)
+      AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
+      setErorrPhone(false)
+      setNavigate(true)
+      setSpinner(false)
+
+
+      return;
+    }).catch((err) => {
+      console.log(err)
+      setNavigate(false)
+      setSpinner(false)
+      setErorrPhone(true)
+      return
+    })
 
 
   }
