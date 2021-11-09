@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, Touchable
 import { useState } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function ConfirmSMS({ navigation }) {
     const [worngCode, setWrongCode] = useState(false)
     const [code1, setCode1] = useState(0)
     const [spinner1, setSpinner1] = useState(false)
-    
-    let checkCode =  function () {
+
+    let checkCode = function () {
         setSpinner1(true)
         AsyncStorage.getItem("phoneVerife").then(res=>{
          const dataToVerif = JSON.parse(res)  
@@ -23,9 +24,9 @@ export default function ConfirmSMS({ navigation }) {
             
             
         })
-       
-}
-  
+    }
+
+
     return (
 
         <>

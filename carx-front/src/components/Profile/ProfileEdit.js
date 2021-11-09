@@ -9,42 +9,38 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({  }) => {
+const ProfileEdit = ({ user }) => {
 
-    
-    const [fullName, setFullName] = useState('');
-    const [Email, setEmail] = useState('');
-    const [Phonenumber, setPhonenumber] = useState('');
+
+    const [fullName, setFullName] = useState(user.name);
+    const [Email, setEmail] = useState(user.email);
+    const [Phonenumber, setPhonenumber] = useState(user.phone);
 
     let [file, setSelectedImage] = useState(null);
-    useEffect(() => {
-        AsyncStorage.getItem('auth').then((result) =>{
-                console.log(result);
-        })
-    })
-
-    const uploadedImage =  () => {
-console.log(file.localUri)
+    const uploadedImage = () => {
+        console.log(file.localUri)
         const fd = new FormData();
-        fd.append('file', file.localUri )
-        fd.append("upload_preset", "docs_upload_example_us_preset")
-         axios.post( `https://haunted-cat-69690.herokuapp.com/users/upload/1`,fd).then((res)=>{
-             console.log(res)
-         })
-         .catch((err)=>{
-             console.log(err)
-         })
+        fd.append('file', {
+            uri: file.localUri,
+            type: 'image'
+        })
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd).then((res) => {
+            console.log(res)
+        })
+            .catch((err) => {
+                console.log(err)
+            })
 
 
-        }
-       const  updateUser=()=>{
-        const data = {id:1,name:fullName,email:Email,phone:parseInt(Phonenumber)}
-        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit",data).then((response)=>{
+    }
+    const updateUser = () => {
+        const data = { id: user.id, name: fullName, email: Email, phone: parseInt(Phonenumber) }
+        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {
             console.log(response)
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log(error)
         })
-        }
+    }
 
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -120,7 +116,7 @@ console.log(file.localUri)
                     />
                 </View>
             </View>
-          
+
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity

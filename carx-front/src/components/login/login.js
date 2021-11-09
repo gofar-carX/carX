@@ -6,7 +6,8 @@ const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-c
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import jwtDecode from 'jwt-decode';
+
+
 export default function LogIn({ navigation }) {
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
@@ -15,8 +16,19 @@ export default function LogIn({ navigation }) {
   const [erorr, setErorr] = useState(false)
   const [erorr1, setErorrPhone] = useState(false)
   const [check, setCheck] = useState(false)
-  const [codeVerfication , setCodeVerfication] = useState('')
-  const [token , setToken]=useState("")
+  const [codeVerfication, setCodeVerfication] = useState('')
+  const [token, setToken] = useState("")
+
+
+  useEffect(() => {
+    AsyncStorage.getItem('auth').then((data) => {
+      if (data !== null) {
+         navigation.navigate('Main')
+        return;
+        }
+    })
+  }, [])
+
   let handleLoinWithPhone = function () {
      if(phone["e"] ==null|| phone["e"].length !==8){
         setCheck(true)
@@ -50,12 +62,7 @@ export default function LogIn({ navigation }) {
 
   }
 
-  useEffect(() => {
-    AsyncStorage.getItem('auth').then((data) => {
-      if (data !== null) { navigation.navigate('Main') }
-    
-    })
-  }, [])
+  
 
   let st = check == false ? 'black' : 'red'
   let handleLogin = async function () {
@@ -70,31 +77,31 @@ export default function LogIn({ navigation }) {
       const dataFromGoogle = await Google.logInAsync(config)
       const { type, user } = dataFromGoogle
       if (type == 'success') {
-    
-      
-      const {email,name,photoUrl}=user
-       axios.post(`https://haunted-cat-69690.herokuapp.com/users`,{
-        name:name, email:email,photo:photoUrl
-       }).then((response)=>{
-        AsyncStorage.setItem("auth",response.data.Token).then((response_)=>{
-          navigation.navigate("Main")
-          setBool(false)
-        }).catch((error)=>{
+
+
+        const { email, name, photoUrl } = user
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users`, {
+          name: name, email: email, photo: photoUrl
+        }).then((response) => {
+          AsyncStorage.setItem("auth", response.data.Token).then((response_) => {
+            navigation.navigate("Main")
+            setBool(false)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }).catch((error) => {
           console.log(error)
         })
-      }).catch((error)=>{
-        console.log(error)
-      })
-     
+
       }
-      
+
     } catch (e) {
       console.error(e)
       setBool(false)
       setErorr(true)
     }
   }
-   
+
 
   return (
     <>
@@ -170,7 +177,7 @@ export default function LogIn({ navigation }) {
                 </TouchableOpacity>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
-            </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={ token} />}
+            </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
         </View>
       </ImageBackground>
 
