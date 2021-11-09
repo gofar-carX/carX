@@ -6,12 +6,9 @@ const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-c
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import jwtDecode from 'jwt-decode';
+
+
 export default function LogIn({ navigation }) {
-
-
-
-
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
   const [spinner, setSpinner] = useState(false)
@@ -19,46 +16,50 @@ export default function LogIn({ navigation }) {
   const [erorr, setErorr] = useState(false)
   const [erorr1, setErorrPhone] = useState(false)
   const [check, setCheck] = useState(false)
+  const [codeVerfication, setCodeVerfication] = useState('')
+  const [token, setToken] = useState("")
+
+
+  useEffect(() => {
+    AsyncStorage.getItem('auth').then((data) => {
+      if (data !== null) {
+         navigation.navigate('Main')
+        return;
+        }
+    })
+  }, [])
+
   let handleLoinWithPhone = function () {
-     if(phone["e"] ==null){
+     if(phone["e"] ==null|| phone["e"].length !==8){
         setCheck(true)
-        return
-        
-     }  
-     if(phone["e"].length !==12){
-      setCheck(true)
-      return 
-    } 
-    if(phone["e"].length==12){
+        return 
+     }   
+    else if(phone["e"].length ==8){
       setCheck(false)
     }
     setSpinner(true)
-    console.log(phone["e"])
-    axios
-      .get(`https://haunted-cat-69690.herokuapp.com/phone/send/${phone["e"]}`).then((res) => {
-        
-          setErorrPhone(false)
-          setTimeout(() => {
-          setNavigate(true)
-          setSpinner(false)
-        }, 500)
-        setTimeout(() => setSpinner(false), 500)
-      }).catch((err) => {
-        console.log(err)
-        setNavigate(false)
-        setSpinner(false)
-        setErorrPhone(true)
-      })
+
+    axios.post(process.env.sendPhone, { phone: phone["e"] }).then((res) => {
+      setCodeVerfication(res.data.verifCode)
+      AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
+      setErorrPhone(false)
+      setNavigate(true)
+      setSpinner(false)
+
+
+      return;
+    }).catch((err) => {
+      console.log(err)
+      setNavigate(false)
+      setSpinner(false)
+      setErorrPhone(true)
+      return
+    })
 
 
   }
 
-  useEffect(() => {
-    AsyncStorage.getItem('auth').then((data) => {
-      if (data !== null) { navigation.navigate('Main') }
-    
-    })
-  }, [])
+  
 
   let st = check == false ? 'black' : 'red'
   let handleLogin = async function () {
@@ -73,40 +74,31 @@ export default function LogIn({ navigation }) {
       const dataFromGoogle = await Google.logInAsync(config)
       const { type, user } = dataFromGoogle
       if (type == 'success') {
-        const data =JSON.stringify(user)
-      const {email,name,photoUrl}=user
-       axios.post(`https://haunted-cat-69690.herokuapp.com/users`,{
-        name:name, email:email,photo:photoUrl
-       }).then((response)=>{
-        AsyncStorage.setItem("auth",response.data.Token).then((response_)=>{
-          navigation.navigate("Main")
-          setBool(false)
-        }).catch((error)=>{
+
+
+        const { email, name, photoUrl } = user
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users`, {
+          name: name, email: email, photo: photoUrl
+        }).then((response) => {
+          AsyncStorage.setItem("auth", response.data.Token).then((response_) => {
+            navigation.navigate("Main")
+            setBool(false)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }).catch((error) => {
           console.log(error)
         })
-      }).catch((error)=>{
-        console.log(error)
-      })
-     
+
       }
-      
+
     } catch (e) {
       console.error(e)
       setBool(false)
       setErorr(true)
     }
   }
-  useEffect(async () => {
-    const data = await AsyncStorage.getItem('auth')
-    if (data) {
-      navigation.navigate('Main')
-    } else {
-      navigation.navigate('Login')
-    }
 
-
-
-  }, [])
 
   return (
     <>
@@ -180,9 +172,11 @@ export default function LogIn({ navigation }) {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <Text></Text>
+                <Text>connect as a worker</Text>
                 {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
-            </View> : <ConfirmSMS navigation={navigation} />}
+            </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
         </View>
       </ImageBackground>
 

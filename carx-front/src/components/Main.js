@@ -23,16 +23,18 @@ const Stack = createNativeStackNavigator();
 
 
 export default function Main({ route, navigation }) {
-  const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState({})
   const [id, setID] = useState(1)
   useEffect(() => {
+
     AsyncStorage.getItem('auth').then((result) => {
+     
       let userId = jwtDecode(result)
-      setID(userId.user_id)
-
       axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
-        setUserData(jwtDecode(result.data.Token))
-
+        console.log(result)
+        setUserData(result.data.data[0])
+        
+        
       }).catch((error) => {
         console.log(error)
       })

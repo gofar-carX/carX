@@ -1,32 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, TouchableOpacity } from "react-native";
-import { useState } from 'react';
+
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function ConfirmSMS({ navigation }) {
     const [worngCode, setWrongCode] = useState(false)
-    const [code1, setCode1] = useState('')
+    const [code1, setCode1] = useState(0)
     const [spinner1, setSpinner1] = useState(false)
+    useEffect(() => {
+        AsyncStorage.getItem('auth').then((data) => {
+            if (data !== null) {
+                navigation.navigate('Main')
+                return;
+            }
+        })
+    }, [])
     let checkCode = function () {
         setSpinner1(true)
-        console.log(typeof code1['text'])
-        axios.post(`https://haunted-cat-69690.herokuapp.com/phone/verif/${code1['text']}`)
-            .then(() => {
+        AsyncStorage.getItem("phoneVerife").then(res => {
+            const dataToVerif = JSON.parse(res)
 
-                setTimeout(() => {
-                    navigation.navigate('Main')
-                    setSpinner1(false)
+            if (code1["text"] == dataToVerif.verifCode) {
 
-                }, 500)
-
-            })
-            .then(() => {
-                worngCode(false)
-            })
-            .catch(() => {
+                navigation.navigate("Main")
+                AsyncStorage.setItem("auth", dataToVerif.Token)
+            } else {
                 setWrongCode(true)
-                setSpinner1(false)
-            })
+                return
+            }
+
+
+        })
     }
+
 
     return (
 
