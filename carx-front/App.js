@@ -26,7 +26,7 @@ export default function App() {
             flexDirection: "column"
           }]}>
             <View style={{ flex: 6, justifyContent: "center" }} >
-              <ActivityIndicator color="#D9AF91" bool="true" size="large" style={{ textAlign: "center" }} />
+              <ActivityIndicator color="blue" bool="true" size="large" style={{ textAlign: "center" }} />
               <Text style={{ textAlign: "center" }}>loading...</Text>
             </View>
           </View>
