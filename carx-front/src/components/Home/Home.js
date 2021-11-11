@@ -1,31 +1,31 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity , Image } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { backgroundColor } from "styled-system";
+
+
 
 export default function NavigationBar({ navigation, user }) {
 
-let check = function(){
-    console.log(user)
-    if (user.phone == null) {
-        alert('you need to add your phone number !')
-       navigation.navigate('EditProfile')
-     }
-     else{navigation.navigate("Wash")}
-}
+    const img='https://images.theconversation.com/files/76578/original/image-20150331-1231-1ttwii6.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip'
+
+    let check = function () {
+        console.log(user)
+        if (user.phone == null) {
+            alert('you need to add your phone number !')
+            navigation.navigate('EditProfile')
+        }
+        else { navigation.navigate("Wash") }
+    }
 
     return (
-        <View style={[styles.container, {
-
-            flexDirection: "column"
-        }]}>
-            <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#C02F34" }}>X</Text></Text>
+        <View style={[styles.container, { flexDirection: "column" }]}>
+            <View style={{ flex: 1, justifyContent: "center", backgroundColor: '#005E9D', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }} >
+                <Text style={{ textAlign: 'center', color: 'white', fontSize: 35 }}>Car<Text style={{ color: "#C02F34" }}>X</Text></Text>
             </View>
 
-            <View style={{ flex: 3, backgroundColor: "#0070AC", borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: "space-evenly" }} >
-
-
+            <View style={{ flex: 3, backgroundColor: "#EFECEC", justifyContent: "space-evenly" }} >
 
                 <View style={{ flex: 0.2, backgroundColor: "#ffffff", width: 300, alignSelf: "center", borderRadius: 20 }}>
                     <TouchableOpacity onPress={() => check()}>
@@ -45,7 +45,7 @@ let check = function(){
                 </View>
 
 
-           
+
 
 
 

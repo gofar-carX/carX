@@ -18,10 +18,10 @@ const Profile = ({ navigation , user }) => {
             flexDirection: "column"
         }]}>
             <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#FCD34D" }}>X</Text></Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#005A99" }}>X</Text></Text>
             </View>
             <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#FCD34D" }}>{user.name}</Text></Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#005A99" }}>{user.name}</Text></Text>
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -46,7 +46,7 @@ const Profile = ({ navigation , user }) => {
                 <View style={{ alignItems: "flex-end", padding: 40, paddingTop: 25 }}>
                     <TouchableOpacity
                         onPress={() => { navigation.navigate('EditProfile') }}
-                        style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
+                        style={{ backgroundColor: '#005A99', boxSizing: 'border-box', width: 69, height: 45, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 5
                         }}>Edit</Text>
