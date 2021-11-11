@@ -4,8 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
-
+import Pay from './Payment/Pay'  ;
 import Navbar from './Nav/Navbar.js'
 import Test from './Nav/test.js'
 import LogIn from './login/login.js';
@@ -40,8 +39,9 @@ export default function Main({navigation}) {
         <Stack.Screen name="Test" component={Test} />
         <Stack.Screen name="Wash" component={Wash} />
         <Stack.Screen name="Confirmation" component={Confirmation} />
-        {/* <Stack.Screen name="Profile" component={Profile} /> 
-      <Stack.Screen name="EditProfile" component={EditProfile} />  */}
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Pay" component={Pay} /> 
+      <Stack.Screen name="EditProfile" component={EditProfile} /> 
       </Stack.Navigator>
       <View style={tailwind('p-4 flex flex-row ')} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
