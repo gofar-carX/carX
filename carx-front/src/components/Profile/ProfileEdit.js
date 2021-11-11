@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { EvilIcons } from '@expo/vector-icons';
 import axios from 'axios'
@@ -9,23 +9,20 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({ user , na ,navigation }) => {
+const ProfileEdit = ({ user, na, navigation }) => {
 
     const [fullName, setFullName] = useState(user.name);
-    const [Email, setEmail] = useState(user.email);
     const [Phonenumber, setPhonenumber] = useState(user.phone);
-
-    let [file, setSelectedImage] = useState(null);
+    let [file, setSelectedImage] = useState(user.photo);
     const uploadedImage = () => {
         console.log(file.localUri)
         const fd = new FormData();
         fd.append('file', {
-            name:'file',
+            name: 'file',
             uri: file.localUri,
             type: 'image/jpg'
         })
-        axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd ,{headers:{Accept:'application/json','Content-Type':'multipart/form-data'}}).then((res) => {
-            console.log(res)
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/${user.id}`, fd, { headers: { Accept: 'application/json', 'Content-Type': 'multipart/form-data' } }).then((res) => {
         })
             .catch((err) => {
                 console.log(err)
@@ -34,10 +31,11 @@ const ProfileEdit = ({ user , na ,navigation }) => {
 
     }
     const updateUser = () => {
-        const data = { id: user.id, name: fullName, email: Email, phone: parseInt(Phonenumber) }
+        const data = { id: user.id, name: fullName, phone:Phonenumber }
         axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {
+            uploadedImage()
             alert('your profile has been updated')
-            navigation.navigate('Home')
+            na.navigate('Login')
 
 
         }).catch((error) => {
@@ -68,8 +66,8 @@ const ProfileEdit = ({ user , na ,navigation }) => {
             flexDirection: 'column',
 
         }}>
-            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }}>Car<Text style={{ color: '#005A99', textAlign: 'center' }}>X</Text></Text></View>
-            <View style={{ height: 200 }}>
+
+            <View style={{ height: 200 , marginTop:25 }}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
 
                     <>
@@ -80,7 +78,7 @@ const ProfileEdit = ({ user , na ,navigation }) => {
                                     file == null ?
                                         <EvilIcons name="user" size={160} color="black" />
                                         : <View style={styles.container}>
-                                            <Image source={{ uri: file.localUri }} style={styles.thumbnail} />
+                                            <Image source={{ uri: file.localUri || file }} style={styles.thumbnail} />
                                         </View>}
                                 <TouchableOpacity onPress={openImagePickerAsync} >
                                     <MaterialCommunityIcons name="image-edit-outline" size={24} color="black" />
@@ -99,23 +97,13 @@ const ProfileEdit = ({ user , na ,navigation }) => {
                     value={fullName}
                 />
             </View>
-            <View>
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        onChangeText={text => setEmail(text)}
-                        value={Email}
-                    />
-                </View>
-            </View>
             <View >
                 <View>
                     <TextInput
                         style={styles.input}
                         placeholder="Phone number"
                         onChangeText={text => setPhonenumber(text)}
-                        value={ `${Phonenumber}`}
+                        value={`${Phonenumber}`}
                         keyboardType="phone-pad"
                         type="number"
                     />
@@ -125,7 +113,7 @@ const ProfileEdit = ({ user , na ,navigation }) => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={uploadedImage}
+                        onPress={updateUser}
                         style={{ backgroundColor: '#005A99', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
