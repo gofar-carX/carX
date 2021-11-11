@@ -1,19 +1,36 @@
 Arguments: 
+<<<<<<< HEAD
+  C:\Program Files\nodejs\node.exe C:\Users\DELL\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add Constants
+=======
   C:\Program Files\nodejs\node.exe C:\Users\Lenovo\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-linear-gradien
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
 
 PATH: 
-  C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python39\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Users\Lenovo\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Microsoft Visual Studio\bin;C:\Users\Lenovo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files (x86)\sqlite;C:\Users\Lenovo\AppData\Local\Programs\mongosh\;C:\Program Files\MongoDB\Server\5.0\bin;C:\Program Files\heroku\bin;C:\Program Files\heroku\bin;C:\Users\Lenovo\AppData\Roaming\npm;C:\Program Files\PostgreSQL\10\bin;
+  C:\Users\DELL\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\DELL\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Users\DELL\AppData\Local\Programs\Python\Python37\Scripts;C:\Users\DELL\AppData\Local\Programs\Python\Python37;C:\Program Files\PostgreSQL\14\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\sqlite;C:\Users\DELL\AppData\Local\Microsoft\WindowsApps;C:\Users\DELL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\DELL\AppData\Roaming\npm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MySQL;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
-  1.22.15
+  1.22.17
 
 Node version: 
-  14.18.1
+  16.6.2
 
 Platform: 
   win32 x64
 
 Trace: 
+<<<<<<< HEAD
+  Error: https://registry.yarnpkg.com/Constants: Not found
+      at Request.params.callback [as _callback] (C:\Users\DELL\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
+      at Request.self.callback (C:\Users\DELL\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
+      at Request.emit (node:events:394:28)
+      at Request.<anonymous> (C:\Users\DELL\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
+      at Request.emit (node:events:394:28)
+      at IncomingMessage.<anonymous> (C:\Users\DELL\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141777:12)
+      at Object.onceWrapper (node:events:513:28)
+      at IncomingMessage.emit (node:events:406:35)
+      at endReadableNT (node:internal/streams/readable:1331:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+=======
   Error: https://registry.yarnpkg.com/react-native-linear-gradien: Not found
       at Request.params.callback [as _callback] (C:\Users\Lenovo\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66140:18)
       at Request.self.callback (C:\Users\Lenovo\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140885:22)
@@ -25,6 +42,7 @@ Trace:
       at IncomingMessage.emit (events.js:412:35)
       at endReadableNT (internal/streams/readable.js:1334:12)
       at processTicksAndRejections (internal/process/task_queues.js:82:21)
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
 
 npm manifest: 
   {
@@ -57,7 +75,10 @@ npm manifest:
       "expo-task-manager": "^10.0.3",
       "firebase": "^9.2.0",
       "jwt-decode": "^3.1.2",
+<<<<<<< HEAD
+=======
       "lottie-react-native": "^4.1.3",
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
       "moment": "^2.29.1",
       "native-base": "^3.2.1",
       "react": "17.0.1",
@@ -3666,6 +3687,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
     integrity sha1-6LL+PX8at9aaMhma/5HqaTFAlRU=
   
+<<<<<<< HEAD
+=======
   chokidar@^3.5.2:
     version "3.5.2"
     resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.2.tgz#dba3976fcadb016f66fd365021d91600d01c1e75"
@@ -3681,6 +3704,7 @@ Lockfile:
     optionalDependencies:
       fsevents "~2.3.2"
   
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
   ci-info@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
@@ -5828,12 +5852,16 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
     integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
   
+<<<<<<< HEAD
+  lodash@^4.16.2, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15:
+=======
   lodash.topath@^4.5.2:
     version "4.5.2"
     resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
     integrity sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=
   
   lodash@^4.16.2, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21:
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
     version "4.17.21"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
     integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -6445,11 +6473,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mockdate/-/mockdate-3.0.5.tgz#789be686deb3149e7df2b663d2bc4392bc3284fb"
     integrity sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==
   
+<<<<<<< HEAD
+=======
   modern-normalize@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/modern-normalize/-/modern-normalize-1.1.0.tgz#da8e80140d9221426bd4f725c6e11283d34f90b7"
     integrity sha512-2lMlY1Yc1+CUy0gw4H95uNN7vjbpoED7NNRSBHE25nWfLBdmMzFCsPshlzbxHz+gYMcBEUN8V4pU16prcdPSgA==
   
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
   moment@^2.29.1:
     version "2.29.1"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
@@ -7081,7 +7112,11 @@ Lockfile:
       fbjs "^0.8.9"
       loose-envify "^1.3.1"
   
+<<<<<<< HEAD
+  prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+=======
   prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -7117,6 +7152,8 @@ Lockfile:
       end-of-stream "^1.1.0"
       once "^1.3.1"
   
+<<<<<<< HEAD
+=======
   purgecss@^4.0.3:
     version "4.0.3"
     resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-4.0.3.tgz#8147b429f9c09db719e05d64908ea8b672913742"
@@ -7127,6 +7164,7 @@ Lockfile:
       postcss "^8.2.1"
       postcss-selector-parser "^6.0.2"
   
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
   query-string@^6.13.6:
     version "6.14.1"
     resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
@@ -7386,6 +7424,8 @@ Lockfile:
     dependencies:
       hoist-non-react-statics "^2.3.1"
   
+<<<<<<< HEAD
+=======
   react-native-safe-modules@^1.0.3:
     version "1.0.3"
     resolved "https://registry.yarnpkg.com/react-native-safe-modules/-/react-native-safe-modules-1.0.3.tgz#f5f29bb9d09d17581193843d4173ad3054f74890"
@@ -7393,6 +7433,7 @@ Lockfile:
     dependencies:
       dedent "^0.6.0"
   
+>>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
   react-native-screens@~3.8.0:
     version "3.8.0"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.8.0.tgz#4ec84c55a7b4a4aa9405c812978ca2ba5c0242a4"
