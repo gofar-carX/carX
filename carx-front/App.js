@@ -5,7 +5,11 @@ import LogIn from './src/components/login/login.js';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './src/components/Main'
+import workerAuth from './src/components/woker/workerAuth'
+
+
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   const nav = useNavigationContainerRef()
   const [AppReady, setAppReady] = useState(null)
@@ -22,7 +26,7 @@ export default function App() {
             flexDirection: "column"
           }]}>
             <View style={{ flex: 6, justifyContent: "center" }} >
-              <ActivityIndicator color="#D9AF91" bool="true" size="large" style={{ textAlign: "center" }} />
+              <ActivityIndicator color="blue" bool="true" size="large" style={{ textAlign: "center" }} />
               <Text style={{ textAlign: "center" }}>loading...</Text>
             </View>
           </View>
@@ -32,6 +36,8 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}  >
             <Stack.Screen name="Login" component={LogIn} />
             <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name ="WorkerAuth" component={workerAuth} />
+
           </Stack.Navigator>
         </NavigationContainer>}
     </>
