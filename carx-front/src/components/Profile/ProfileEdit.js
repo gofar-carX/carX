@@ -25,7 +25,7 @@ const ProfileEdit = ({ user }) => {
             type: 'image'
         })
         axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd).then((res) => {
-            console.log(res)
+            console.log(res, 'zadzadazdaz')
         })
             .catch((err) => {
                 console.log(err)
@@ -120,7 +120,7 @@ const ProfileEdit = ({ user }) => {
             <View style={{ height: 100 }}>
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
-                        onPress={updateUser}
+                        onPress={uploadedImage}
                         style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10

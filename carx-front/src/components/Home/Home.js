@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function NavigationBar({ navigation, user }) {
 
 let check = function(){
-    console.log(user)
+    // console.log(user ,"eaz")
     if (user.phone == null) {
         alert('you need to add your phone number !')
        navigation.navigate('EditProfile')

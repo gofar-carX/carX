@@ -19,7 +19,7 @@ const Wash = ({ navigation, user }) => {
 
   let SendForm = () => {
     if (location) {
-      axios.post(process.env.req, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id})
+      axios.post('https://haunted-cat-69690.herokuapp.com/request', { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id})
         .then(() => {
           alert("your request has been send we will respond shortly")
           navigation.navigate('Home')
