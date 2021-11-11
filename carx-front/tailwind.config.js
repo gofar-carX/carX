@@ -14,6 +14,7 @@ module.exports = {
           700: '#4A5568',
           800: '#2D3748',
           900: '#1A202C',
+         
         },
         red: {
           100: '#FFF5F5',
@@ -24,7 +25,8 @@ module.exports = {
           600: '#E53E3E',
           700: '#C53030',
           800: '#9B2C2C',
-          900: '#742A2A',
+          900: '#C02F34',
+          
         },
         orange: {
           100: '#FFFAF0',
@@ -79,7 +81,7 @@ module.exports = {
           600: '#3182CE',
           700: '#2B6CB0',
           800: '#2C5282',
-          900: '#2A4365',
+          900: '#005E9D',
         },
         indigo: {
           100: '#EBF4FF',
@@ -140,6 +142,7 @@ module.exports = {
       borderColor: theme => ({
         ...theme('colors'),
         default: theme('colors.gray.300', 'currentColor'),
+
       }),
       borderRadius: {
         none: '0',
