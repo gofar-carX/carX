@@ -14,6 +14,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
+import Pay from './Payment/payment.js';
 import axios from 'axios';
 import NotificationUser from "./notification/notification"
 import jwtDecode from 'jwt-decode';
@@ -63,7 +64,9 @@ export default function Main({ route, navigation }) {
         <Stack.Screen name="Reviews"  >
           {props => (<Reviews navigation={navi} user={userData} />)}
         </Stack.Screen>
-
+        <Stack.Screen name="Payment"  >
+          {props => (<Pay navigation={navi} user={userData} />)}
+        </Stack.Screen>
         
 
         <Stack.Screen name="Wash" >
