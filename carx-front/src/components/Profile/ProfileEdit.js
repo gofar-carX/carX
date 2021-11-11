@@ -26,7 +26,7 @@ const ProfileEdit = ({ user , na ,navigation }) => {
         })
         axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd ,{headers:{Accept:'application/json','Content-Type':'multipart/form-data'}}).then((res) => {
             console.log(res)
-        })
+        }) 
             .catch((err) => {
                 console.log(err)
             })

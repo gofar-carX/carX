@@ -129,7 +129,7 @@ export default function App({ user }) {
                       <View  >
                       <Button
                       onPress={() =>handleConfirm(e.id)} 
-                      disabled={!e.isServed}
+                      disabled={e.worker==null ?true:false}
                        title="confirm and Paye" 
                       />
                       </View>
