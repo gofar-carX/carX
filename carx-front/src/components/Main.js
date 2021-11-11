@@ -14,6 +14,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
+import Pay from './Payment/payment.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,7 +32,7 @@ export default function Main({ route, navigation }) {
          {props=>(<Navbar na={navigation} navigation={navi} />)} 
         </Stack.Screen>
         <Stack.Screen name="Reviews" component={Reviews} />
-        <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="Pay" component={Pay} />
         <Stack.Screen name="Wash" component={Wash} />
         <Stack.Screen name="Confirmation" component={Confirmation} />
         <Stack.Screen name="Profile" component={Profile} />

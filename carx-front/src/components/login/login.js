@@ -6,10 +6,11 @@ const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-c
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
+
+
+
 export default function LogIn({ navigation }) {
-
-
-
 
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)

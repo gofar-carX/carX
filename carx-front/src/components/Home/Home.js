@@ -40,7 +40,7 @@ export default function NavigationBar({ navigation }) {
 
 
                 <View style={{ flex: 0.2, backgroundColor: "#ffffff", width: 300, alignSelf: "center", borderRadius: 20 }}>
-                    <TouchableOpacity onPress={() => { alert('this service will be available soon') }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Pay') }}>
                         <View style={[], { flexDirection: "row", alignSelf: "center", flexDirection: "row", justifyContent: "space-evenly", alignSelf: 'center', padding: 5 }} >
 
                             <View style={{ flex: 0.4 }} >
