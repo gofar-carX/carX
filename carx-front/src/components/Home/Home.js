@@ -5,6 +5,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { backgroundColor } from "styled-system";
 
 
+let check = function(){
+    // console.log(user ,"eaz")
+    if (user.phone == null) {
+        alert('you need to add your phone number !')
+       navigation.navigate('EditProfile')
+     }
+     else{navigation.navigate("Wash")}
+}
 
 export default function NavigationBar({ navigation, user }) {
 
