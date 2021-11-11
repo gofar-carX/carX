@@ -10,34 +10,20 @@ const LOCATION_TASK_NAME = 'foreground-location-task';
 
 const Wash = ({ navigation, user }) => {
 
-
-  let [carType, setCarType] = useState("");
+  const carTypePrice = { "Regular": 0, "Pickup": 3, "Van": 10, "Truck": 20 }
+  const washTypePrice = { "Interior": 8, "Exterior": 12, "All": 18 }
+  let [carType, setCarType] = useState("")
   let [washType, setWashType] = useState("")
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  let [price, setPrice] = useState(0)
+  const [location, setLocation] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
   let [id, setid] = useState("")
 
-  let SendForm = () => {
-    if (location) {
-      axios.post(process.env.req, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id})
-        .then(() => {
-          alert("your request has been send we will respond shortly")
-          navigation.navigate('Home')
-        })
-        .catch((err) => alert(err))
-
-    }
-    else {
-      alert('you need to activate your location')
-    }
-
-  }
-
   useEffect(() => {
-    
+
     (async () => {
-   
-        let { status } = await Location.requestForegroundPermissionsAsync()
+
+      let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
@@ -47,6 +33,38 @@ const Wash = ({ navigation, user }) => {
       setid(user.id)
     })();
   }, []);
+
+
+  let SendForm = () => {
+    if (location && carType !== "" && washType !== "") {
+      // axios.post('https://haunted-cat-69690.herokuapp.com/request', { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id })
+      //   .then(() => {
+      //     alert("your request has been send we will respond shortly")
+      //     navigation.navigate('Home')
+      //   })
+      //   .catch((err) => alert(err))
+      console.log(price)
+    }
+    else {
+      alert('you need to activate your location and fill the form')
+    }
+
+  }
+
+  let hundlewash = (val) => {
+
+    setWashType(val)
+    console.log(washType)
+    console.log(washTypePrice[washType],carTypePrice[carType])
+    setTimeout(() => {
+      setPrice(washTypePrice[washType]+carTypePrice[carType])
+    }, 2000); 
+    
+    
+  
+  }
+
+
 
   let text = 'Waiting..';
   if (errorMsg) {
@@ -105,12 +123,19 @@ const Wash = ({ navigation, user }) => {
                     endIcon: <CheckIcon size="5" />,
                   }}
                   mt={1}
-                  onValueChange={(itemValue) => setWashType(itemValue)}
+                  onValueChange={(itemValue) => hundlewash(itemValue)}
                 >
-                  <Select.Item label="Interior" value="In" />
-                  <Select.Item label="Exterior" value="Ex" />
+                  <Select.Item label="Interior" value="Interior" />
+                  <Select.Item label="Exterior" value="Exterior" />
                   <Select.Item label="All" value="All" />
                 </Select>
+              </VStack>
+            </View>
+            <View style={tailwind(" h-1/6 items-center  ")}>
+              <VStack alignItems="center" space={8} minHeight="128" >
+                <TouchableOpacity  >
+                  <Text style={tailwind("  text-center text-gray-500 pt-8 ")}>{price} Dt </Text>
+                </TouchableOpacity>
               </VStack>
             </View>
             <View style={tailwind(" h-1/6 items-center  ")}>
@@ -152,7 +177,7 @@ const Wash = ({ navigation, user }) => {
 
 }
 
-export default function WashPage({ navigation ,user }) {
+export default function WashPage({ navigation, user }) {
   return (
     <NativeBaseProvider>
       <Center flex={1} px="3">

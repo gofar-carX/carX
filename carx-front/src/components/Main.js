@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import tailwind from "tailwind-rn";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Wash from './washService/PageOne/Wash.js';
 import Confirmation from './washService/PageTow/Confirmation.js';
 import axios from 'axios';
+import NotificationUser from "./notification/notification"
 import jwtDecode from 'jwt-decode';
 import { NativeBaseProvider } from 'native-base';
 
@@ -78,25 +79,30 @@ export default function Main({ route, navigation }) {
         <Stack.Screen name="EditProfile"  >
           {props => (<EditProfile na={navigation} navigation={navi} user={userData} />)}
         </Stack.Screen>
-
+        <Stack.Screen name="NotificationUser"  >
+        {props => (<NotificationUser navigation={navi} user={userData} />)}
+        </Stack.Screen>
       </Stack.Navigator>
       <View style={[tailwind('p-4 flex flex-row '),{backgroundColor:'#005E9D'}]} >
         <View style={{ flex: 0.34, justifyContent: "center", alignItems: "center" }}>
           <Text onPress={() => { navi.navigate("Home") }} >
             <Ionicons name="ios-home-sharp" size={30} color="white" />
           </Text>
+        
         </View>
         <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
-
+        <TouchableOpacity onPress={() => { navi.navigate("NotificationUser")}}>
           <Text >
             <Ionicons name="notifications" size={30} color="white" />
           </Text>
+          </TouchableOpacity>
         </View>
         <View style={{ flex: 0.33, justifyContent: "center", alignItems: "center" }}>
           <Text onPress={() => { navi.navigate("Nav") }}  >
             <MaterialIcons name="menu" size={30} color="white" />
           </Text>
-
+         
+ 
         </View>
       </View>
     </NavigationContainer>

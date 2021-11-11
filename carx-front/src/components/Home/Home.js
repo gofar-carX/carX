@@ -5,13 +5,20 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { backgroundColor } from "styled-system";
 
 
+let check = function(){
+    // console.log(user ,"eaz")
+    if (user.phone == null) {
+        alert('you need to add your phone number !')
+       navigation.navigate('EditProfile')
+     }
+     else{navigation.navigate("Wash")}
+}
 
 export default function NavigationBar({ navigation, user }) {
 
     const img='https://images.theconversation.com/files/76578/original/image-20150331-1231-1ttwii6.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip'
 
     let check = function () {
-        console.log(user)
         if (user.phone == null) {
             alert('you need to add your phone number !')
             navigation.navigate('EditProfile')
