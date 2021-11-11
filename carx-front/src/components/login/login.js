@@ -6,6 +6,8 @@ const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-c
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { backgroundColor } from 'styled-system';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 export default function LogIn({ navigation }) {
@@ -102,88 +104,89 @@ export default function LogIn({ navigation }) {
 
 
   return (
-    <>
-
-      <ImageBackground source={image} style={styles.image}>
-        <View style={[styles.container, {
-
-          flexDirection: "column"
-        }]}>
-          <View style={{ flex: 1, justifyContent: "center" }} >
-            <Text style={{ textAlign: 'center', color: '#9F1D21', fontSize: 48 }}>Car<Text style={{ color: "#005A99" }}>X</Text></Text>
-          </View>
-          <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
-          </View>
-          {navigate === false ?
-            <View style={[styles.carx], { flex: 1, }} >
-              <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
-                <TextInput
-                  style={[styles.carx, {
-                    color: st
-                  }]}
-                  placeholder="+216 99 999 999"
-                  onChangeText={e => {
-                    setPhone({ e })
-
-                  }}
-                />
-                {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
-                <Text></Text>
-                <View >
-                  <View style={[styles.pressMe]}>
-
-                    <View style={[styles.prGoogle1]} >
-                      <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                        {spinner ?
-                          <ActivityIndicator color="blue" size="large" style={{ alignSelf: "center" }} />
-                          : <>
-
-                            <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
-                          </>
-                        }
 
 
 
-                      </View>
-                    </View>
-                    {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
+    <View style={[styles.container, { flexDirection: "column", backgroundColor: "#005E9D" }]}>
+      <View style={{ flex: 1, justifyContent: "center" }} >
+        <Text style={{ textAlign: 'center', color: 'white', fontSize: 48 }}>Car<Text style={{ color: "#9F1D21" }}>X</Text></Text>
+      </View>
+      <View style={{ flex: 0.4 }} >
+        <MaterialIcons name="local-car-wash" size={85} color="#C02F34" style={{ alignSelf: "center" }} />
+      </View>
+      <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
+      </View>
+      {navigate === false ?
+        <View style={[styles.carx], { flex: 1, }} >
+          <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
+            <TextInput
+              style={[styles.carx, {
+                color: st
+              }]}
+              placeholder="+216 99 999 999"
+              onChangeText={e => {
+                setPhone({ e })
+
+              }}
+            />
+            {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
+            <Text></Text>
+            <View >
+              <View style={[styles.pressMe]}>
+
+                <View style={[styles.prGoogle1]} >
+                  <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+                    {spinner ?
+                      <ActivityIndicator color="#005A99" size="large" style={{ alignSelf: "center" }} />
+                      : <>
+
+                        <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
+                      </>
+                    }
+
 
 
                   </View>
                 </View>
-                <Text></Text>
-                <Text style={{ color: "white" }}>or</Text>
-                <Text></Text>
-                <TouchableOpacity onPress={handleLogin}>
-                  <View style={[styles.prGoogle]} >
-                    <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                      {bool ?
-                        <ActivityIndicator color="blue" size="large" style={{ alignSelf: "center" }} />
-                        : <>
-                          <Image style={{
-                            resizeMode: "contain",
-                            height: 20,
-                            width: 30
-                          }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                          <Text  >Google</Text>
-                        </>
-                      }
+                {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
 
 
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <Text></Text>
-                <Text style={{ color: 'white' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
-                {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
               </View>
-            </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
-        </View>
-      </ImageBackground>
+            </View>
+            <Text></Text>
+            <Text style={{ color: "white" }}>or</Text>
+            <Text></Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <View style={[styles.prGoogle]} >
+                <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+                  {bool ?
+                    <ActivityIndicator color="#005A99" size="large" style={{ alignSelf: "center" }} />
+                    : <>
+                      <Image style={{
+                        resizeMode: "contain",
+                        height: 20,
+                        width: 30
+                      }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
+                      <Text  >Google</Text>
+                    </>
+                  }
+
+
+                </View>
+              </View>
+            </TouchableOpacity>
+            <Text></Text>
+            <Text style={{ color: 'white' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
+            {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
+          </View>
+        </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
+    </View>
 
 
 
-    </>
+
+
+
   );
 }
 
@@ -242,7 +245,7 @@ const styles = StyleSheet.create({
   prGoogle1: {
     borderRadius: 10,
     width: 271,
-    backgroundColor: "#005A99",
+    backgroundColor: "black",
     height: 40,
     padding: 8
   }
