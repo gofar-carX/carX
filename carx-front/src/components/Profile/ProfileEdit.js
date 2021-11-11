@@ -9,8 +9,7 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({ user }) => {
-
+const ProfileEdit = ({ user , na ,navigation }) => {
 
     const [fullName, setFullName] = useState(user.name);
     const [Email, setEmail] = useState(user.email);
@@ -21,11 +20,12 @@ const ProfileEdit = ({ user }) => {
         console.log(file.localUri)
         const fd = new FormData();
         fd.append('file', {
+            name:'file',
             uri: file.localUri,
-            type: 'image'
+            type: 'image/jpg'
         })
-        axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd).then((res) => {
-            console.log(res, 'zadzadazdaz')
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/1`, fd ,{headers:{Accept:'application/json','Content-Type':'multipart/form-data'}}).then((res) => {
+            console.log(res)
         })
             .catch((err) => {
                 console.log(err)
@@ -36,7 +36,10 @@ const ProfileEdit = ({ user }) => {
     const updateUser = () => {
         const data = { id: user.id, name: fullName, email: Email, phone: parseInt(Phonenumber) }
         axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {
-            console.log(response)
+            alert('your profile has been updated')
+            navigation.navigate('Home')
+
+
         }).catch((error) => {
             console.log(error)
         })
@@ -65,7 +68,7 @@ const ProfileEdit = ({ user }) => {
             flexDirection: 'column',
 
         }}>
-            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }}>Car<Text style={{ color: '#FCD34D', textAlign: 'center' }}>X</Text></Text></View>
+            <View style={{ height: 100, textAlign: 'center', justifyContent: "center" }} ><Text style={{ fontSize: 36, fontStyle: 'normal', textAlign: 'center' }}>Car<Text style={{ color: '#005A99', textAlign: 'center' }}>X</Text></Text></View>
             <View style={{ height: 200 }}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
 
@@ -112,7 +115,9 @@ const ProfileEdit = ({ user }) => {
                         style={styles.input}
                         placeholder="Phone number"
                         onChangeText={text => setPhonenumber(text)}
-                        value={Phonenumber}
+                        value={ `${Phonenumber}`}
+                        keyboardType="phone-pad"
+                        type="number"
                     />
                 </View>
             </View>
@@ -121,7 +126,7 @@ const ProfileEdit = ({ user }) => {
                 <View style={{ alignItems: "flex-end", padding: 40 }}>
                     <TouchableOpacity
                         onPress={uploadedImage}
-                        style={{ backgroundColor: '#2563EB', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
+                        style={{ backgroundColor: '#005A99', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
                         }}>Confirm</Text>
