@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import tailwind from "tailwind-rn";
@@ -38,7 +37,7 @@ export default function Reviews({ navigation, user }) {
                         <Text style={tailwind('text-4xl font-semibold ')}>
                             car
                         </Text>
-                        <Text style={tailwind('text-yellow-300 text-4xl font-semibold ')}>
+                        <Text style={[tailwind(' text-4xl font-semibold '),{color:'#005E9D'}]}>
                             X
                         </Text>
                     </View >
@@ -50,7 +49,7 @@ export default function Reviews({ navigation, user }) {
                             onChangeText={e => { setComment({ e }) }}
                         />
                         <TouchableOpacity onPress={() => { AddComment() }}>
-                            <View style={tailwind('p-2 w-28 h-10 bg-blue-600  text-lg rounded-lg ')}>
+                            <View style={[tailwind('p-2 w-28 h-10   text-lg rounded-lg '),{backgroundColor:'#005E9D'}]}>
                                 <Text style={tailwind(" text-center text-white ")}>Add</Text>
                             </View>
                         </TouchableOpacity>
@@ -63,9 +62,9 @@ export default function Reviews({ navigation, user }) {
                             : <>
 
                                 {reviews.map((el, key) =>
-                                    <View key={key} style={tailwind(' m-2 p-4 items-start border-black bg-blue-600 rounded-2xl flex ')}>
-                                        <View style={tailwind('  flex flex-row ')}><Text style={tailwind(' text-yellow-300  ')}>{el.user}</Text><Text style={tailwind('  text-white ml-4  ')}>{moment(el.createdAt).startOf('now').fromNow()}</Text></View>
-                                        <Text style={tailwind(' text-black ')}>{el.message}</Text>
+                                    <View key={key} style={[tailwind(' m-2 p-4 items-start border-black  rounded-2xl flex '),{backgroundColor:'#005E9D'}]}>
+                                        <View style={tailwind('  flex flex-row ')}><Text style={tailwind(' text-yellow-300  ')}>{el.user}</Text><Text style={tailwind('  text-black ml-4  ')}>{moment(el.createdAt).startOf('now').fromNow()}</Text></View>
+                                        <Text style={tailwind(' text-white ')}>{el.message}</Text>
                                     </View>
                                 )}
                             </>
