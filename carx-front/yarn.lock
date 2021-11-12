@@ -2351,6 +2351,11 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-picker/picker@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.2.0.tgz#e96ecc0808bdf2a706a263b422864bee5a0e6b76"
+  integrity sha512-zhzXsppY9t6TU39WMx/x1L1PyP3dPgGhtav7Yo8nlfihNGIAFwHnNcNuyC8CLdWxKj9n2+Z6+ZR6r/Kda82JnA==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets/-/assets-1.0.0.tgz#c6f9bf63d274bafc8e970628de24986b30a55c8e"
@@ -4434,6 +4439,13 @@ expo-keep-awake@~10.0.0:
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-10.0.0.tgz#275a3e02f99bc0429790047add126c1dcce60d63"
   integrity sha512-x5zRTjIvSry/EISKvjWpnLERGZj5maCwEouOfiDk0JPa0UTg/zFkT7pmiadAfHT95XUgjjb2DOku+wj6J7el7Q==
 
+expo-linear-gradient@^10.0.3:
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-10.0.3.tgz#06ad72e164f5bf36c4afcfc8ccd31138a3a78d6e"
+  integrity sha512-zKkBhHvTvDywpb0y5BJDHTbxX5/2C60qW/M8uyZXKIZcTUwY7j/9Kcx0YzoNNglq7p6aQ/DWO7sM8LHr93985Q==
+  dependencies:
+    expo-modules-core "~0.4.4"
+
 expo-location@^13.0.4:
   version "13.0.4"
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-13.0.4.tgz#b95a1888eccfd1c7f3efb4f1c76332d928d6a7d7"
@@ -5257,13 +5269,19 @@ is-arrayish@^0.3.1:
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.3.2.tgz#4574a2ae56f7ab206896fb431eaeed066fdf8f03"
   integrity sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==
 
-<<<<<<< HEAD
 is-bigint@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/is-bigint/-/is-bigint-1.0.4.tgz#08147a1875bc2b32005d41ccd8291dffc6691df3"
   integrity sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==
   dependencies:
     has-bigints "^1.0.1"
+
+is-binary-path@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
+  integrity sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==
+  dependencies:
+    binary-extensions "^2.0.0"
 
 is-boolean-object@^1.1.0:
   version "1.1.2"
@@ -5272,14 +5290,6 @@ is-boolean-object@^1.1.0:
   dependencies:
     call-bind "^1.0.2"
     has-tostringtag "^1.0.0"
-=======
-is-binary-path@~2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
-  integrity sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==
-  dependencies:
-    binary-extensions "^2.0.0"
->>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
 
 is-buffer@^1.1.5:
   version "1.1.6"
@@ -5388,7 +5398,6 @@ is-fullwidth-code-point@^3.0.0:
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
   integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
 
-<<<<<<< HEAD
 is-generator-function@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/is-generator-function/-/is-generator-function-1.0.10.tgz#f1558baf1ac17e0deea7c0415c438351ff2b3c72"
@@ -5396,10 +5405,7 @@ is-generator-function@^1.0.7:
   dependencies:
     has-tostringtag "^1.0.0"
 
-is-glob@^4.0.1:
-=======
 is-glob@^4.0.1, is-glob@^4.0.3, is-glob@~4.0.1:
->>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.3.tgz#64f61e42cbbb2eec2071a9dac0b28ba1e65d5084"
   integrity sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==
@@ -6808,7 +6814,11 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-<<<<<<< HEAD
+object-hash@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.2.0.tgz#5ad518581eefc443bd763472b8ff2e9c2c0d54a5"
+  integrity sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==
+
 object-inspect@^1.11.0, object-inspect@^1.9.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.11.0.tgz#9dceb146cedd4148a0d9e51ab88d34cf509922b1"
@@ -6821,12 +6831,6 @@ object-is@^1.0.1:
   dependencies:
     call-bind "^1.0.2"
     define-properties "^1.1.3"
-=======
-object-hash@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.2.0.tgz#5ad518581eefc443bd763472b8ff2e9c2c0d54a5"
-  integrity sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==
->>>>>>> c999e5ae379be44b373acffa795fdaa6af6d25ec
 
 object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
@@ -7470,11 +7474,6 @@ react-native-iphone-x-helper@^1.3.0, react-native-iphone-x-helper@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
-
-react-native-linear-gradient@^2.5.6:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
-  integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
 react-native-maps@0.28.0:
   version "0.28.0"
