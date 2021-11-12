@@ -2,12 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image, ActivityIndicator, TouchableOpacity } from "react-native";
 import * as Google from 'expo-google-app-auth'
-const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-card/dedicated-to-helping-your-business-thrive/shell-fleet-car-wash-offer/_jcr_content/pagePromo/image.img.960.jpeg/1525877556396/27696-bnr-p5-cw-1900x1200-new.jpeg" }
+const image = { uri: "https://www.figma.com/file/AHZbKmWBUzQ9ETbRhazQSz/carX?node-id=23%3A113" }
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { backgroundColor } from 'styled-system';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import tailwind from 'tailwind-rn';
+
 
 
 export default function LogIn({ navigation }) {
@@ -107,79 +111,91 @@ export default function LogIn({ navigation }) {
 
 
 
-    <View style={[styles.container, { flexDirection: "column", backgroundColor: "#005E9D" }]}>
-      <View style={{ flex: 1, justifyContent: "center" }} >
-        <Text style={{ textAlign: 'center', color: 'white', fontSize: 48 }}>Car<Text style={{ color: "#9F1D21" }}>X</Text></Text>
-      </View>
-      <View style={{ flex: 0.4 }} >
-        <MaterialIcons name="local-car-wash" size={85} color="#C02F34" style={{ alignSelf: "center" }} />
-      </View>
-      <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
-      </View>
-      {navigate === false ?
-        <View style={[styles.carx], { flex: 1, }} >
-          <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
-            <TextInput
-              style={[styles.carx, {
-                color: st
-              }]}
-              placeholder="+216 99 999 999"
-              onChangeText={e => {
-                setPhone({ e })
+    <View style={[styles.container,]}>
+      <LinearGradient colors={['#0857C1', '#4398F8']} style={styles.background}  >
 
-              }}
-            />
-            {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
-            <Text></Text>
-            <View >
-              <View style={[styles.pressMe]}>
+        <View style={[{ justifyContent: "center" }, tailwind('flex flex-row  ')]} >
+          <Image style={{ justifyContent: "center" }} source={require("../../../assets/Carx.png")} />
+        </View>
+        <View style={[{ justifyContent: "center" }, tailwind('flex flex-row mt-8 ')]} >
+          <Image style={{ width: 297, height: 183, justifyContent: "center" }} source={require("../../../assets/loginLogo.png")} />
+        </View>
 
-                <View style={[styles.prGoogle1]} >
-                  <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+
+
+        <View style={{ flex: 0.3, justifyContent: "flex-end", alignItems: "center" }} >
+        </View>
+
+
+        {navigate === false ?
+          <View  >
+            <View style={[{ backgroundColor: 'white', width: 320, height: 290, alignItems: "center", justifyContent: "space-around", borderRadius: 40 }]} >
+              <View>
+                <TextInput
+                  style={[styles.carx]}
+                  placeholder="+216 99 999 999"
+                  onChangeText={e => {
+                    setPhone({ e })
+
+                  }}
+                />
+              </View>
+              {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
+
+
+              <View  >
+                <LinearGradient colors={['#0857C1','#4398F8' ]} start={{x:1,y:0.9}} style={{ borderRadius: 40, width: 149, height: 40, padding: 8, }}>
+                  <View style={{ flexDirection: "row", alignSelf: "center" }} >
                     {spinner ?
-                      <ActivityIndicator color="#005A99" size="large" style={{ alignSelf: "center" }} />
+                      <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
                       : <>
 
+
                         <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
+
+
                       </>
                     }
 
 
 
                   </View>
-                </View>
-                {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
-
-
+                </LinearGradient>
               </View>
+
+              {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
+
+
+
+
+              <TouchableOpacity onPress={handleLogin}>
+                <View style={[styles.prGoogle]} >
+                  <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+                    {bool ?
+                      <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
+                      : <>
+                        <Image style={{
+                          resizeMode: "contain",
+                          height: 20,
+                          width: 30
+                        }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
+                        <Text style={{ color: '#828282' }}  >Google</Text>
+                      </>
+                    }
+
+
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <Text style={{ color: '#828282' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
+              {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
             </View>
-            <Text></Text>
-            <Text style={{ color: "white" }}>or</Text>
-            <Text></Text>
-            <TouchableOpacity onPress={handleLogin}>
-              <View style={[styles.prGoogle]} >
-                <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                  {bool ?
-                    <ActivityIndicator color="#005A99" size="large" style={{ alignSelf: "center" }} />
-                    : <>
-                      <Image style={{
-                        resizeMode: "contain",
-                        height: 20,
-                        width: 30
-                      }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                      <Text  >Google</Text>
-                    </>
-                  }
+          </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
+
+      </LinearGradient>
 
 
-                </View>
-              </View>
-            </TouchableOpacity>
-            <Text></Text>
-            <Text style={{ color: 'white' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
-            {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
-          </View>
-        </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
+
     </View>
 
 
@@ -194,6 +210,9 @@ export default function LogIn({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
   image: {
     flex: 1,
@@ -201,12 +220,16 @@ const styles = StyleSheet.create({
   },
   carx: {
     backgroundColor: "white",
-    borderRadius: 10,
+    borderRadius: 40,
     lineHeight: 2.4,
     textAlign: "left",
     height: 40,
     width: 271,
     padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#4398F8',
+    borderWidth: 1
   },
   frame2: {
     color: "black",
@@ -224,7 +247,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     letterSpacing: -1,
     textAlign: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    borderColor: '#4398F8',
+    borderWidth: 1
   }
   , flex: {
     justifyContent: "space-around"
@@ -235,18 +260,44 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   prGoogle: {
-    borderRadius: 10,
-    width: 271,
+    borderRadius: 40,
+    width: 149,
     backgroundColor: "white",
     height: 40,
-    padding: 8
+    padding: 8,
+    borderColor: '#4398F8',
+    borderWidth: 1
   }
   ,
   prGoogle1: {
-    borderRadius: 10,
-    width: 271,
-    backgroundColor: "black",
+    borderRadius: 40,
+    width: 149,
+    backgroundColor: "#4398F8",
     height: 40,
-    padding: 8
-  }
+    padding: 8,
+
+  },
+  linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: 200,
+    width: 350,
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  text: {
+    backgroundColor: 'transparent',
+    fontSize: 15,
+    color: '#fff',
+  },
 });

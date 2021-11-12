@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import test from "./src/components/Nav/test"
 import LogIn from './src/components/login/login.js';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,9 +11,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const nav = useNavigationContainerRef()
-  const [AppReady, setAppReady] = useState(null)
   const [spinner, setSpinner] = useState(false)
-  const [storedCredentials, setStoredCredentials] = useState('')
   setTimeout(() => {
     setSpinner(true)
   }, 500)
@@ -26,7 +23,7 @@ export default function App() {
             flexDirection: "column"
           }]}>
             <View style={{ flex: 6, justifyContent: "center" }} >
-              <ActivityIndicator color="blue" bool="true" size="large" style={{ textAlign: "center" }} />
+              <ActivityIndicator color="#0857C1" bool="true" size="large" style={{ textAlign: "center" }} />
               <Text style={{ textAlign: "center" }}>loading...</Text>
             </View>
           </View>
