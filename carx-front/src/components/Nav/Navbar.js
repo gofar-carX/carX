@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { SafeAreaView, Button, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, Button, StyleSheet, Text, View ,Linking } from 'react-native';
 import tailwind from "tailwind-rn";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
@@ -22,7 +22,7 @@ export default function Navbar({ navigation, na }) {
             <View style={[styles.test]}>
                 <Text style={tailwind(' text-white text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Profile') }} >Profile</Text>
                 <Text style={tailwind(' text-white text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Reviews') }}>Reviews</Text>
-                <Text style={tailwind(' text-white text-3xl font-semibold py-8 ')} onPress={() => { navigation.navigate('Payment') }}> Contact Us</Text>
+                <Text style={tailwind(' text-white text-3xl font-semibold py-8 ')} onPress={() => { Linking.openURL("https://api.konnect.network/Nw83PYi1q")} }> Contact Us</Text>
                 <Text style={tailwind(' text-white text-3xl font-semibold py-8 ')} onPress={() => { LogOut() }}>Sign Out</Text>
 
 

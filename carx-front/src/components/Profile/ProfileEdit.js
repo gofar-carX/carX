@@ -9,7 +9,7 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({ user, na, navigation }) => {
+const ProfileEdit = ({ user, na, navigation , fetch }) => {
 
     const [fullName, setFullName] = useState(user.name);
     const [Phonenumber, setPhonenumber] = useState(user.phone);
@@ -31,14 +31,18 @@ const ProfileEdit = ({ user, na, navigation }) => {
 
     }
     const updateUser = () => {
-        const data = { id: user.id, name: fullName, phone:Phonenumber }
-        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {
-            uploadedImage()
-            alert('your profile has been updated')
-            na.navigate('Login')
-
-
-        }).catch((error) => {
+        const data = { id: user.id, name: fullName, email:user.email ,  phone:Phonenumber }
+        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {})
+        .then(()=>{uploadedImage()})
+        .then(()=>{
+            setTimeout(() => {
+             fetch()   
+            }, 3000);
+            navigation.navigate('Profile') 
+            
+        })
+        
+        .catch((error) => {
             console.log(error)
         })
     }
