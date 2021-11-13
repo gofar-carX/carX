@@ -9,6 +9,7 @@ import { Platform, PlatformSafeAreaView, Button, StyleSheet, Text, View, ScrollV
 import { RefreshControl, SafeAreaView } from 'react-native';
 import tailwind from "tailwind-rn";
 import moment from 'moment'
+import axios from 'axios';
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -47,9 +48,12 @@ export default function App({ user }) {
     setConfirm(true)
   }
  const  handleCancel=(id)=>{
-   setID(id)
+  axios.delete(process.env.req+`/${id}`).then((result)=>{
+    console.log(result)
+  })
+
  }
- console.log('firas',user.requests,"ghasen")
+
   return (
     <>
       <SafeAreaView >
@@ -119,7 +123,7 @@ export default function App({ user }) {
                     <TouchableOpacity>    
                     <View>
                       <Button
-                     
+                        onPress={()=>handleCancel(e.id)} 
                        title="Cancel" 
                       />
                     </View>
@@ -136,7 +140,7 @@ export default function App({ user }) {
                     </TouchableOpacity>
 
                   </View>
-                </View>
+                 </View>
               )
 
             })

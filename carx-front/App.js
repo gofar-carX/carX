@@ -6,7 +6,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './src/components/Main'
 import workerAuth from './src/components/woker/workerAuth'
-
+import WorkerHome from "./src/components/woker/workerHome"
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +37,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LogIn} />
             <Stack.Screen name="Main" component={Main} />
             <Stack.Screen name ="WorkerAuth" component={workerAuth} />
+            <Stack.Screen name ="WorkerHome" component={WorkerHome} />
 
           </Stack.Navigator>
         </NavigationContainer>}

@@ -20,6 +20,7 @@ import jwtDecode from 'jwt-decode';
 import { NativeBaseProvider } from 'native-base';
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
 const Stack = createNativeStackNavigator();
 
 
@@ -32,12 +33,10 @@ export default function Main({ route, navigation }) {
     AsyncStorage.getItem('auth').then((result) => {
 
       let userId = jwtDecode(result)
-      console.log(userId.user_id , "zefzebfzefijzefze")
+          
       axios.get(`https://haunted-cat-69690.herokuapp.com/users/${userId.user_id}`).then((result) => {
         setUserData(result.data.data[0])
-      console.log(userId.user_id , "adzfazefzafea")
-      console.log(result.data.data[0] , "data")
-        console.log(result.data.data)
+    
 
       }).catch((error) => {
         console.log(error)
