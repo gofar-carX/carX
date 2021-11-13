@@ -88,7 +88,6 @@ export default function Wash({ navigation, user, fetch }) {
   }
 
   let checkPrice = () => {
-    console.log(carType, washType)
     if (carType !== "" && washType !== "") {
       setPrice(carTypePrice[carType] + washTypePrice[washType])
     }

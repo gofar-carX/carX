@@ -48,13 +48,10 @@ export default function App({ user ,fetch}) {
             {user.requests.map((e, i) => {
               return (
 
-                <View key={i} style={{ justifyContent: 'center', alignContent: 'center' }} >
+                <View key={i} style={[{ justifyContent: 'center', alignContent: 'center' }, tailwind('my-2')]} >
                   <LinearGradient colors={['#0857C1', '#4398F8']} style={[{ borderRadius: 26 }, tailwind(' m-2 p-4 items-start  flex ')]}>
 
-                    <View style={tailwind('  flex flex-row ')}>
-                      <Text style={tailwind(' text-yellow-300  ')}>{e.serivce || 'Wash service '} </Text>
-                    </View>
-
+                    <Text style={tailwind('  text-black ml-4')}>{"Request number : " + e.id || 'Wash service '}</Text>
                     <Text style={tailwind('  text-white ml-4')}>{`Type of car :  ${e.typeOfCar}`}</Text>
                     <Text style={tailwind('  text-white ml-4')}>{`Type of wash : ${e.typeOfWash}`}</Text>
                     <Text style={tailwind('  text-white ml-4')}>{`Time estimated : ${e.duration || "we'll connect you soon"}`}</Text>
@@ -82,7 +79,7 @@ export default function App({ user ,fetch}) {
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => handleConfirm(e.id)} disabled={e.worker == null ? true : false} >
-                      <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderWidth: 1, borderRadius: 40, borderColor: '#4398F8', height: 40, width: 220 }, tailwind('flex flex-row')]}>
+                      <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 220 }, tailwind('flex flex-row')]}>
 
                         <View style={[{ justifyContent: 'space-around', alignItems: 'center' }, tailwind('flex flex-row')]}>
                           <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind('ml-4 mx-4')]} >Confirm and Pay</Text>

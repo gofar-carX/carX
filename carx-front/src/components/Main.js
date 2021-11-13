@@ -60,7 +60,7 @@ export default function Main({ route, navigation }) {
         </Stack.Screen>
 
         <Stack.Screen options={{ headerShown: false }} name="Nav"  >
-          {props => (<Navbar na={navigation} navigation={navi} />)}
+          {props => (<Navbar na={navigation} navigation={navi} user={userData} />)}
         </Stack.Screen>
 
         <Stack.Screen name="Reviews"  >
