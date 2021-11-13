@@ -7,9 +7,9 @@ import axios from 'axios';
 const Profile = ({ navigation , user }) => {
 
 
-    // useEffect(() => {
-    //    console.log(user)
-    // }, []);
+    useEffect(() => {
+       console.log(user)
+    }, []);
 
 
 
@@ -17,21 +17,16 @@ const Profile = ({ navigation , user }) => {
         <View style={[styles.container, {
             flexDirection: "column"
         }]}>
-            <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Car<Text style={{ color: "#005A99" }}>X</Text></Text>
-            </View>
-            <View style={{ flex: 1, justifyContent: "center" }} >
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 35 }}>Welcome <Text style={{ color: "#005A99" }}>{user.name}</Text></Text>
-            </View>
+           
+            
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
                     <Image
                         source={{
-                            uri:
-                                'https://m.media-amazon.com/images/I/41jLBhDISxL._SY355_.jpg',
+                            uri:user.photo
                         }}
-                        style={{ width: 80, height: 80, borderRadius: 100 / 1 }}
+                        style={styles.thumbnail}
                     />
                 </View>
             </View>
@@ -63,6 +58,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+    },
+    thumbnail: {
+        width: 125,
+        height: 125,
+        borderRadius: 300,
     },
 
 });
