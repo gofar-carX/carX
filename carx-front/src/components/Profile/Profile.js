@@ -7,9 +7,9 @@ import axios from 'axios';
 const Profile = ({ navigation , user }) => {
 
 
-    // useEffect(() => {
-    //    console.log(user)
-    // }, []);
+    useEffect(() => {
+       console.log(user)
+    }, []);
 
 
 
