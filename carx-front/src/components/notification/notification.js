@@ -43,7 +43,7 @@ export default function App({ user ,fetch}) {
           </View>
 
 
-          <ScrollView style={tailwind('h-5/6   min-w-full rounded-2xl flex ')}>
+          <ScrollView style={[{height:'80%'},tailwind('   min-w-full rounded-2xl flex ')]}>
 
             {user.requests.map((e, i) => {
               return (
