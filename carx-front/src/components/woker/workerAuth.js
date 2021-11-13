@@ -8,6 +8,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
 export default function workerAuth({ navigation }) {
+    const [userName,setUserName] = useState("")
+    const [password,setPassword] = useState("")
+    const [bool , setBool] = useState(false)
+    const error = <><Text style={{color:"red"}}>check your password or your email</Text></>
+    
+    const  checkWorderData= ()=>{      
+        axios.post('https://testcarx1.herokuapp.com/workers/login',{
+        name:userName,
+        password:password,
+        }).then((response)=>{
+            console.log(response.data.Token)
+            AsyncStorage.setItem('workerAuth',response.data.Token).then(()=>{
+                navigation.navigate('WorkerHome')
+                setBool(false)
+                return ;
+            })
+        }).catch((error)=>{
+            console.log(error)
+            setBool(true)
+            return 
+        })    
+   }
+
 
     return (
         <>
@@ -26,6 +49,7 @@ export default function workerAuth({ navigation }) {
                     <View style={[styles.carx], { flex: 1, }} >
                         <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
                             <TextInput
+                            onChangeText={(e)=>setUserName(e)}
                                 style={[styles.carx]}
                                 placeholder="Username"
 
@@ -33,28 +57,26 @@ export default function workerAuth({ navigation }) {
 
                             <Text></Text>
                             <TextInput
+                            secureTextEntry={true}
                                 style={[styles.carx]}
                                 placeholder="Password"
+                                onChangeText={(e)=>setPassword(e)}
 
                             />
                             <Text></Text>
+                            {bool?error:(<Text></Text>)&&false}
+                            <TouchableOpacity onPress={checkWorderData}>
                             <View >
                                 <View style={[styles.pressMe]}>
-
+                            
                                     <View style={[styles.prGoogle1]} >
                                         <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-
-                                            <Text style={{ color: "white" }}>LOG IN</Text>
-
-
-
+                                             <Text style={{ color: "white" }}>LOG IN</Text>
                                         </View>
                                     </View>
-
-
-
-                                </View>
+                                  </View>
                             </View>
+                            </TouchableOpacity>
                             <Text></Text>
                              
                             <Text style={{ color: 'white' }} onPress={()=>{navigation.navigate('Login')}}>connect as a user</Text>
