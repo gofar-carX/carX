@@ -42,11 +42,11 @@ export default function Navbar({ navigation, na, user }) {
 
             <View style={{ alignItems: "center", padding: 10 }}>
                 <TouchableOpacity onPress={() => { navigation.navigate('EditProfile') }}>
-                    <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 160 }, tailwind('flex flex-row')]}>
+                    <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 180 }, tailwind('flex flex-row')]}>
 
                         <View style={[{ justifyContent: 'space-around', alignItems: 'center' }, tailwind('flex flex-row')]}>
-                            <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind(' mx-6')]} >Edit</Text>
-                            <Image style={[{ width: 34, height: 15 }, tailwind(' mt-1 mx-6 ')]} source={require("../../../assets/Arrow1.png")} />
+                            <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind(' mx-8')]} >Edit</Text>
+                            <Image style={[{ width: 34, height: 15 }, tailwind(' mt-1 mx-8 ')]} source={require("../../../assets/Arrow1.png")} />
                         </View>
 
                     </LinearGradient>
@@ -97,11 +97,14 @@ export default function Navbar({ navigation, na, user }) {
 
 const styles = StyleSheet.create({
     test: {
-        width: '100%',
-        flex: 1,
+        width: '80%',
+        height:300,
+        
         alignItems: 'center',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20,
         marginTop: 40,
         justifyContent:'center'
 

@@ -144,9 +144,12 @@ export default function Wash({ navigation, user, fetch }) {
           </Picker>
         </View>
 
-        <View style={[{ justifyContent: "center", alignContent: 'center' },tailwind('flex flex-row py-4')]}>
+     {price ?<View style={[{ justifyContent: "center", alignContent: 'center' },tailwind('flex flex-row py-4')]}>
           <Text> Price : {price} DT</Text>
         </View>
+        :<View></View>
+    }
+        
 
 
       </View>
