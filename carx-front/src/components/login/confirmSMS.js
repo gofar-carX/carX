@@ -1,8 +1,39 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, TouchableOpacity } from "react-native";
+
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function ConfirmSMS({ navigation }) {
+    const [worngCode, setWrongCode] = useState(false)
+    const [code1, setCode1] = useState(0)
+    const [spinner1, setSpinner1] = useState(false)
+    useEffect(() => {
+        AsyncStorage.getItem('auth').then((data) => {
+            if (data !== null) {
+                navigation.navigate('Main')
+                return;
+            }
+        })
+    }, [])
+    let checkCode = function () {
+        setSpinner1(true)
+        AsyncStorage.getItem("phoneVerife").then(res => {
+            const dataToVerif = JSON.parse(res)
+            if (code1["text"] == dataToVerif.verifCode) {
+                AsyncStorage.setItem("auth", dataToVerif.Token)
+                navigation.navigate("Main")
+                return ;
+            } else {
+                setWrongCode(true)
+                return
+            }
 
 
-export default function ConfirmSMS({navigation}) {
+        })
+    }
+
+
     return (
 
         <>
@@ -12,18 +43,34 @@ export default function ConfirmSMS({navigation}) {
                     <TextInput
                         style={[styles.carx]}
                         placeholder="Confirmation Code"
-
+                        type="number"
+                        onChangeText={(text) => setCode1({ text })}
                     />
+                    {worngCode ? <Text style={{ color: "red" }}>Check the code </Text> : (<Text></Text>) && false}
+
                     <Text></Text>
                     <View >
                         <View
                             style={[styles.pressMe]}>
-                            <Button
-                                title="Confirm"
-                                color="#D9AF91"
-                                onPress={() => { navigation.navigate('Main')}}
-                            />
+
+                            <View style={[styles.prGoogle1]} >
+                                <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+
+                                    {spinner1 ? <ActivityIndicator color="white" size="large" style={{ alignSelf: "center" }} />
+                                        : <>
+                                            <Text onPress={checkCode} style={{ color: "white" }}>CONFIRM</Text>
+                                        </>}
+
+
+
+
+                                </View>
+                            </View>
+                            <TouchableOpacity>
+                                <Text onPress={navigation.navigate('Login')} style={{ alignSelf: 'flex-end', color: 'white', padding: 10 }}>send code again</Text>
+                            </TouchableOpacity>
                         </View>
+
                     </View>
                     <Text></Text>
                 </View>
@@ -73,6 +120,23 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: 271,
         backgroundColor: "white",
+        height: 40,
+        padding: 8
+    },
+    google: {
+        overflow: "visible",
+        fontStyle: "normal",
+        fontSize: 20,
+        letterSpacing: -1,
+        textAlign: "center",
+        backgroundColor: "white"
+    },
+    prGoogle1: {
+        borderWidth: 1,
+        borderRadius: 10,
+        width: 271,
+
+        backgroundColor: "#005A99",
         height: 40,
         padding: 8
     }

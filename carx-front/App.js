@@ -1,41 +1,50 @@
-
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import test from "./src/components/Nav/test"
 import LogIn from './src/components/login/login.js';
-import Pay from './src/components/Payment/Pay'
-
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './src/components/Main'
+import workerAuth from './src/components/woker/workerAuth'
+
 
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-    return (
+  const nav = useNavigationContainerRef()
+  const [AppReady, setAppReady] = useState(null)
+  const [spinner, setSpinner] = useState(false)
+  const [storedCredentials, setStoredCredentials] = useState('')
+  setTimeout(() => {
+    setSpinner(true)
+  }, 500)
+  return (
+    <>
+      {spinner == false ?
+        <>
+          <View style={[styles.container, {
+            flexDirection: "column"
+          }]}>
+            <View style={{ flex: 6, justifyContent: "center" }} >
+              <ActivityIndicator color="blue" bool="true" size="large" style={{ textAlign: "center" }} />
+              <Text style={{ textAlign: "center" }}>loading...</Text>
+            </View>
+          </View>
+        </>
+        :
+        <NavigationContainer independent={true} ref={nav}  >
+          <Stack.Navigator screenOptions={{ headerShown: false }}  >
+            <Stack.Screen name="Login" component={LogIn} />
+            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name ="WorkerAuth" component={workerAuth} />
 
-
-    <NavigationContainer independent={true}  >
-      <Stack.Navigator screenOptions={ {headerShown:false }}  >
-        <Stack.Screen name="Login" component={LogIn} />
-        <Stack.Screen  name="Main" component={Main} /> 
-        <Stack.Screen  name="Pay" component={Pay} /> 
-      </Stack.Navigator>
-      
-    </NavigationContainer>
-
-
-
+          </Stack.Navigator>
+        </NavigationContainer>}
+    </>
   );
 }
-
-
-
-
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

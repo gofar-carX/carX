@@ -15,9 +15,9 @@ export default function Nav() {
        
         </svg> */}
       </View>
-      <View style={tailwind(" w-6/12  ")}>
-        <Text style={tailwind(" font-bold  text-center mt-2 text-3xl	")}>
-          <Text style={tailwind("text-yellow-600 	")}>Wash</Text> Service
+      <View style={tailwind(" w-7/12  ")}>
+        <Text style={tailwind(" font-bold  text-center mt-2 text-3xl 	")}>
+          <Text style={tailwind("text-blue-600 	")}>Wash Service </Text>
         </Text>
       </View>
       <View style={tailwind(" w-3/12 ")}></View>
