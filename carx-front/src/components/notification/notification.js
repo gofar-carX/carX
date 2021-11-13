@@ -9,7 +9,7 @@ import moment from 'moment'
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function App({ user }) {
+export default function App({ user ,fetch}) {
 
 
 
@@ -22,13 +22,14 @@ export default function App({ user }) {
     setConfirm(true)
   }
  const  handleCancel=(id)=>{
-  axios.delete(process.env.req+`/${id}`).then((result)=>{
-    console.log(result)
+
+  axios.delete(process.env.req+`/${id}`).then(()=>{
+  return   fetch()
   })
 
  }
 
- console.log(user, 'here the user ')
+
 
   return (
     <>
@@ -67,10 +68,15 @@ export default function App({ user }) {
 
                   <View style={{ marginLeft: -10, marginTop: 10, flexDirection: "row", justifyContent: "space-evenly" }} >
 
-                    <TouchableOpacity style={[{ justifyContent: 'center', alignSelf: 'center' }, tailwind('flex flex-row')]}>
+                    <TouchableOpacity 
+                      onPress={()=>handleCancel(e.id)}
+                    style={[{ justifyContent: 'center', alignSelf: 'center' }, tailwind('flex flex-row')]}>
 
                       <View style={[{ justifyContent: 'center', alignContent: 'center', borderWidth: 1, borderRadius: 40, borderColor: '#4398F8', height: 40, width: 120 }, tailwind('flex flex-row')]}>
-                        <Text style={{ color: '#828282', alignSelf: 'center' }}>Cancel</Text>
+                        <Text
+                        
+                      
+                        style={{ color: '#828282', alignSelf: 'center' }}>Cancel</Text>
                       </View>
 
                     </TouchableOpacity>

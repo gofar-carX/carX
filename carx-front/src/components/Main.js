@@ -35,11 +35,11 @@ export default function Main({ route, navigation }) {
     AsyncStorage.getItem('auth').then((result) => {
 
       let userId = jwtDecode(result)
-      console.log(process.env.serv+'users/'+`${userId.user_id}`)
+      
     
       axios.get(process.env.serv+'users/'+`${userId.user_id}`).then((result) => {
         setUserData(result.data.data[0])
-        console.log(process.env.serv)
+   
       }).catch((error) => {
         console.log(error)
       })
@@ -81,7 +81,7 @@ export default function Main({ route, navigation }) {
           {props => (<EditProfile fetch={fetch} na={navigation} navigation={navi} user={userData} />)}
         </Stack.Screen>
         <Stack.Screen options={{ headerShown: false }} name="NotificationUser"  >
-          {props => (<NotificationUser navigation={navi} user={userData} />)}
+          {props => (<NotificationUser navigation={navi} user={userData}  fetch={fetch}/>)}
         </Stack.Screen>
       </Stack.Navigator>
 
