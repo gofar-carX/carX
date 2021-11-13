@@ -48,7 +48,7 @@ export default function Wash({ navigation, user, fetch }) {
 
     if (confirmed) {
       if (location && carType !== "" && washType !== "" && price !== 0) {
-        console.log(process.env.serv+`request`)
+   
         axios.post(process.env.serv+`request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
           .then(() => {
             alert("your request has been send we will respond shortly")
