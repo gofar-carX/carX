@@ -29,8 +29,7 @@ export default function App({ user ,fetch}) {
 
  }
 
-
-
+console.log(user)
   return (
     <>
     
