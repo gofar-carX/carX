@@ -1,68 +1,64 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity , Image } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { backgroundColor } from "styled-system";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import tailwind from "tailwind-rn";
+import { LinearGradient } from 'expo-linear-gradient';
+import { alignContent } from "styled-system";
 
 
 
-export default function NavigationBar({ navigation, user }) {
 
-    const img='https://images.theconversation.com/files/76578/original/image-20150331-1231-1ttwii6.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip'
+export default function Home({ navigation, user }) {
+
+
 
     let check = function () {
-        console.log(user)
-        if (user.phone == null) {
-            alert('you need to add your phone number !')
-            navigation.navigate('EditProfile')
-        }
-        else { navigation.navigate("Wash") }
+        // if (user.phone == 0) {
+        //     alert('you need to add your phone number !')
+        //     navigation.navigate('EditProfile')
+        // }
+        // else {  }
+        navigation.navigate("Wash")
     }
 
     return (
-        <View style={[styles.container, { flexDirection: "column" }]}>
-            <View style={{ flex: 1, justifyContent: "center", backgroundColor: '#005E9D', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }} >
-                <Text style={{ textAlign: 'center', color: 'white', fontSize: 35 }}>Car<Text style={{ color: "#C02F34" }}>X</Text></Text>
+        <View style={[styles.container,]}>
+            <View style={{ justifyContent: "center", alignContent: 'center' }} >
+                <Image style={{ width: 418, height: 450, borderBottomLeftRadius: 105, borderBottomRightRadius: 105, justifyContent: "center" }} source={require("../../../assets/home.png")} />
             </View>
 
-            <View style={{ flex: 3, backgroundColor: "#EFECEC", justifyContent: "space-evenly" }} >
+            <View style={{ alignContent: "center", justifyContent: 'center' }} >
 
-                <View style={{ flex: 0.2, backgroundColor: "#ffffff", width: 300, alignSelf: "center", borderRadius: 20 }}>
-                    <TouchableOpacity onPress={() => check()}>
-                        <View style={[], { flexDirection: "row", alignSelf: "center", flexDirection: "row", justifyContent: "space-evenly", alignSelf: 'center', padding: 8 }}   >
-
-                            <View style={{ flex: 0.4 }} >
-                                <MaterialIcons name="local-car-wash" size={85} color="#C02F34" style={{ alignSelf: "center" }} />
-                            </View>
-
-                            <View style={{ flex: 0.4, alignSelf: "center" }}>
-                                <Text style={{ fontSize: 18 }}>Wash</Text>
-                            </View>
-
-                        </View>
-
-                    </TouchableOpacity>
+                <View style={[{ alignContent: "center", justifyContent: 'space-around' }, tailwind('flex flex-row')]}>
+                    <Text style={[{ fontSize: 24 }, tailwind('m-1 ml-4')]}>Wash</Text><Image style={tailwind('ml-12')} source={require("../../../assets/MainLogo.png")} />
+                </View>
+                <View style={[{ padding: 10, alignContent: 'center' }, tailwind('flex ml-2')]}>
+                    <Text style={{ color: '#828282' }}>Car X is unique in that we are a "Flex" service car wash. what that means to you is that we are the only car wash you will ever need our approach combines the car wash technology with human touch to provide the best car wash exprience possible.We come to you at home at work anywhere in the world</Text>
                 </View>
 
 
-
-
-
-
-
+            </View>
+            <View style={[{ justifyContent: "center", alignContent: 'center', padding: 10 }, tailwind('flex flex-row mt-10')]} >
+                <TouchableOpacity onPress={()=>check()}>
+                <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 0.7, y: 0.4 }} style={[{ borderRadius: 40, width: 250, height: 45, padding: 10, }]}>
+                    <View style={[{ justifyContent: 'space-between', alignContent: 'center' }, tailwind('flex flex-row')]}>
+                        <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind('ml-4')]} >Go to wash</Text>
+                        <Image style={[{ width: 34, height: 15 }, tailwind('mr-4 mt-1 ')]} source={require("../../../assets/Arrow1.png")} />
+                    </View>
+                </LinearGradient>
+                </TouchableOpacity>
             </View>
         </View >
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignContent: "center",
+
 
     },
-    border: {
-        borderWidth: 5,
-        backgroundColor: "#D9AF91"
-    }
+
 });
 
