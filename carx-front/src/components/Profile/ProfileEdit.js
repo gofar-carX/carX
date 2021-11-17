@@ -9,17 +9,17 @@ import { Text, View, Image, TouchableOpacity, TextInput, StyleSheet } from 'reac
 
 
 import * as ImagePicker from 'expo-image-picker';
-const ProfileEdit = ({ user, na, navigation , fetch }) => {
+const ProfileEdit = ({ user, na, navigation, fetch }) => {
 
     const [fullName, setFullName] = useState(user.name);
-    const [Phonenumber, setPhonenumber] = useState(user.phone);
+    const [Phonenumber, setPhonenumber] = useState(user.phone || '');
     let [file, setSelectedImage] = useState(user.photo);
     const uploadedImage = () => {
- 
+
         const fd = new FormData();
         fd.append('file', {
             name: 'file',
-            uri: file.localUri,
+            uri: file.localUri ,
             type: 'image/jpg'
         })
         axios.post(`https://haunted-cat-69690.herokuapp.com/users/upload/${user.id}`, fd, { headers: { Accept: 'application/json', 'Content-Type': 'multipart/form-data' } }).then((res) => {
@@ -28,23 +28,24 @@ const ProfileEdit = ({ user, na, navigation , fetch }) => {
                 console.log(err)
             })
 
-
     }
+
+
     const updateUser = () => {
-        const data = { id: user.id, name: fullName, email:user.email ,  phone:Phonenumber }
-        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => {})
-        .then(()=>{uploadedImage()})
-        .then(()=>{
-            setTimeout(() => {
-             fetch()   
-            }, 3000);
-            navigation.navigate('Profile') 
-            
-        })
-        
-        .catch((error) => {
-            console.log(error)
-        })
+        const data = { id: user.id, name: fullName, email: user.email, phone: Phonenumber }
+        axios.put("https://haunted-cat-69690.herokuapp.com/users/edit", data).then((response) => { })
+            .then(() => { uploadedImage() })
+            .then(() => {
+                setTimeout(() => {
+                    fetch()
+                }, 3000);
+                navigation.navigate('Nav')
+
+            })
+
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     let openImagePickerAsync = async () => {
@@ -71,7 +72,7 @@ const ProfileEdit = ({ user, na, navigation , fetch }) => {
 
         }}>
 
-            <View style={{ height: 200 , marginTop:25 }}>
+            <View style={{ height: 200, marginTop: 25 }}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
 
                     <>
