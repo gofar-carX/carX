@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import axios from 'axios';
 
 
-const Profile = ({ navigation , user }) => {
+const Profile = ({ navigation, user }) => {
 
 
     // useEffect(() => {
@@ -17,14 +17,14 @@ const Profile = ({ navigation , user }) => {
         <View style={[styles.container, {
             flexDirection: "column"
         }]}>
-           
-            
+
+
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
                     <Image
                         source={{
-                            uri:user.photo
+                            uri: user.photo
                         }}
                         style={styles.thumbnail}
                     />
@@ -35,7 +35,7 @@ const Profile = ({ navigation , user }) => {
                 <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Email : </Text>{user.email || 'no email yet'}</Text></View>
 
                 <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Phone Number : </Text>{user.phone || "no phone number yet"}</Text></View>
-               
+
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: "flex-end", padding: 40, paddingTop: 25 }}>
