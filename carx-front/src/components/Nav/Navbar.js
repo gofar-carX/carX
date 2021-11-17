@@ -35,7 +35,7 @@ export default function Navbar({ navigation, na, user }) {
 
             <View style={[{ justifyContent: 'center', justifyContent: 'space-around' }, tailwind('my-4')]}>
 
-                <View style={[{ textAlign: 'center' }, tailwind('my-4')]} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}>{ user.email? `EMAIL : ${user.email}` : '' &&false}</Text></View>
+                <View style={[{ textAlign: 'center' }, tailwind('my-4')]} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}>{ user.email? `Email : ${user.email}` : '' &&false}</Text></View>
                 <View style={[{ textAlign: 'center' }, tailwind('my-4')]} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}>{user.phone?  `Phone: ${user.phone}` : '' && false }</Text></View>
 
             </View>
