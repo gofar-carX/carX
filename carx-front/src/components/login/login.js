@@ -153,11 +153,7 @@ export default function LogIn({ navigation }) {
                     {spinner ?
                       <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
                       : <>
-
-
                         <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
-
-
                       </>
                     }
 

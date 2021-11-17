@@ -15,7 +15,7 @@ const ProfileEdit = ({ user, na, navigation , fetch }) => {
     const [Phonenumber, setPhonenumber] = useState(user.phone);
     let [file, setSelectedImage] = useState(user.photo);
     const uploadedImage = () => {
-        console.log(file.localUri)
+ 
         const fd = new FormData();
         fd.append('file', {
             name: 'file',
