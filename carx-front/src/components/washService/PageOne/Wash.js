@@ -1,177 +1,254 @@
-import React, { useState, useEffect } from 'react';
-import { TouchableHighlight, TouchableOpacity, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TouchableHighlight, TouchableOpacity, Text, View, Image } from "react-native";
 import tailwind from "tailwind-rn";
-import Nav from "./Nav";
-import { Select, VStack, CheckIcon, Center, NativeBaseProvider, } from "native-base"
+import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
-import * as TaskManager from 'expo-task-manager';
-import * as Location from 'expo-location';
-const LOCATION_TASK_NAME = 'foreground-location-task';
+import * as TaskManager from "expo-task-manager";
+import * as Location from "expo-location";
+import { LinearGradient } from "expo-linear-gradient";
+import { fontSize } from "styled-system";
 
-const Wash = ({ navigation, user }) => {
 
+const LOCATION_TASK_NAME = "foreground-location-task";
 
+export default function Wash({ navigation, user, fetch }) {
+  const carTypePrice = { Regular: 0, Pickup: 3000, Van: 10000, Truck: 20000 };
+  const washTypePrice = { Interior: 8000, Exterior: 12000, All: 18000 };
   let [carType, setCarType] = useState("");
-  let [washType, setWashType] = useState("")
+  let [washType, setWashType] = useState("");
+  let [price, setPrice] = useState(0);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  let [id, setid] = useState("")
-
-  let SendForm = () => {
-    if (location) {
-      axios.post('https://haunted-cat-69690.herokuapp.com/request', { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id})
-        .then(() => {
-          alert("your request has been send we will respond shortly")
-          navigation.navigate('Home')
-        })
-        .catch((err) => alert(err))
-
-    }
-    else {
-      alert('you need to activate your location')
-    }
-
-  }
+  let [secendDrop, setSecendDrop] = useState(true);
+  let [confirmed, setConfirmed] = useState(false);
+  let [but, setbut] = useState("Confirm");
+  let [id, setid] = useState("");
 
   useEffect(() => {
-    
     (async () => {
-   
-        let { status } = await Location.requestForegroundPermissionsAsync()
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      setid(user.id)
+      setid(user.id);
+
     })();
   }, []);
 
-  let text = 'Waiting..';
+  let SendForm = () => {
+    if (confirmed) {
+      if (location && carType !== "" && washType !== "" && price !== 0) {
+        console.log(process.env.serv + `request`)
+        axios.post(process.env.serv + `request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
+          .then(() => {
+            fetch()
+            setTimeout(() => {
+              navigation.navigate("Home");
+            }, 1000);
+          })
+          .catch((err) => { console.log(err) })
+        // ; //alert from here 
+      } else {
+        setbut("Confirm");
+      }
+    } else {
+      checkPrice();
+      setbut("Send");
+      setConfirmed(true);
+    }
+  };
+
+  let hundlewash = (val) => {
+    setWashType(val);
+    setbut("Confirm");
+    setConfirmed(false);
+    setPrice(0);
+  };
+
+  let hundleType = (val) => {
+    setCarType(val);
+    setbut("Confirm");
+    setConfirmed(false);
+    setPrice(0);
+  };
+
+  let checkPrice = () => {
+    if (carType !== "" && washType !== "") {
+      setPrice(carTypePrice[carType] + washTypePrice[washType]);
+    }
+  };
+
+  let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = 'Your localisation has been saved';
+    text = "Your localisation has been saved";
   }
 
   return (
-    <View style={tailwind("flex flex-col w-full h-full  ")}>
-      <View style={tailwind(" h-4/6  flex flex-col  pt-8 ")}>
-        <View style={tailwind(" h-2/6   flex flex-row ")}>
-          <View style={tailwind(" w-1/12 ")}></View>
-          <View style={tailwind(" w-1/12 ")}></View>
-
-          <Nav />
-
-
-        </View>
-        <View style={tailwind(" h-4/6 bg-white flex flex-row  ")}>
-          <View style={tailwind(" w-3/12  ")}></View>
-          <View style={tailwind(" w-6/12  flex flex-col   ")}>
-            <View style={tailwind(" h-1/6")}></View>
-            <View style={tailwind(" h-1/6 items-center	  ")}>
-              <VStack alignItems="center" space={4}>
-                <Select
-                  selectedValue={carType}
-                  minWidth="150"
-                  minHeight="8"
-                  accessibilityLabel="Choose Service"
-                  placeholder="Car Type"
-                  _selectedItem={{
-                    bg: "teal.600",
-                    endIcon: <CheckIcon size="5" />,
-                  }}
-                  mt={1}
-                  onValueChange={(itemValue) => setCarType(itemValue)}
-                >
-                  <Select.Item label="Regular" value="Regular" />
-                  <Select.Item label="Pickup" value="Pickup" />
-                  <Select.Item label="Van" value="Van" />
-                  <Select.Item label="Truck" value="Truck" />
-                </Select>
-              </VStack>
-            </View>
-            <View style={tailwind(" h-1/6 items-center  ")}>
-              <VStack alignItems="center" space={4}>
-                <Select
-                  selectedValue={washType}
-                  minWidth="150"
-                  minHeight="8"
-                  accessibilityLabel="Choose Service"
-                  placeholder="Wash Type"
-                  _selectedItem={{
-                    bg: "teal.600",
-                    endIcon: <CheckIcon size="5" />,
-                  }}
-                  mt={1}
-                  onValueChange={(itemValue) => setWashType(itemValue)}
-                >
-                  <Select.Item label="Interior" value="In" />
-                  <Select.Item label="Exterior" value="Ex" />
-                  <Select.Item label="All" value="All" />
-                </Select>
-              </VStack>
-            </View>
-            <View style={tailwind(" h-1/6 items-center  ")}>
-              <VStack alignItems="center" space={8} minHeight="128" >
-                <TouchableOpacity  >
-                  <Text style={tailwind("  text-center text-gray-500 pt-8 ")}>{text} </Text>
-                </TouchableOpacity>
-              </VStack>
-            </View>
-            <View style={tailwind(" h-1/6   flex flex-row ")}>
-
-              <View style={tailwind(" w-2/6   ")}></View>
-
-            </View>
-          </View>
-          <View style={tailwind(" w-3/12    ")}></View>
-          {/* <SelectDropdown
-      /> */}
-        </View>
+    <View
+      style={[
+        { justifyContent: "center", alignContent: "center" },
+        tailwind("flex"),
+      ]}
+    >
+      <View
+        style={[
+          { justifyContent: "center", alignContent: "center", padding: 10 },
+          tailwind("flex flex-row mt-16 ml-4"),
+        ]}
+      >
+        <Image source={require("../../../../assets/MainLogo.png")} />
       </View>
-      <View style={tailwind(" h-1/6 flex flex-row  ")}>
-        {/* <Footer  />  */}
-        <View style={tailwind(" w-4/12   ")}></View>
-        <View style={tailwind("  w-4/12 items-center  flex flex-col")}>
-          <View style={tailwind(" h-1/6   ")}></View>
-          <View>
-            <TouchableHighlight onPress={() => SendForm()} style={tailwind('p-2 w-32 h-10 bg-yellow-600 text-gray-100 text-lg rounded-lg  border-yellow-300 		')}>
-              <Text style={tailwind(" text-center text-white ")}>
-                Next
+
+      <View
+        style={[
+          { justifyContent: "center", alignContent: "center" },
+          tailwind("flex flex-row "),
+        ]}
+      >
+        <Image
+          style={{ width: 400, height: 190 }}
+          source={require("../../../../assets/washimg.png")}
+        />
+      </View>
+
+      <View
+        style={[
+          { justifyContent: "center", alignContent: "center" },
+          tailwind("flex flex-col "),
+        ]}
+      >
+        <View
+          style={[
+            {
+              width: 260,
+              height: 50,
+              borderColor: "#4398F8",
+              borderWidth: 1,
+              borderRadius: 40,
+              alignSelf: "center",
+            },
+            tailwind("flex my-4 "),
+          ]}
+        >
+          <Picker 
+            prompt={"Car Body"}
+            onValueChange={(value) => hundleType(value)}
+            style={[
+              {
+                width: 200,
+                height: 50,
+                padding: 10,
+                alignSelf: "center",
+                justifyContent: "center",
+              },
+              tailwind("-mt-1"),
+            ]}
+          >
+            <Picker.Item label="Car Body" value="" />
+            <Picker.Item label="Regular" value="Regular" />
+            <Picker.Item label="Pickup" value="Pickup" />
+            <Picker.Item label="Van" value="Van" />
+            <Picker.Item label="Truck" value="Truck" />
+          </Picker>
+        </View>
+
+        <View
+          style={[
+            {
+              width: 260,
+              height: 50,
+              borderColor: "#4398F8",
+              borderWidth: 1,
+              borderRadius: 40,
+              alignSelf: "center",
+            },
+            tailwind("flex my-4  "),
+          ]}
+        >
+          <Picker
+            selectedValue={washType}
+            onValueChange={(value) => hundlewash(value)}
+            style={[
+              {
+                width: 200,
+                height: 50,
+                padding: 10,
+                alignSelf: "center",
+                justifyContent: "center",
+              },
+              tailwind("-mt-1"),
+            ]}
+          >
+            <Picker.Item label="Wash Type" value="" />
+            <Picker.Item label="Interior" value="Interior" />
+            <Picker.Item label="Exterior" value="Exterior" />
+            <Picker.Item label="All" value="All" />
+          </Picker>
+        </View>
+
+        {price ? <View style={[{ justifyContent: "center", alignContent: 'center' }, tailwind('flex flex-row py-4')]}>
+          <Text> Price : {price} DT</Text>
+        </View>
+          : <View></View>
+        }
+
+
+
+      </View>
+
+      <View
+        style={[
+          { justifyContent: "center", alignContent: "center", padding: 10 },
+          tailwind("flex flex-row mt-10"),
+        ]}
+      >
+        <TouchableOpacity onPress={() => SendForm()}>
+          <LinearGradient
+            colors={["#0857C1", "#4398F8"]}
+            start={{ x: 0.7, y: 0.4 }}
+            style={[{ borderRadius: 40, width: 250, height: 45, padding: 10 }]}
+          >
+            <View
+              style={[
+                { justifyContent: "space-between", alignContent: "center" },
+                tailwind("flex flex-row"),
+              ]}
+            >
+              <Text
+                style={[
+                  { justifyContent: "center", color: "white" },
+                  tailwind("ml-4"),
+                ]}
+              >
+                {but}
               </Text>
-            </TouchableHighlight>
-          </View>
-
-        </View>
+              <Image
+                style={[{ width: 34, height: 15 }, tailwind("mr-4 mt-1 ")]}
+                source={require("../../../../assets/Arrow1.png")}
+              />
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
-    </View>
+    </View >
   );
-
-
-}
-
-export default function WashPage({ navigation ,user }) {
-  return (
-    <NativeBaseProvider>
-      <Center flex={1} px="3">
-        <Wash navigation={navigation} user={user} />
-      </Center>
-    </NativeBaseProvider>
-  )
 }
 
 TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
   if (error) {
-    alert(error)
+    alert(error);
     // Error occurred - check `error.message` for more details.
     return;
   }
   if (data) {
     const { locations } = data;
-    alert(JSON.stringify(locations))//will show you the location object
+    alert(JSON.stringify(locations)); //will show you the location object
     //lat is locations[0].coords.latitude & long is locations[0].coords.longitude
-    // do something with the locations captured in the background, possibly post to your server with axios or fetch API 
+    // do something with the locations captured in the background, possibly post to your server with axios or fetch API
   }
 });
