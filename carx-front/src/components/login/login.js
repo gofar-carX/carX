@@ -28,12 +28,15 @@ export default function LogIn({ navigation }) {
 
   useEffect(async () => {
     const userToken = await AsyncStorage.getItem('auth')
-    // const workerToken = await AsyncStorage.getItem('workerAuth')
+     const workerToken = await AsyncStorage.getItem('workerAuth')
     if (userToken !== null) {
       navigation.navigate('Main')
       return;
+    }else if(workerToken !== null){
+      navigation.navigate('WorkerHome')
+      return;
     }
-
+    
   }, [])
 
   let handleLoinWithPhone = function () {
@@ -58,7 +61,8 @@ export default function LogIn({ navigation }) {
     }).catch((err) => {
       console.log(err)
       setNavigate(false)
-      setSpinner(false)
+    
+      
       setErorrPhone(true)
       return
     })
@@ -149,11 +153,7 @@ export default function LogIn({ navigation }) {
                     {spinner ?
                       <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
                       : <>
-
-
                         <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
-
-
                       </>
                     }
 
