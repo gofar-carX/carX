@@ -46,15 +46,8 @@ export default function Wash({ navigation, user, fetch }) {
   let SendForm = () => {
     if (confirmed) {
       if (location && carType !== "" && washType !== "" && price !== 0) {
-        axios
-          .post(process.env.serv + `request`, {
-            typeOfCar: carType,
-            typeOfWash: washType,
-            positionx: location.coords.longitude,
-            positiony: location.coords.latitude,
-            user: id,
-            Price: price,
-          })
+        console.log(process.env.serv+`request`)
+        axios.post(process.env.serv+`request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
           .then(() => {
             <Root>
               <View>
@@ -126,8 +119,6 @@ export default function Wash({ navigation, user, fetch }) {
   };
 
   let checkPrice = () => {
-    console.log(carType, washType);
-    console.log(process.env.serv)
     if (carType !== "" && washType !== "") {
       setPrice(carTypePrice[carType] + washTypePrice[washType]);
     }
@@ -243,14 +234,14 @@ export default function Wash({ navigation, user, fetch }) {
           </Picker>
         </View>
 
-        <View
-          style={[
-            { justifyContent: "center", alignContent: "center" },
-            tailwind("flex flex-row py-4"),
-          ]}
-        >
+     {price ?<View style={[{ justifyContent: "center", alignContent: 'center' },tailwind('flex flex-row py-4')]}>
           <Text> Price : {price} DT</Text>
         </View>
+        :<View></View>
+    }
+        
+
+
       </View>
 
       <View

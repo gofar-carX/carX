@@ -19,6 +19,7 @@ import jwtDecode from 'jwt-decode';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
 const Stack = createNativeStackNavigator();
 
 
@@ -32,11 +33,13 @@ export default function Main({ route, navigation }) {
 
   let fetch = () => {
     AsyncStorage.getItem('auth').then((result) => {
-
+       
       let userId = jwtDecode(result)
-      axios.get(process.env.serv + `users/${userId.user_id}`).then((result) => {
+    
+      axios.get(process.env.serv+'users/'+`${userId.user_id}`).then((result) => {
+   
         setUserData(result.data.data[0])
-        
+
       }).catch((error) => {
         console.log(error)
       })
@@ -57,10 +60,10 @@ export default function Main({ route, navigation }) {
         </Stack.Screen>
 
         <Stack.Screen options={{ headerShown: false }} name="Nav"  >
-          {props => (<Navbar na={navigation} navigation={navi} />)}
+          {props => (<Navbar na={navigation} navigation={navi} user={userData} />)}
         </Stack.Screen>
 
-        <Stack.Screen name="Reviews"  >
+        <Stack.Screen options={{ headerShown: false }} name="Reviews"  >
           {props => (<Reviews navigation={navi} user={userData} />)}
         </Stack.Screen>
 
@@ -74,11 +77,11 @@ export default function Main({ route, navigation }) {
           {props => (<Profile navigation={navi} user={userData} />)}
         </Stack.Screen>
 
-        <Stack.Screen name="EditProfile"  >
+        <Stack.Screen options={{ headerShown: false }} name="EditProfile"  >
           {props => (<EditProfile fetch={fetch} na={navigation} navigation={navi} user={userData} />)}
         </Stack.Screen>
         <Stack.Screen options={{ headerShown: false }} name="NotificationUser"  >
-          {props => (<NotificationUser navigation={navi} user={userData} />)}
+          {props => (<NotificationUser navigation={navi} user={userData}  fetch={fetch}/>)}
         </Stack.Screen>
       </Stack.Navigator>
 
