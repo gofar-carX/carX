@@ -41,12 +41,12 @@ export default function Wash({ navigation, user, fetch }) {
   let SendForm = () => {
     if (confirmed) {
       if (location && carType !== "" && washType !== "" && price !== 0) {
-        console.log(process.env.serv + `request`)
+        
         axios.post(process.env.serv + `request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
           .then(() => {
             fetch()
             setTimeout(() => {
-              navigation.navigate("Home");
+              navigation.navigate("NotificationUser");
             }, 1000);
           })
           .catch((err) => { console.log(err) })
@@ -136,7 +136,8 @@ export default function Wash({ navigation, user, fetch }) {
           ]}
         >
           <Picker 
-            prompt={"Car Body"}
+          selectedValue={carType}
+            // prompt={"Car Body"}
             onValueChange={(value) => hundleType(value)}
             style={[
               {

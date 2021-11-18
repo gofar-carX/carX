@@ -94,56 +94,95 @@ export default function ConfirmSMS({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+  
     },
     image: {
-        flex: 1,
-        justifyContent: "center"
+      flex: 1,
+      resizeMode: 'contain'
     },
     carx: {
-        backgroundColor: "white",
-        borderRadius: 10,
-        lineHeight: 2.4,
-        textAlign: "left",
-        height: 40,
-        width: 271,
-        borderWidth: 1,
-        padding: 10,
+      backgroundColor: "white",
+      borderRadius: 40,
+      lineHeight: 2.4,
+      textAlign: "left",
+      height: 40,
+      width: 271,
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderColor: '#4398F8',
+      borderWidth: 1
     },
-
-
-
-    flex: {
-        justifyContent: "space-around"
+    frame2: {
+      color: "black",
+      width: 271,
+      height: 45,
+      overflow: "visible",
+      borderRadius: 5,
+    },
+    frame: {
+      overflow: "visible",
+    }
+    , google: {
+      overflow: "visible",
+      fontStyle: "normal",
+      fontSize: 20,
+      letterSpacing: -1,
+      textAlign: "center",
+      backgroundColor: "white",
+      borderColor: '#4398F8',
+      borderWidth: 1
+    }
+    , flex: {
+      justifyContent: "space-around"
     }
     , pressMe: {
-        width: 271,
-        borderRadius: 10,
-        overflow: "visible",
+      width: 271,
+      borderRadius: 10,
+      overflow: "visible",
     },
     prGoogle: {
-        borderWidth: 1,
-        borderRadius: 10,
-        width: 271,
-        backgroundColor: "white",
-        height: 40,
-        padding: 8
-    },
-    google: {
-        overflow: "visible",
-        fontStyle: "normal",
-        fontSize: 20,
-        letterSpacing: -1,
-        textAlign: "center",
-        backgroundColor: "white"
-    },
-    prGoogle1: {
-        borderWidth: 1,
-        borderRadius: 10,
-        width: 271,
-
-        backgroundColor: "#005A99",
-        height: 40,
-        padding: 8
+      borderRadius: 40,
+      width: 149,
+      backgroundColor: "white",
+      height: 40,
+      padding: 8,
+      borderColor: '#4398F8',
+      borderWidth: 1
     }
-});
+    ,
+    prGoogle1: {
+      borderRadius: 40,
+      width: 149,
+      backgroundColor: "#4398F8",
+      height: 40,
+      padding: 8,
+  
+    },
+    linearGradient: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 5,
+      height: 200,
+      width: 350,
+    },
+    background: {
+      width: '100%',
+      height: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    button: {
+      padding: 15,
+      alignItems: 'center',
+      borderRadius: 5,
+    },
+    text: {
+      backgroundColor: 'transparent',
+      fontSize: 15,
+      color: '#fff',
+    },
+  });
