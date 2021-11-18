@@ -32,7 +32,7 @@ export default function Home({ navigation, user }) {
                     <Text style={[{ fontSize: 24 }, tailwind('m-1 ml-4')]}>Wash</Text><Image style={tailwind('ml-12')} source={require("../../../assets/MainLogo.png")} />
                 </View>
                 <View style={[{ padding: 10, alignContent: 'center' }, tailwind('flex ml-2')]}>
-                    <Text style={{ color: '#828282' }}>Car X is unique in that we are a "Flex" service car wash. what that means to you is that we are the only car wash you will ever need our approach combines the car wash technology with human touch to provide the best car wash exprience possible.We come to you at home at work anywhere in the world</Text>
+                    <Text style={{ color: '#828282' , fontSize:16 }}>Car X is unique in that we are a "Flex" service car wash. We are the only car wash that come to you at home at work anywhere in the world , We gain you time and you can trust us .</Text>
                 </View>
 
 
