@@ -46,7 +46,7 @@ export default function Wash({ navigation, user, fetch }) {
           .then(() => {
             fetch()
             setTimeout(() => {
-              navigation.navigate("Home");
+              navigation.navigate("NotificationUser");
             }, 1000);
           })
           .catch((err) => { console.log(err) })
@@ -136,7 +136,8 @@ export default function Wash({ navigation, user, fetch }) {
           ]}
         >
           <Picker 
-            prompt={"Car Body"}
+          selectedValue={carType}
+            // prompt={"Car Body"}
             onValueChange={(value) => hundleType(value)}
             style={[
               {
