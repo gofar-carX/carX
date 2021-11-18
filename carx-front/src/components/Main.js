@@ -29,7 +29,7 @@ export default function Main({ route, navigation }) {
   useEffect(() => {
     fetch()
 
-  }, [])
+  })
 
   let fetch = () => {
     AsyncStorage.getItem('auth').then((result) => {
