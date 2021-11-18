@@ -35,6 +35,7 @@ export default function App() {
             <Stack.Screen name="Main" component={Main} />
             <Stack.Screen name ="WorkerAuth" component={workerAuth} />
             <Stack.Screen name ="WorkerHome" component={WorkerHome} />
+      
 
           </Stack.Navigator>
         </NavigationContainer>}

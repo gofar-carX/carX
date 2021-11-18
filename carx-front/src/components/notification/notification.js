@@ -9,6 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App({ user, fetch }) {
 
+  const [id, setID] = useState(null)
 
   const handleConfirm = (id, price) => {
     axios.patch(process.env.req + `/${id}`, { isPayed: true })
@@ -17,8 +18,10 @@ export default function App({ user, fetch }) {
         Linking.openURL("https://api.konnect.network/Nw83PYi1q")
       })
       .catch((err) => console.log(err))
+    }
+ 
+ 
 
-  }
 
 
   const handleCancel = (id) => {
