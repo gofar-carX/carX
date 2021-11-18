@@ -14,14 +14,14 @@ console.log("htdydhdryrdt")
         <View style={[styles.container, {
             flexDirection: "column"
         }]}>
-           
-            
+
+
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
                     <Image
                         source={{
-                            uri:user.photo
+                            uri: user.photo
                         }}
                         style={styles.thumbnail}
                     />
@@ -32,7 +32,7 @@ console.log("htdydhdryrdt")
                 <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}>{ user.email==null ? `EMAIL : ${user.email}` : '' &&false}</Text></View>
 
                 <View style={{ height: 50, textAlign: 'center' }} ><Text style={{ fontSize: 20, fontStyle: 'normal', textAlign: 'center' }}><Text>Phone Number : </Text>{user.phone || "no phone number yet"}</Text></View>
-               
+
             </View>
             <View style={{ flex: 1 }} >
                 <View style={{ alignItems: "flex-end", padding: 40, paddingTop: 25 }}>

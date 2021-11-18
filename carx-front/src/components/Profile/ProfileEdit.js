@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { EvilIcons } from '@expo/vector-icons';
+import tailwind from "tailwind-rn";
 import axios from 'axios'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import jwtDecode from 'jwt-decode';
@@ -76,25 +77,40 @@ const ProfileEdit = ({ user, na, navigation, fetch }) => {
                 <View style={{ alignItems: 'center', justifyContent: 'center', justifyContent: 'space-around' }}>
 
                     <>
+                        <View>
+                            <Image style={tailwind('ml-12')} source={require("../../../assets/MainLogo.png")} />
+                        </View>
                         <View style={styles.container}>
 
-                            <Text >
-                                {
-                                    file == null ?
-                                        <EvilIcons name="user" size={160} color="black" />
-                                        : <View style={styles.container}>
-                                            <Image source={{ uri: file.localUri || file }} style={styles.thumbnail} />
-                                        </View>}
-                                <TouchableOpacity onPress={openImagePickerAsync} >
+
+                            {
+                                file == null ?
+                                    <EvilIcons style={{ justifyContent: "center", padding: 20 }} name="user" size={200} color="#4398F8" />
+                                    : <View style={styles.container}>
+                                        <Image source={{ uri: file.localUri || file }} style={styles.thumbnail} />
+                                    </View>}
+
+                            {/* <TouchableOpacity onPress={openImagePickerAsync} >
                                     <MaterialCommunityIcons name="image-edit-outline" size={24} color="black" />
+                                </TouchableOpacity> */}
+                            <View style={{ justifyContent: "center", alignItems: "center", padding: 40, paddingBottom: 30 }}>
+                                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}
+                                    onPress={updateUser}
+
+                                    style={{ justifyContent: 'center', alignItems: "center", backgroundColor: '#005A99', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
+                                    <Text style={{
+                                        fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
+                                    }}>Change</Text>
                                 </TouchableOpacity>
-                            </Text>
+                            </View>
+
                         </View>
                     </>
                 </View>
 
             </View>
             <View style={{ justifyContent: 'space-around' }}>
+                <Text style={{ padding: 15 }}>Full Name:</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
@@ -104,7 +120,9 @@ const ProfileEdit = ({ user, na, navigation, fetch }) => {
             </View>
             <View >
                 <View>
+                    <Text style={{ padding: 15 }}>Phone Number:</Text>
                     <TextInput
+
                         style={styles.input}
                         placeholder="Phone number"
                         onChangeText={text => setPhonenumber(text)}
@@ -116,9 +134,10 @@ const ProfileEdit = ({ user, na, navigation, fetch }) => {
             </View>
 
             <View style={{ height: 100 }}>
-                <View style={{ alignItems: "flex-end", padding: 40 }}>
+                <View style={{ justifyContent: "center", alignItems: "center", padding: 40, paddingBottom: 30 }}>
                     <TouchableOpacity
                         onPress={updateUser}
+
                         style={{ backgroundColor: '#005A99', boxSizing: 'border-box', width: 110, height: 50, overflow: 'hidden', borderRadius: 25, order: '1px solid' }}>
                         <Text style={{
                             fontSize: 20, color: '#fff', justifyContent: "center", textAlign: "center", padding: 10
@@ -138,7 +157,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         backgroundColor: '#EBEBEB',
-        borderRadius: 40
+        borderRadius: 40,
+
     },
     container: {
         // flex: 0.5,
