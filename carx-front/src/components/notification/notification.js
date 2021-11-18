@@ -9,12 +9,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App({ user, fetch }) {
 
-  const [requests, setRequests] = useState([])
+  // const [requests, setRequests] = useState([])
 
-  useEffect(() => {
-    setRequests(user.requests)
-    requests.sort((a,b) => (a.id > b.id) ? 1 : 0)
-  },[])
+  // useEffect(() => {
+  //   setRequests(user.requests)
+  //   requests.sort((a,b) => (a.id > b.id) ? 1 : 0)
+  // },[])
 
 
   const handleConfirm = (id, price) => {
@@ -51,7 +51,7 @@ export default function App({ user, fetch }) {
 
           <ScrollView style={[{ height: '80%' }, tailwind('   min-w-full rounded-2xl flex ')]}>
 
-            {requests.map((e, i) => {
+            {  user.requests.map((e, i) => {
 
               return (
 
@@ -95,7 +95,6 @@ export default function App({ user, fetch }) {
                               <Image style={[{ width: 34, height: 15 }, tailwind('mr-4 mt-1 mx-4 ')]} source={require("../../../assets/Arrow1.png")} />
                             </View>
 
-
                           }
 
                         </LinearGradient>
@@ -105,7 +104,9 @@ export default function App({ user, fetch }) {
                     </View>}
                 </View>
               )
-            })}
+            })
+         
+          }
           </ScrollView>
         </View>
       </SafeAreaView>
