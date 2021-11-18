@@ -8,7 +8,6 @@ import axios from 'axios'
 import * as TaskManager from "expo-task-manager";
 import * as Location from "expo-location";
 import { Button } from 'native-base';
-import tailwind from 'tailwind-rn';
 const LOCATION_TASK_NAME = "foreground-location-task";
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +15,7 @@ export default function WorkerHome({ navigation }) {
   const [positionx, setLatiude] = useState(null)
   const [positiony, setLongitude] = useState(null)
   const [workerId, setWorkerId] = useState(null)
+  const [allUserData, setAllUserData] = useState([])
   const [makers, setMarkers] = ([{
     title: 'hello',
     coordinates: {
@@ -31,6 +31,7 @@ export default function WorkerHome({ navigation }) {
     },
   }])
   const [WorkerDatadata, setWorkerData] = useState([])
+  const [username, setUserName] = useState([])
   let updatePosition = async () => {
     try {
       const data = await axios.put(`${process.env.serv}workers/position/${workerId}`, {
@@ -42,6 +43,10 @@ export default function WorkerHome({ navigation }) {
       console.log(e)
     }
 
+  }
+  let fetchAllUsersData = async () => {
+    const users = await axios.get(`${process.env.serv}users`)
+    setAllUserData(users.data)
   }
   useEffect(() => {
     (async () => {
@@ -60,13 +65,13 @@ export default function WorkerHome({ navigation }) {
     AsyncStorage.getItem("workerAuth").then((result) => {
       setWorkerId(jwtDecode(result)["workerid"])
       axios.get(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`).then((res) => {
-        1
-        console.log(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`)
         setWorkerData(res.data)
       })
     })
+    fetchAllUsersData()
     updatePosition()
   }, [])
+
 
   let updateAvailble = async () => {
     try {
@@ -92,7 +97,7 @@ export default function WorkerHome({ navigation }) {
 
   let LogOutWorker = async () => {
     try {
-      await AsyncStorage.removeItem('auth')
+      await AsyncStorage.removeItem('workerAuth')
       navigation.navigate('WorkerAuth')
 
     } catch (e) {
@@ -100,35 +105,42 @@ export default function WorkerHome({ navigation }) {
     }
   }
 
+  setTimeout(async () => {
+    allUserData.forEach(async (element) => {
+
+      for (let val of element.requests) {
+        if (val["worker"] !== null) {
+          if (val["worker"]["id"] == workerId) {
+
+            setUserName(element)
+          }
+        }
+
+      }
+    })
+
+  }, 3000)
 
 
-  // console.log(WorkerDatadata[0]['id'])
+
   return (
 
 
     <View style={[styles.container, { flexDirection: "column" }]}>
 
-
-
       {WorkerDatadata.map((e, i) => {
-        console.log(e)
         return (
-          <>
-            <View style={{ flex: 0.25, backgroundColor: "darkorange" }} >
-              <Text style={{ backgroundColor: "blue", flex: 0.5 }}>Car type : {e.typeOfCar}  </Text>
-              <Text style={{ backgroundColor: "red", flex: 0.5 }}>Wash Type :{e.typeOfWash} </Text>
-              <Text style={{ backgroundColor: "green", flex: 0.5 }}>Full name: </Text>
-              <Text style={{ backgroundColor: "gray", flex: 0.5 }}>Phone Number : </Text>
-            </View>
 
-          </>
+          <View style={{ flex: 0.25, backgroundColor: "darkorange" }} >
+            <Text style={{ backgroundColor: "blue", flex: 0.5 }}>Car type : {e.typeOfCar}  </Text>
+            <Text style={{ backgroundColor: "red", flex: 0.5 }}>Wash Type :{e.typeOfWash} </Text>
+            <Text style={{ backgroundColor: "green", flex: 0.5 }}>Full name:{username["name"]} </Text>
+            <Text style={{ backgroundColor: "gray", flex: 0.5 }}>Phone Number :{username["phone"]} </Text>
+          </View>
         )
-
       })
 
-
       }
-
       <TouchableOpacity onPress={LogOutWorker}>
         <View >
           <Text >
@@ -146,7 +158,6 @@ export default function WorkerHome({ navigation }) {
           </Text>
         </View>
       </TouchableOpacity>
-
 
 
     </View>
