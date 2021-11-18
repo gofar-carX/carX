@@ -20,6 +20,7 @@ export default function App({ user ,fetch}) {
   const handleConfirm = (id) => {
       setID(id)
     setConfirm(true)
+    console.log('hi')
   }
  const  handleCancel=(id)=>{
 
@@ -77,8 +78,7 @@ export default function App({ user ,fetch}) {
                       </View>
 
                     </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => handleConfirm(e.id)} disabled={e.worker == null ? true : false} >
+                  {e.worker ? <TouchableOpacity onPress={() => handleConfirm(e.id)} disabled={e.worker == null ? true : false} >
                       <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 220 }, tailwind('flex flex-row')]}>
 
                         <View style={[{ justifyContent: 'space-around', alignItems: 'center' }, tailwind('flex flex-row')]}>
@@ -88,6 +88,18 @@ export default function App({ user ,fetch}) {
 
                       </LinearGradient>
                     </TouchableOpacity>
+                    :<TouchableOpacity onPress={() => handleConfirm(e.id)} disabled={e.worker == null ? true : false} >
+                    <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 220 }, tailwind('flex flex-row')]}>
+
+                      <View style={[{ justifyContent: 'space-around', alignItems: 'center' }, tailwind('flex flex-row')]}>
+                        <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind('ml-4 mx-4')]} >Waiting for admin</Text>
+                        <Image style={[{ width: 34, height: 15 }, tailwind('mr-4 mt-1 mx-4 ')]} source={require("../../../assets/Arrow1.png")} />
+                      </View>
+
+                    </LinearGradient>
+                  </TouchableOpacity>
+                  }
+                    
 
                   </View>
 
