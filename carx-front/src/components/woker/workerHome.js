@@ -15,6 +15,7 @@ export default function  WorkerHome({ navigation }){
   const [positionx, setLatiude] = useState(null)
   const [positiony, setLongitude] = useState(null)
   const [workerId , setWorkerId]=useState(null)
+  const [allUserData , setAllUserData]=useState([])
   const [ makers,setMarkers]=([{
     title: 'hello',
     coordinates: {
@@ -29,7 +30,8 @@ export default function  WorkerHome({ navigation }){
       longitude: 101.655449
     },  
   }])
-  const [WorkerDatadata , setWorkerData]=useState([])  
+  const [WorkerDatadata , setWorkerData]=useState([])
+  const [username,setUserName]=useState([])  
   let  updatePosition=async()=>{
     try{
    const data  = await axios.put(`${process.env.serv}workers/position/${workerId}`,{
@@ -41,6 +43,10 @@ export default function  WorkerHome({ navigation }){
       console.log(e)
     }
 
+  }
+  let fetchAllUsersData = async()=>{
+    const users = await axios.get(`${process.env.serv}users`)
+    setAllUserData(users.data)
   }
   useEffect(()=>{
     (async () => {
@@ -62,9 +68,11 @@ export default function  WorkerHome({ navigation }){
         setWorkerData(res.data)
     })      
     })       
+    fetchAllUsersData()
     updatePosition()    
 },[])
- 
+  
+
   let  updateAvailble=async()=>{
     try{
    const data  = await axios.put(`${process.env.serv}workers/update/${workerId}`)
@@ -96,10 +104,25 @@ export default function  WorkerHome({ navigation }){
         console.error(e)
     }
 }
+    
+      setTimeout(async() => {
+         allUserData.forEach(async(element)=>{
+         
+          for (let val of element.requests){
+            if(val["worker"]!==null){
+              if(val["worker"]["id"]==workerId){
+          
+                setUserName(element)
+              }
+            }
+            
+          }
+        })
 
+      },3000)    
         
-        
-      console.log(WorkerDatadata[0]['id'])
+      
+   
     return (
 
         <>
@@ -116,8 +139,8 @@ export default function  WorkerHome({ navigation }){
        
           <Text style={{ backgroundColor:"blue",flex:0.5}}>Car type : {e.typeOfCar}  </Text>
           <Text style={{ backgroundColor:"red",flex:0.5}}>Wash Type :{e.typeOfWash} </Text>
-          <Text style={{ backgroundColor:"green",flex:0.5}}>Full name: </Text>
-          <Text style={{ backgroundColor:"gray",flex:0.5}}>Phone Number : </Text>
+          <Text style={{ backgroundColor:"green",flex:0.5}}>Full name:{username["name"]} </Text>
+          <Text style={{ backgroundColor:"gray",flex:0.5}}>Phone Number :{username["phone"]} </Text>
 
 
     
