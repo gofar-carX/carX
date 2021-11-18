@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect} from 'react';
-import {View,Text} from 'react-native';
+import {View,Text,StyleSheet} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,25 +18,60 @@ export default function  WorkerHome(){
                   return;
                 }
                 let location = await Location.getCurrentPositionAsync({});
-                console.log(location,"ifnz")
+            
                 setLocation(location);
               })();
-            AsyncStorage.getItem("workerAuth").then((result)=>{
-              axios.get(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`).then((res)=>{
-                setWorkerData(res.data)
-            })      
-            })           
+            // AsyncStorage.getItem("workerAuth").then((result)=>{
+            //   axios.get(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`).then((res)=>{
+            //     setWorkerData(res.data)
+            // })      
+            // }) 
+            axios.get(`${process.env.serv}users`).then((res)=>{
+              console.log(res.data)
+            })         
         },[])
-            console.log(location)
+            console.log(WorkerDatadata)
     return (
 
         <>
- 
+  <View style={[styles.container, {
+      // Try setting `flexDirection` to `"row"`.
+      flexDirection: "column"
+    }]}>
+   
+       {WorkerDatadata.map((e,i)=>{
+         return (
+           <>
+          <View style={{ flex: 0.25, backgroundColor: "darkorange" }} >
+       
+          <Text style={{ backgroundColor:"blue",flex:0.5}}>Car type : {e.typeOfCar}  </Text>
+          <Text style={{ backgroundColor:"red",flex:0.5}}>Wash Type :{e.typeOfWash} </Text>
+          <Text style={{ backgroundColor:"green",flex:0.5}}>Full name: </Text>
+          <Text style={{ backgroundColor:"gray",flex:0.5}}>Phone Number : </Text>
+
+
+    
+
+
+      </View>
         <View>
-            <Text>
-                worker home 
-            </Text>
+
+<Text style={{ backgroundColor:" blue"}}>
+          Done
+          
+</Text>
         </View>
+        </>
+         )
+
+       }) 
+       
+       
+     }
+
+    
+    
+    </View> 
 
 </>
  )
@@ -46,3 +81,11 @@ export default function  WorkerHome(){
 
 
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 30,
+  },
+});
