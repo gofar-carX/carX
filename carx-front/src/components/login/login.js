@@ -2,15 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Button, Alert, Image, ActivityIndicator, TouchableOpacity } from "react-native";
 import * as Google from 'expo-google-app-auth'
-const image = { uri: "https://www.shell.ca/en_ca/business-customers/shell-fuel-card/dedicated-to-helping-your-business-thrive/shell-fleet-car-wash-offer/_jcr_content/pagePromo/image.img.960.jpeg/1525877556396/27696-bnr-p5-cw-1900x1200-new.jpeg" }
+const image = { uri: "https://www.figma.com/file/AHZbKmWBUzQ9ETbRhazQSz/carX?node-id=23%3A113" }
 import ConfirmSMS from './confirmSMS';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { backgroundColor } from 'styled-system';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import tailwind from 'tailwind-rn';
+
+
+
 export default function LogIn({ navigation }) {
-
-
-
-
   const [bool, setBool] = useState(false)
   const [navigate, setNavigate] = useState(false)
   const [spinner, setSpinner] = useState(false)
@@ -18,32 +22,55 @@ export default function LogIn({ navigation }) {
   const [erorr, setErorr] = useState(false)
   const [erorr1, setErorrPhone] = useState(false)
   const [check, setCheck] = useState(false)
-  let handleLoinWithPhone = function () {
-    setSpinner(true)
-    axios
-      .get(`http://192.168.27.128:5000/phone/send/${phone}`).then((res) => {
-        setErorrPhone(false)
+  const [codeVerfication, setCodeVerfication] = useState('')
+  const [token, setToken] = useState("")
 
-        setTimeout(() => {
-          setNavigate(true)
-          setSpinner(false)
-        }, 1500)
-        setTimeout(() => setSpinner(false), 1500)
-      }).catch((err) => {
-        console.log(err)
-        setNavigate(false)
-        setSpinner(false)
-        setErorrPhone(true)
-      })
+
+  useEffect(async () => {
+    const userToken = await AsyncStorage.getItem('auth')
+     const workerToken = await AsyncStorage.getItem('workerAuth')
+    if (userToken !== null) {
+      navigation.navigate('Main')
+      return;
+    }else if(workerToken !== null){
+      navigation.navigate('WorkerHome')
+      return;
+    }
+    
+  }, [])
+
+  let handleLoinWithPhone = function () {
+    if (phone["e"] == null || phone["e"].length !== 8) {
+      setCheck(true)
+      return
+    }
+    else if (phone["e"].length == 8) {
+      setCheck(false)
+    }
+    setSpinner(true)
+
+    axios.post(process.env.sendPhone + `/${phone["e"]}`).then((res) => {
+      setCodeVerfication(res.data.verifCode)
+      AsyncStorage.setItem("phoneVerife", JSON.stringify(res.data))
+      setErorrPhone(false)
+      setNavigate(true)
+      setSpinner(false)
+
+
+      return;
+    }).catch((err) => {
+      console.log(err)
+      setNavigate(false)
+    
+      
+      setErorrPhone(true)
+      return
+    })
 
 
   }
 
-  useEffect(() => {
-    AsyncStorage.getItem('auth').then((data) => {
-      if (data !== null) { navigation.navigate('Main') }
-    })
-  }, [])
+
 
   let st = check == false ? 'black' : 'red'
   let handleLogin = async function () {
@@ -57,111 +84,125 @@ export default function LogIn({ navigation }) {
     try {
       const dataFromGoogle = await Google.logInAsync(config)
       const { type, user } = dataFromGoogle
-      const data = JSON.stringify(user)
       if (type == 'success') {
-        await AsyncStorage.setItem("auth", data)
+
+
+        const { email, name, photoUrl } = user
+        axios.post(`https://haunted-cat-69690.herokuapp.com/users`, {
+          name: name, email: email, photo: photoUrl
+        }).then((response) => {
+          AsyncStorage.setItem("auth", response.data.Token).then((response_) => {
+            navigation.navigate("Main")
+            setBool(false)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
+
       }
-      setErorr(false)
-      setTimeout(() => setBool(false), 100)
-      navigation.navigate("Main")
+
     } catch (e) {
+      console.error(e)
       setBool(false)
       setErorr(true)
     }
   }
-  useEffect(async () => {
-    const data = await AsyncStorage.getItem('auth')
-    if (data) {
-      navigation.navigate('Main')
-    } else {
-      navigation.navigate('Login')
-    }
 
-
-
-  }, [])
 
   return (
-    <>
 
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <View style={[styles.container, {
 
-          flexDirection: "column"
-        }]}>
-          <View style={{ flex: 1, justifyContent: "center" }} >
-            <Text style={{ textAlign: 'center', color: '#a41c1f', fontSize: 48 }}>Car<Text style={{ color: "black" }}>X</Text></Text>
-          </View>
-          <View style={{ flex: 2 / 3, justifyContent: "flex-end", alignItems: "center" }} >
-          </View>
-          {navigate === false ?
-            <View style={[styles.carx], { flex: 1, }} >
-              <View style={[styles.flex], { justifyContent: "space-between", alignItems: "center" }}>
+
+    <View style={[styles.container,]}>
+      <LinearGradient colors={['#0857C1', '#4398F8']} style={styles.background}  >
+
+        <View style={[{ justifyContent: "center" }, tailwind('flex flex-row  ')]} >
+          <Image style={{ justifyContent: "center" }} source={require("../../../assets/Carx.png")} />
+        </View>
+        <View style={[{ justifyContent: "center" }, tailwind('flex flex-row mt-8 ')]} >
+          <Image style={{ width: 297, height: 183, justifyContent: "center" }} source={require("../../../assets/loginLogo.png")} />
+        </View>
+
+
+
+        <View style={{ flex: 0.3, justifyContent: "flex-end", alignItems: "center" }} >
+        </View>
+
+
+        {navigate === false ?
+          <View  >
+            <View style={[{ backgroundColor: 'white', width: 320, height: 290, alignItems: "center", justifyContent: "space-around", borderRadius: 40 }]} >
+              <View>
                 <TextInput
-                  style={[styles.carx, {
-                    color: st
-                  }]}
+                  style={[styles.carx]}
                   placeholder="+216 99 999 999"
                   onChangeText={e => {
                     setPhone({ e })
 
                   }}
                 />
-                {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
-                <Text></Text>
-                <View >
-                  <View style={[styles.pressMe]}>
-
-                    <View style={[styles.prGoogle1]} >
-                      <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                        {spinner ?
-                          <ActivityIndicator color="white" size="large" style={{ alignSelf: "center" }} />
-                          : <>
-
-                            <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
-                          </>
-                        }
+              </View>
+              {check ? <Text style={{ color: "red" }}>Wrong phone number , for example {'\n'}+216 99 999 999</Text> : <Text></Text> && false}
 
 
+              <View  >
+                <LinearGradient colors={['#0857C1','#4398F8' ]} start={{x:1,y:0.9}} style={{ borderRadius: 40, width: 149, height: 40, padding: 8, }}>
+                  <View style={{ flexDirection: "row", alignSelf: "center" }} >
+                    {spinner ?
+                      <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
+                      : <>
+                        <Text onPress={handleLoinWithPhone} style={{ color: "white" }}>LOG IN</Text>
+                      </>
+                    }
 
-                      </View>
-                    </View>
-                    {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
+
+
+                  </View>
+                </LinearGradient>
+              </View>
+
+              {erorr1 ? <Text style={{ color: "red" }}>An error occurred.check your Network and try again </Text> : (<Text></Text>) && false}
+
+
+
+
+              <TouchableOpacity onPress={handleLogin}>
+                <View style={[styles.prGoogle]} >
+                  <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
+                    {bool ?
+                      <ActivityIndicator color="#0857C1" size="large" style={{ alignSelf: "center" }} />
+                      : <>
+                        <Image style={{
+                          resizeMode: "contain",
+                          height: 20,
+                          width: 30
+                        }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
+                        <Text style={{ color: '#828282' }}  >Google</Text>
+                      </>
+                    }
 
 
                   </View>
                 </View>
-                <Text></Text>
-                <Text style={{ color: "white" }}>or</Text>
-                <Text></Text>
-                <TouchableOpacity onPress={handleLogin}>
-                  <View style={[styles.prGoogle]} >
-                    <View style={[styles.google], { flexDirection: "row", alignSelf: "center" }} >
-                      {bool ?
-                        <ActivityIndicator color="#D9AF91" size="large" style={{ alignSelf: "center" }} />
-                        : <>
-                          <Image style={{
-                            resizeMode: "contain",
-                            height: 20,
-                            width: 30
-                          }} source={require("../../../assets/Google_icon-icons.com_66793.png")} />
-                          <Text  >Google</Text>
-                        </>
-                      }
+              </TouchableOpacity>
+              <Text style={{ color: '#828282' }} onPress={() => { navigation.navigate('WorkerAuth') }}>connect as a worker</Text>
+              {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
+            </View>
+          </View> : <ConfirmSMS navigation={navigation} code={codeVerfication} token={token} />}
 
-
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                {erorr ? <Text style={{ color: "red" }}>An error occurred.check your Network {'\n'}and try again </Text> : (<Text></Text>) && false}
-              </View>
-            </View> : <ConfirmSMS navigation={navigation} />}
-        </View>
-      </ImageBackground>
+      </LinearGradient>
 
 
 
-    </>
+    </View>
+
+
+
+
+
+
   );
 }
 
@@ -169,20 +210,26 @@ export default function LogIn({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
   image: {
     flex: 1,
-    justifyContent: "center"
+    resizeMode: 'contain'
   },
   carx: {
     backgroundColor: "white",
-    borderRadius: 10,
+    borderRadius: 40,
     lineHeight: 2.4,
     textAlign: "left",
     height: 40,
     width: 271,
-    borderWidth: 1,
     padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#4398F8',
+    borderWidth: 1
   },
   frame2: {
     color: "black",
@@ -200,7 +247,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     letterSpacing: -1,
     textAlign: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    borderColor: '#4398F8',
+    borderWidth: 1
   }
   , flex: {
     justifyContent: "space-around"
@@ -211,21 +260,44 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   prGoogle: {
-    borderWidth: 1,
-    borderRadius: 10,
-    width: 271,
+    borderRadius: 40,
+    width: 149,
     backgroundColor: "white",
     height: 40,
-    padding: 8
+    padding: 8,
+    borderColor: '#4398F8',
+    borderWidth: 1
   }
   ,
   prGoogle1: {
-    borderWidth: 1,
-    borderRadius: 10,
-    width: 271,
-
-    backgroundColor: "#015496",
+    borderRadius: 40,
+    width: 149,
+    backgroundColor: "#4398F8",
     height: 40,
-    padding: 8
-  }
+    padding: 8,
+
+  },
+  linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: 200,
+    width: 350,
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  text: {
+    backgroundColor: 'transparent',
+    fontSize: 15,
+    color: '#fff',
+  },
 });

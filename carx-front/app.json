@@ -4,9 +4,9 @@
     "slug": "carx",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconX.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/iconX.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -25,12 +25,9 @@
       "package": "com.gofar.carx",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/iconX.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "permissions": ["ACCESS_BACKGROUND_LOCATION"]
-
-      
+      }  
     },
     "web": {
       "favicon": "./assets/favicon.png"
