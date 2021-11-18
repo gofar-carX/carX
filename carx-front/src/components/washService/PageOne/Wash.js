@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { TouchableHighlight, TouchableOpacity, Text, View, Image } from "react-native";
 import tailwind from "tailwind-rn";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import * as TaskManager from "expo-task-manager";
 import * as Location from "expo-location";
 import { LinearGradient } from "expo-linear-gradient";
-import { Root, Popup } from "popup-ui";
+import { fontSize } from "styled-system";
+
 
 const LOCATION_TASK_NAME = "foreground-location-task";
 
@@ -39,62 +34,24 @@ export default function Wash({ navigation, user, fetch }) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       setid(user.id);
-      
+
     })();
   }, []);
 
   let SendForm = () => {
     if (confirmed) {
       if (location && carType !== "" && washType !== "" && price !== 0) {
-        console.log(process.env.serv+`request`)
-        axios.post(process.env.serv+`request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
+        console.log(process.env.serv + `request`)
+        axios.post(process.env.serv + `request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
           .then(() => {
-            <Root>
-              <View>
-                <TouchableOpacity
-                  onPress={() =>
-                    Popup.show({
-                      type: "Success",
-                      title: "Upload complete",
-                      button: false,
-                      textBody: "Congrats! Your upload successfully done",
-                      buttontext: "Ok",
-                      callback: () => Popup.hide(),
-                    })
-                  }
-                >
-                  <Text>Open Popup</Text>
-                </TouchableOpacity>
-              </View>
-            </Root>;
-            Popup.show({
-              type: 'Success'
-          })
-            fetch();
+            fetch()
             setTimeout(() => {
-              navigation.navigate("Home");
+              navigation.navigate("NotificationUser");
             }, 1000);
           })
-          // ; //alert from here 
+          .catch((err) => { console.log(err) })
+        // ; //alert from here 
       } else {
-        <Root>
-          <View>
-            <TouchableOpacity
-              onPress={() =>
-                Popup.show({
-                  type: "Success",
-                  title: "Upload complete",
-                  button: false,
-                  textBody: "Congrats! Your upload successfully done",
-                  buttontext: "Ok",
-                  callback: () => Popup.hide(),
-                })
-              }
-            >
-              <Text>Open Popup</Text>
-            </TouchableOpacity>
-          </View>
-        </Root>;
         setbut("Confirm");
       }
     } else {
@@ -178,8 +135,9 @@ export default function Wash({ navigation, user, fetch }) {
             tailwind("flex my-4 "),
           ]}
         >
-          <Picker
-            selectedValue={carType}
+          <Picker 
+          selectedValue={carType}
+            // prompt={"Car Body"}
             onValueChange={(value) => hundleType(value)}
             style={[
               {
@@ -234,12 +192,12 @@ export default function Wash({ navigation, user, fetch }) {
           </Picker>
         </View>
 
-     {price ?<View style={[{ justifyContent: "center", alignContent: 'center' },tailwind('flex flex-row py-4')]}>
+        {price ? <View style={[{ justifyContent: "center", alignContent: 'center' }, tailwind('flex flex-row py-4')]}>
           <Text> Price : {price} DT</Text>
         </View>
-        :<View></View>
-    }
-        
+          : <View></View>
+        }
+
 
 
       </View>
@@ -278,7 +236,7 @@ export default function Wash({ navigation, user, fetch }) {
           </LinearGradient>
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
   );
 }
 
