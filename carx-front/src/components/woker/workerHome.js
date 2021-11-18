@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect} from 'react';
-import {View,Text} from 'react-native';
+import {View,Text,StyleSheet ,TouchableOpacity} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,53 +11,148 @@ import { Button } from 'native-base';
 const LOCATION_TASK_NAME = "foreground-location-task";
 
 const Stack = createNativeStackNavigator();
-export default function  WorkerHome(navigation){
-    const [location, setLocation] = useState(null)
-    const [location1, setLocation1] = useState(null)
-    const [ makers,setMarkers]=([{
-      title: 'hello',
-      coordinates: {
-        latitude: 3.148561,
-        longitude: 101.652778
-      },
+export default function  WorkerHome({ navigation }){
+  const [positionx, setLatiude] = useState(null)
+  const [positiony, setLongitude] = useState(null)
+  const [workerId , setWorkerId]=useState(null)
+  const [ makers,setMarkers]=([{
+    title: 'hello',
+    coordinates: {
+      latitude: 3.148561,
+      longitude: 101.652778
     },
-    {
-      title: 'hello',
-      coordinates: {
-        latitude: 3.149771,
-        longitude: 101.655449
-      },  
-    }])
-    const [WorkerDatadata , setWorkerData] =useState([])       
-        useEffect(()=>{
-            (async () => {
-                let { status } = await Location.requestForegroundPermissionsAsync();
-                if (status !== "granted") {
-                  setErrorMsg("Permission to access location was denied");
-                  return;
-                }
-                let location = await Location.getCurrentPositionAsync({});
-                setLocation(location.coords.latitude);
-                setLocation(location.coords.longitude);
+  },
+  {
+    title: 'hello',
+    coordinates: {
+      latitude: 3.149771,
+      longitude: 101.655449
+    },  
+  }])
+  const [WorkerDatadata , setWorkerData]=useState([])  
+  let  updatePosition=async()=>{
+    try{
+   const data  = await axios.put(`${process.env.serv}workers/position/${workerId}`,{
+    positionx:positionx,
+    positiony:positiony,
+   })
+  
+    }catch (e) {
+      console.log(e)
+    }
 
-                
-                
-              })();  
-            AsyncStorage.getItem("workerAuth").then((result)=>{
-              axios.get(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`).then((res)=>{
-                setWorkerData(res.data)
-            })      
-            })           
-        },[])
+  }
+  useEffect(()=>{
+    (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+        let location = await Location.getCurrentPositionAsync({});
+        setLatiude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
+
+        
+        
+      })();  
+    AsyncStorage.getItem("workerAuth").then((result)=>{
+      setWorkerId(jwtDecode(result)["workerid"])
+      axios.get(`${process.env.serv}request/req/${jwtDecode(result)["workerid"]}`).then((res)=>{
+        setWorkerData(res.data)
+    })      
+    })       
+    updatePosition()    
+},[])
+ 
+  let  updateAvailble=async()=>{
+    try{
+   const data  = await axios.put(`${process.env.serv}workers/update/${workerId}`)
+   console.log(data)
+    }catch (e) {
+      console.log(e)
+    }
+
+  }
+  let  updateIsServed=async()=>{
+    try{
+   const data  = await axios.put(`${process.env.req}/${WorkerDatadata[0]['id']}`)
+   await updateAvailble()
+   console.log(data)
+    }catch (e) {
+      console.log(e)
+    }
+
+  }
+
+  
+ 
+  let LogOutWorker = async () => {
+    try {
+        await AsyncStorage.removeItem('auth')
+        navigation.navigate('Login')
+        
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+        
+        
+      console.log(WorkerDatadata[0]['id'])
     return (
 
         <>
- 
-        <View>
+  <View style={[styles.container, {
+    
+    
+      flexDirection: "column"
+    }]}>
+   
+       {WorkerDatadata.map((e,i)=>{
+         return (
+           <>
+          <View style={{ flex: 0.25, backgroundColor: "darkorange" }} >
+       
+          <Text style={{ backgroundColor:"blue",flex:0.5}}>Car type : {e.typeOfCar}  </Text>
+          <Text style={{ backgroundColor:"red",flex:0.5}}>Wash Type :{e.typeOfWash} </Text>
+          <Text style={{ backgroundColor:"green",flex:0.5}}>Full name: </Text>
+          <Text style={{ backgroundColor:"gray",flex:0.5}}>Phone Number : </Text>
+
+
+    
+
+
+      </View>
+     
+        <TouchableOpacity onPress={LogOutWorker}>
+        <View >
             <Text >
-                worker home 
+               logout  
             </Text>
         </View>
+        </TouchableOpacity>
+
+
+
+        <TouchableOpacity onPress={updateIsServed}>
+        <View>
+            <Text >
+               done 
+            </Text>
+        </View> 
+        </TouchableOpacity>
+        </>
+         )
+
+       }) 
+       
+       
+     }
+
+    
+    
+    </View> 
 
 </>
  )
@@ -79,4 +174,10 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
       //lat is locations[0].coords.latitude & long is locations[0].coords.longitude
       // do something with the locations captured in the background, possibly post to your server with axios or fetch API
     }
+  });
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 20,
+    },
   });
