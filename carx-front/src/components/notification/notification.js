@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Platform, PlatformSafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Platform, PlatformSafeAreaView, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
 import { RefreshControl, SafeAreaView, Image } from 'react-native';
 import tailwind from "tailwind-rn";
 import moment from 'moment'
@@ -12,8 +12,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function App({ user, fetch }) {
 
 
-  const handleConfirm = (id) => {
-  
+  const handleConfirm = (id, price) => {
+    console.log(id)
+    axios.patch(process.env.req + `/${id}`, { isPayed:'true' })
+      .then(() => {
+        fetch()
+        Linking.openURL("https://api.konnect.network/Nw83PYi1q")
+      })
+      .catch((err) => console.log(err))
+
   }
 
 
@@ -69,7 +76,7 @@ export default function App({ user, fetch }) {
 
                       </TouchableOpacity>
 
-                      <TouchableOpacity onPress={() => handleConfirm(e.id)} disabled={e.worker == null ? true : false} >
+                      <TouchableOpacity onPress={() => handleConfirm(e.id, e.Price)} disabled={e.worker == null ? true : false} >
                         <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 1, y: 0.9 }} style={[{ justifyContent: 'center', alignContent: 'center', borderRadius: 40, height: 40, width: 220 }, tailwind('flex flex-row')]}>
                           {e.worker == null ? <View style={[{ justifyContent: 'space-around', alignItems: 'center' }, tailwind('flex flex-row')]}>
                             <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind('ml-4 mx-4')]} > Waiting ...</Text>
@@ -84,12 +91,6 @@ export default function App({ user, fetch }) {
 
                         </LinearGradient>
                       </TouchableOpacity>
-
-
-
-
-
-
 
 
                     </View>
