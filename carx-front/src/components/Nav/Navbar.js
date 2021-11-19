@@ -10,7 +10,6 @@ export default function Navbar({ navigation, na, user }) {
         try {
             await AsyncStorage.removeItem('auth')
             na.navigate('Login')
-            const data = await AsyncStorage.getItem('auth')
         } catch (e) {
             console.error(e)
         }
