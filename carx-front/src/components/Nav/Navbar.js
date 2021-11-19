@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Navbar({ navigation, na, user }) {
+    
     let LogOut = async () => {
         try {
             await AsyncStorage.removeItem('auth')

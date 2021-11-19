@@ -13,7 +13,7 @@ const LOCATION_TASK_NAME = "foreground-location-task";
 
 export default function Wash({ navigation, user, fetch }) {
   const carTypePrice = { Regular: 0, Pickup: 3000, Van: 10000, Truck: 20000 };
-  const washTypePrice = { Interior: 8000, Exterior: 12000, All: 18000 };
+  const washTypePrice = { Interior: 8000, Exterior: 10000, All: 18000 };
   let [carType, setCarType] = useState("");
   let [washType, setWashType] = useState("");
   let [price, setPrice] = useState(0);
@@ -25,6 +25,7 @@ export default function Wash({ navigation, user, fetch }) {
   let [id, setid] = useState("");
 
   useEffect(() => {
+    
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -35,13 +36,14 @@ export default function Wash({ navigation, user, fetch }) {
       setLocation(location);
       setid(user.id);
 
+
     })();
   }, []);
 
   let SendForm = () => {
     if (confirmed) {
       if (location && carType !== "" && washType !== "" && price !== 0) {
-        
+      
         axios.post(process.env.serv + `request`, { typeOfCar: carType, typeOfWash: washType, positionx: location.coords.longitude, positiony: location.coords.latitude, user: id, Price: price })
           .then(() => {
             fetch()

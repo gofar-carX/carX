@@ -7,21 +7,22 @@ import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { LinearGradient } from 'expo-linear-gradient';
 import tailwind from 'tailwind-rn';
-import { backgroundColor } from 'styled-system';
+
 
 
 export default function workerAuth({ navigation }) {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const [bool, setBool] = useState(false)
-    const error = <><Text style={{ color: "red" }}>check your password or your email</Text></>
+    const error = <><Text style={{ color: "red" }}>check your password or your username</Text></>
 
     const checkWorderData = () => {
         axios.post('https://testcarx1.herokuapp.com/workers/login', {
             name: userName,
             password: password,
+            
         }).then((response) => {
-            console.log(response.data.Token)
+            
             AsyncStorage.setItem('workerAuth', response.data.Token).then(() => {
                 navigation.navigate('WorkerHome')
                 setBool(false)

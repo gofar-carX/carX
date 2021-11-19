@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,7 +7,11 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios'
 import * as TaskManager from "expo-task-manager";
 import * as Location from "expo-location";
-import { Button } from 'native-base';
+import { LinearGradient } from 'expo-linear-gradient';
+import tailwind from 'tailwind-rn';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { width } from 'styled-system';
 const LOCATION_TASK_NAME = "foreground-location-task";
 
 const Stack = createNativeStackNavigator();
@@ -16,22 +20,11 @@ export default function WorkerHome({ navigation }) {
   const [positiony, setLongitude] = useState(null)
   const [workerId, setWorkerId] = useState(null)
   const [allUserData, setAllUserData] = useState([])
-  const [makers, setMarkers] = ([{
-    title: 'hello',
-    coordinates: {
-      latitude: 3.148561,
-      longitude: 101.652778
-    },
-  },
-  {
-    title: 'hello',
-    coordinates: {
-      latitude: 3.149771,
-      longitude: 101.655449
-    },
-  }])
+
   const [WorkerDatadata, setWorkerData] = useState([])
   const [username, setUserName] = useState([])
+
+
   let updatePosition = async () => {
     try {
       const data = await axios.put(`${process.env.serv}workers/position/${workerId}`, {
@@ -48,6 +41,8 @@ export default function WorkerHome({ navigation }) {
     const users = await axios.get(`${process.env.serv}users`)
     setAllUserData(users.data)
   }
+
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -76,7 +71,7 @@ export default function WorkerHome({ navigation }) {
   let updateAvailble = async () => {
     try {
       const data = await axios.put(`${process.env.serv}workers/update/${workerId}`)
-      console.log(data)
+
     } catch (e) {
       console.log(e)
     }
@@ -86,7 +81,7 @@ export default function WorkerHome({ navigation }) {
     try {
       const data = await axios.put(`${process.env.req}/${WorkerDatadata[0]['id']}`)
       await updateAvailble()
-      console.log(data)
+
     } catch (e) {
       console.log(e)
     }
@@ -128,36 +123,106 @@ export default function WorkerHome({ navigation }) {
 
     <View style={[styles.container, { flexDirection: "column" }]}>
 
-      {WorkerDatadata.map((e, i) => {
-        return (
+      <View style={{ height: '90%' }}>
 
-          <View style={{ flex: 0.25, backgroundColor: "darkorange" }} >
-            <Text style={{ backgroundColor: "blue", flex: 0.5 }}>Car type : {e.typeOfCar}  </Text>
-            <Text style={{ backgroundColor: "red", flex: 0.5 }}>Wash Type :{e.typeOfWash} </Text>
-            <Text style={{ backgroundColor: "green", flex: 0.5 }}>Full name:{username["name"]} </Text>
-            <Text style={{ backgroundColor: "gray", flex: 0.5 }}>Phone Number :{username["phone"]} </Text>
+        <View style={[{ justifyContent: "center", alignContent: 'center' }, tailwind('flex flex-row mt-16 ml-4')]} >
+          <Image source={require("../../../assets/MainLogo.png")} />
+        </View>
+
+        <View style={[{ justifyContent: 'center', alignContent: 'center' }, tailwind('flex ')]}>
+          
+          {WorkerDatadata[0] && WorkerDatadata[0].isServed == false ? WorkerDatadata.map((e, i) => {
+
+            return (
+
+
+              <View key={i} style={[{ marginTop: 140, justifyContent: 'space-around' }]}  >
+                <LinearGradient colors={['#0857C1', '#4398F8']} style={[{ borderRadius: 26 }, tailwind(' m-2 p-4 items-start  flex ')]}>
+                  <Text style={{ color: 'white' }} >Car type : {e.typeOfCar}  </Text>
+                  <Text style={{ color: 'white' }} >Wash Type :{e.typeOfWash} </Text>
+                  <Text style={{ color: 'white' }} >Full name:{username["name"]} </Text>
+                  <Text style={{ color: 'white' }} >Phone Number :{username["phone"]} </Text>
+                </LinearGradient>
+
+
+
+
+                <TouchableOpacity style={{ padding: 20 }} >
+
+                  <View style={[{ flexDirection: "row", alignSelf: "center", height: 40, width: 180, borderWidth: 1, borderColor: '#4398F8', borderRadius: 20, justifyContent: 'center', alignContent: 'center', padding: 8 }, tailwind('flex flex-row ')]} >
+
+                    <Ionicons name="navigate" size={20} color="black" />
+                    <Text style={{ color: '#828282', }}  >Client Localisation</Text>
+
+
+                  </View>
+
+                </TouchableOpacity>
+
+
+                <TouchableOpacity onPress={updateIsServed} style={{ alignSelf: 'center' }}>
+                  <LinearGradient colors={['#0857C1', '#4398F8']} start={{ x: 0.7, y: 0.4 }} style={[{ borderRadius: 40, width: 180, height: 40, padding: 10, }]}>
+                    <View style={[{ justifyContent: 'space-between', alignContent: 'center' }, tailwind('flex flex-row')]}>
+                      <Text style={[{ justifyContent: 'center', color: 'white' }, tailwind('ml-2')]} >Done</Text>
+                      <Image style={[{ width: 34, height: 15 }, tailwind('mr-2 mt-1 ')]} source={require("../../../assets/Arrow1.png")} />
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
+
+              </View>
+
+
+
+
+            )
+          })
+            : <View style={[{ justifyContent: "center", alignContent: 'center' }, tailwind('flex  mt-16 ml-16')]} >
+              <Image source={require("../../../assets/workerwait.png")} />
+              <Text style={tailwind('ml-4 mt-4')}>You have no Request for the moment</Text>
+            </View>
+
+          }
+
+
+
+        </View>
+
+
+      </View>
+
+
+
+
+
+
+
+
+
+      <LinearGradient colors={['#0857C1', '#4398F8']} style={{ width: '100%', bottom: -20, height: 65, borderTopLeftRadius: 26, borderTopRightRadius: 26 }}>
+        <View style={[{ justifyContent: 'space-around' }, tailwind('p-4 flex flex-row ')]} >
+
+          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+            <TouchableOpacity  >
+              <Text  >
+                <Ionicons name="play-circle" size={30} color="white" />
+              </Text>
+            </TouchableOpacity>
+
           </View>
-        )
-      })
 
-      }
-      <TouchableOpacity onPress={LogOutWorker}>
-        <View >
-          <Text >
-            logout
-          </Text>
+
+          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+            <TouchableOpacity onPress={LogOutWorker}   >
+              <Text   >
+                <Ionicons name="power" size={30} color="white" />
+              </Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
-      </TouchableOpacity>
-
-
-
-      <TouchableOpacity onPress={updateIsServed}>
-        <View>
-          <Text >
-            done
-          </Text>
-        </View>
-      </TouchableOpacity>
+      </LinearGradient>
 
 
     </View>
@@ -186,6 +251,6 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    marginTop: 20
   },
 });

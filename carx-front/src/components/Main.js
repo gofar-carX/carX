@@ -36,7 +36,7 @@ export default function Main({ route, navigation }) {
       let userId = jwtDecode(result)
     
       axios.get(process.env.serv+'users/'+`${userId.user_id}`).then((result) => {
-        setUserData(result.data.data)
+        setUserData(result.data.data[0])
       }).catch((error) => {
         console.log(error)
       })
